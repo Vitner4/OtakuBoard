@@ -1,0 +1,194 @@
+/* Тело */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Шапка */
+header {
+    display: flex;
+    align-items: center;     /* Выравнивание по центру вертикально */
+    line-height: normal;
+    gap: 10px 40px;
+    background-color: rgba(230, 230, 230, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 90px; /* скругление углов */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* мягкая тень */
+    margin: 20px; 
+    width: calc(100% - 40px);
+    position: sticky;
+    z-index: 100;
+    top: 10px;
+    box-sizing: border-box;
+    padding: -2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header:hover {
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12); /* усиление тени */
+    transition: all 0.3s ease ; /* плавность */
+}
+
+.logo img{
+    border-radius: 100%;
+    margin-left: 18px;
+    width: 70px;
+    height: 100%;
+    object-fit: contain;
+    display: flex;
+}
+
+/* .logo:hover {
+    box-sizing:
+} */
+nav {
+    height: 60px;
+    width: 500px;
+
+}
+
+/* Навигация */
+nav ul {
+    display: flex;
+    align-items: center;
+    height: auto;
+    margin-left: 100px;
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    width: 120px;
+    height: 40px;
+    display: inline;
+    margin-right: 120px;
+    margin-top: -10px;
+    /* transition: transform 0.3s ease; */
+}
+
+nav ul li:hover {
+    /* background-color: rgba(197, 197, 197, 0.6);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    transform: scale(1.1); */
+}
+
+nav a {
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    border-width: 100px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease, all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(197, 197, 197, 0.6);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+/* Основное содержимое */
+main {
+    padding: 20px;
+    flex: 1;
+}
+
+/* Окно с содержимым */
+.base-win {
+    display: flex;
+    width: 100%;
+}
+
+/* Cелектор с тайлами */
+.mine-selector {
+    width: 65%;
+}
+
+/* Поисковой селектор */
+.search-selector {
+    width: 35%;
+}
+
+/* Блок с поиском */
+.search-box {
+    display: grid;
+    margin-right: 100px;
+    margin-top: 20px;
+    min-width: 400px;
+    background-color: rgba(230, 230, 230, 0.6);
+    border-radius: 20px;
+
+}
+
+.search-box-text {
+    margin: 20px;
+
+}
+
+
+
+
+/* Сетка для плиток */
+.tile-list {
+    margin-left: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px); /* Автоподбор кол-ва колонок */
+    gap: 20px; /* Расстояние между плитками */
+    padding: 20px;
+    justify-content: left;
+}
+
+/* Плитка */
+.tile {
+    width: 200px;
+    height: 400px;
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px); 
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Изображение в плитке */
+.tile_image {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+/* Подвал */
+footer {
+    border-radius: 90px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px 20px;
+    max-width: calc(100% - 40px);
+    background-color: rgba(230, 230, 230, 0.5);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    padding: 1px;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 40px);
+    
+}
