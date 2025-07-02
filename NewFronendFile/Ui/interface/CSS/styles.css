@@ -71,12 +71,12 @@ nav ul li {
     /* transition: transform 0.3s ease; */
 }
 
-nav ul li:hover {
-    /* background-color: rgba(197, 197, 197, 0.6);
+/* nav ul li:hover {
+     background-color: rgba(197, 197, 197, 0.6);
     backdrop-filter: blur(12px);
     transition: all 0.3s ease;
-    transform: scale(1.1); */
-}
+    transform: scale(1.1); 
+} */
 
 nav a {
     align-items: center;
