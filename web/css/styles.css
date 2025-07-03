@@ -140,7 +140,7 @@ main {
 .tile-list {
     margin-left: 100px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 200px); /* Автоподбор кол-ва колонок */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Автоподбор кол-ва колонок */
     gap: 20px; /* Расстояние между плитками */
     padding: 20px;
     justify-content: left;
@@ -159,6 +159,23 @@ main {
 }
 
 .tile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tile-wide {
+    grid-column: span 2;
+    width: 420px;
+    height: 400px;
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px); 
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.tile-wide:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
