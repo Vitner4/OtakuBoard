@@ -97,6 +97,7 @@ nav a:hover {
 
 /* Основное содержимое */
 main {
+    margin-left: 100px;
     padding: 20px;
     flex: 1;
 }
@@ -138,7 +139,7 @@ main {
 
 /* Сетка для плиток */
 .tile-list {
-    margin-left: 100px;
+    margin-left: -20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px); /* Автоподбор кол-ва колонок */
     gap: 20px; /* Расстояние между плитками */
@@ -191,6 +192,7 @@ main {
     position: relative;
 }
 
+/* Контейнер для загрузки изображения */
 .upload-container {
     display: flex;
     flex-direction: column;
@@ -202,7 +204,7 @@ main {
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-left: 100px;
+    /* margin-left: 100px; */
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
@@ -223,6 +225,58 @@ main {
     display: none;
     border-radius: 10px;
 }
+
+/* Параметры для нового блока */
+.new-tile-data{
+    margin-top: 20px;
+    display: grid;
+}
+
+.input-description-lile{
+    font-family: sans-serif;
+    font-size: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(230, 230, 230, 0);
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    transition: border-color 0.3s; 
+}
+
+.input-description-lile:focus{
+    border-color: rgba(230, 230, 230, 0.6);
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.input-description-lile-huge{
+    font-family: sans-serif;
+    font-size: 30px;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    max-height: 600px;
+    margin-bottom: 100px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(230, 230, 230, 0);
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    transition: border-color 0.3s; 
+    resize: none;
+}
+
+.input-description-lile-huge:focus{
+    border-color: rgba(230, 230, 230, 0.6);
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+
 
 section {
     margin-bottom: 20px;

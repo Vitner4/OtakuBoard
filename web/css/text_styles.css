@@ -12,6 +12,11 @@
 
 
 .text-preview {
-    margin-left: 120px;
+    /* margin-left: 120px; */
     font-family: cursive; 
+}
+
+.text-stl{
+    font-family: cursive; 
+    font-size: 30px;
 }
