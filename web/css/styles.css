@@ -140,10 +140,11 @@ main {
 .tile-list {
     margin-left: 100px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Автоподбор кол-ва колонок */
+    grid-template-columns: repeat(auto-fill, 200px); /* Автоподбор кол-ва колонок */
     gap: 20px; /* Расстояние между плитками */
     padding: 20px;
     justify-content: left;
+    
 }
 
 /* Плитка */
