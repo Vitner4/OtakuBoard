@@ -1,10 +1,17 @@
+.logo-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    text-decoration: none;
+    color: inherit;
+}
+
 .head-text {
     font-family: cursive;
     font-size: 30px;
 }
 
 
-.text-last-save {
+.text-preview {
     margin-left: 120px;
     font-family: cursive; 
 }
