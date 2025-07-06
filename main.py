@@ -2,8 +2,8 @@ import eel
 import functions
 
 # Инициализация веб-папки
-eel.init("web-test")
+eel.init("web")
 
 # Запуск приложения
-eel.start("listPage-test.html", size=(800, 600))
+eel.start("index-test.html", size=(800, 600))
 
