@@ -7,8 +7,8 @@
     <title>OtakuBoard</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/text_styles.css">
-    <script src="JS/script.js" defer></script>
-    <script src="inputFileScript.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/inputFileScript.js" defer></script>
 </head>
 <body>
     <header>
@@ -34,6 +34,14 @@
                         <input type="file" id="file-input" accept="image/*">
                     </div>
                     <div class="new-tile-data">
+                        <div class="rating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="rating-value">0 из 5</span>
+                        </div>
                         <label class="text-stl">Название</label>
                         <input type="text" id="name-title" class="input-description-lile" placeholder="Заглушка">
                         <label class="text-stl">Описание</label>

@@ -1,3 +1,5 @@
+
+// загрузка изображения
 const uploadArea = document.getElementById('upload-area');
 const fileInput = document.getElementById('file-input');
 const preview = document.getElementById('preview');
@@ -18,4 +20,18 @@ fileInput.addEventListener('change', (e) => {
         }
         reader.readAsDataURL(file);
     }
+});
+
+// выставление рейтигна
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', () => {
+    const value = star.getAttribute('data-value');
+    const stars = document.querySelectorAll('.star');
+    
+    stars.forEach((s, i) => {
+      s.classList.toggle('active', i < value);
+    });
+    
+    document.querySelector('.rating-value').textContent = `${value} из 5`;
+  });
 });
