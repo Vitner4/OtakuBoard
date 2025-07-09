@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function setTileColor(tile, img) {
     getDominantColor(img).then(color => {
         tile.style.setProperty('--solid-color', `rgba(${color}, 1)`);
-        // Устанавливаем цвет с 80% прозрачностью вверху и 0% внизу
         tile.style.setProperty('--tile-color', `rgba(${color}, 0.8)`);
+        tile.style.setProperty('--tile-color-bottom', `rgba(${color}, 0.1)`);
         img.style.opacity = '1'; // Показываем изображение
     });
 }

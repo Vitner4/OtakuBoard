@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    /* background-color: rgb(34, 34, 34); */
 }
 
 /* Шапка */
@@ -124,6 +125,7 @@ main {
     margin-right: 100px;
     margin-top: 20px;
     min-width: 400px;
+    max-width: 600px;
     background-color: rgba(230, 230, 230, 0.6);
     border-radius: 20px;
 
@@ -134,7 +136,33 @@ main {
 
 }
 
-
+.search-container {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    max-width: auto;   
+}
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+#results {
+    list-style-type: none;
+    padding: 0;
+}
+.result-item {
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
 
 
 /* Сетка для плиток */
@@ -188,6 +216,7 @@ main {
     display: grid;
 }
 
+/* Обычное поле для заполнения */
 .input-description-lile{
     font-family: sans-serif;
     font-size: 30px;
@@ -205,9 +234,10 @@ main {
 .input-description-lile:focus{
     border-color: rgba(230, 230, 230, 0.6);
     outline: none;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 0 3px rgba(74, 144, 226, 0.3);
 }
 
+/* Большое поле для заполнения */
 .input-description-lile-huge{
     font-family: sans-serif;
     font-size: 30px;
@@ -229,7 +259,67 @@ main {
 .input-description-lile-huge:focus{
     border-color: rgba(230, 230, 230, 0.6);
     outline: none;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 0 3px rgba(74, 144, 226, 0.3);
+}
+
+/* Выпадающий список */
+.tile-select-data{
+    font-family: sans-serif;
+    font-size: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(230, 230, 230, 0);
+    background-color: rgba(230, 230, 230, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    appearance: none;
+    cursor: pointer;
+}
+
+.tile-select-data:hover {
+    background-color: rgba(235, 235, 235, 0.9);
+    border-color: rgba(200, 200, 200, 0.5);
+  }
+
+  /* Стиль при фокусе */
+.tile-select-data:focus {
+    outline: none;
+    border-color: rgba(180, 180, 180, 0.8);
+    box-shadow: 0 0 0 3px rgba(200, 200, 200, 0.3);
+  }
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    color: #666;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+.tile-select-data-tile{
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.tile-select-data-tile:hover {
+    background: #f0f0f0;
+}
+
+.tile-select-data-tile:checked {
+    background: linear-gradient(#f0f0f0, #f0f0f0);
 }
 
 

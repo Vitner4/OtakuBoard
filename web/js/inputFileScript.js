@@ -32,6 +32,6 @@ document.querySelectorAll('.star').forEach(star => {
       s.classList.toggle('active', i < value);
     });
     
-    document.querySelector('.rating-value').textContent = `${value} из 5`;
+    document.querySelector('.rating-value').textContent = `${value} из 10`;
   });
 });

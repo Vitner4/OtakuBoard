@@ -21,3 +21,22 @@
     font-size: 30px;
 }
 
+.tile-title{
+    color: rgb(50, 50, 50);
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем текст двумя строками */
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    max-height: calc(2 * 1.2em);
+    height: 50px;
+}
+
+.tile-info{
+    color: rgb(50, 50, 50);
+    word-break: break-all;
+    overflow: hidden;
+    margin-top: -5px;
+}
