@@ -9,7 +9,6 @@ import os
 # брать из отдельного файла сортировки (sorting.json), куда будут записаны параметры для сортировки. 
 # (устанавливать значения: html -> js -> python -> sorting.json | брать значения: sorting.json -> python -> js -> html) 
 # 
-#
 
 # Создаем папку для данных, если её нет... (оставить для функции проверки на наличие аккаунта)
 os.makedirs('data-test', exist_ok=True)
@@ -33,8 +32,8 @@ def save_to_json(form_data):
 @eel.expose
 def load_json_data(file):
     try:
-        if os.path.exists(f'.\data-test\{file}'):
-            with open(f'.\data-test\{file}', 'r', encoding='utf-8') as f:
+        if os.path.exists(f'./data-test/{file}'):
+            with open(f'./data-test/{file}', 'r', encoding='utf-8') as f:
                 print(f'{file} успешно получен!')
                 return {'status': 'success', 'data': json.load(f)}
         print(f'{file} не существует')        
@@ -56,7 +55,7 @@ def outputAllData(fileIndex):
             print(f'{files[fileIndex]} подтверждён.')
             return load_json_data(files[fileIndex])
         else:
-            print(files[i], "не соответствует!")  
+            print(files[fileIndex], "не соответствует!")  
 
 # Функция поиска файлов и получение их колличества (для js)
 @eel.expose
