@@ -1,7 +1,7 @@
 /* Обычный тайл */
 .tile {
-    --tile-color: rgba(230, 230, 230, 0.9);
-    --tile-color-bottom: rgba(230, 230, 230, 0.9);
+    --tile-color: rgba(255, 255, 255, 0.9);
+    --tile-color-bottom: rgba(255, 255, 255, 0.9);
     --solid-color: var(--tile-color);
     width: 200px;
     height: 400px;
@@ -11,10 +11,10 @@
             var(--tile-color) 0%,
             var(--solid-color) 20%,
             var(--tile-color-bottom) 100%
-        );
+        ),
         /* Фоновый цвет на случай, если градиент не загрузится */
-        /* rgba(230, 230, 230, 0.2); Фолбэк */
-    backdrop-filter: blur(12px); 
+        rgba(230, 230, 230, 0.2); /* Фолбэк */
+    backdrop-filter: blur(20px); 
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
