@@ -1,6 +1,5 @@
 /* Тело */
 body {
-    font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -10,10 +9,12 @@ body {
 }
 
 /* Шапка */
-header {
-    display: flex;
-    align-items: center;     /* Выравнивание по центру вертикально */
-    line-height: normal;
+header {    
+    display: flex;                /* Включаем flex-бокс */
+    justify-content: center;     /* Горизонтальное центрирование */
+    align-items:center;         /* Вертикальное центрирование */
+    height: 80px;               /* Высота шапки */
+
     gap: 10px 40px;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
@@ -36,7 +37,7 @@ header:hover {
     transition: all 0.3s ease ; /* плавность */
 }
 
-.logo img{
+#logo img{
     border-radius: 100%;
     margin-left: 18px;
     width: 70px;
@@ -456,6 +457,7 @@ section {
 /* Подвал */
 footer {
     border-radius: 90px;
+    text-decoration: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin: 20px 20px;
     max-width: calc(100% - 40px);
@@ -487,3 +489,5 @@ footer {
     margin-left: 10px;
     color: #666;
 }
+
+

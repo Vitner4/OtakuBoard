@@ -1,23 +1,37 @@
-.logo-text {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+@font-face {
+    /* Copyright (c) 2011 Juan Montoreano (juan@remolacha.biz), with Reserved Font Names "Lilita One" */
+    font-family: 'Lilita One';
+    src: url('font/LOC/Lilita-One-Regular.ttf') format('ttf');
+}
+
+body{
+    font-family: 'Lilita One', sans-serif;
+}
+
+#header-title-style {
+    font-family: 'Lilita One', sans-serif;
+    font-weight: bold;
     font-size: 40px;
     text-decoration: none;
     color: inherit;
+    
 }
 
-.head-text {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 30px;
+#header-text-style {
+    font-family: 'Lilita One', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 
 .text-preview {
     /* margin-left: 120px; */
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Lilita One', sans-serif;
+    font-size: 30px;
 }
 
 .text-stl{
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+    font-family: 'Lilita One', sans-serif;
     font-size: 30px;
 }
 

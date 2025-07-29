@@ -6,19 +6,19 @@
     <link rel="icon" href="source/img/OtakuBoard-ico.png" type="image/png">
     <title>OtakuBoard</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/text_styles.css">
+    <link rel="stylesheet" href="css/textStyles.css">
     <link rel="stylesheet" href="css/tile.css">
-    <script src="js/script.js" defer></script>
+    <script src="js/inputFileScript.js" defer></script>
     <script src="js/tileDIEScript.js" defer></script>
 </head>
 <body>
     <header>
-        <div class="logo"><img src="source/img/OtakuBoard-mesh-ico.png" alt="logo"></div>
-        <a class="logo-text" href="listPage.html">Главная</a>
+        <div id="logo"><img src="source/img/OtakuBoard-mesh-ico.png" alt="logo"></div>
+        <a id="header-title-style" href="listPage.html">Главная</a>
         <nav>
             <ul>
-                <li><a class="head-text" href="#">Группы</a></li>
-                <li><a class="head-text" href="newBlock.html">Новая запись</a></li>
+                <li><a id="header-text-style" href="#">Мои группы</a></li>
+                <li><a id="header-text-style" href="newBlock.html">Создать</a></li>
             </ul>
         </nav>
         <div class="header-right">
@@ -33,7 +33,7 @@
         <section>
             <div class="base-win">
                 <div class="mine-selector">
-                    <h1 class="text-preview">Последние изменения</h1>
+                    <h1 class="text-preview">Все блоки</h1>
                     <div class="tile-list">
                         <div class="tile">
                             <img class="tile-img" src="source/Title-preview-test/Solo Leveling/solo leveling.jpg" alt="SoloLeveling">
@@ -119,7 +119,7 @@
     </main>
     
     <footer>
-        <p>&copy; 2025 Мой сайт. Все права защищены.</p>
+        <p>&copy; 2025 <a href="https://github.com/Vitner4/OtakuBoard">OtakuBoard.</a> Все права защищены.</p>
     </footer>
 </body>
 </html>
