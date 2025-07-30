@@ -1,0 +1,343 @@
+
+/* Основное содержимое */
+main {
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 20px;
+    flex: 1;
+    flex-direction: column;
+}
+
+/* Окно с содержимым */
+.base-win {
+    display: flex;
+    width: 100%;
+}
+
+/* Cелектор с тайлами */
+.mine-selector {
+    width: 65%;
+}
+
+/* Поисковой селектор */
+.search-selector {
+    width: 35%;
+}
+
+/* Блок с поиском */
+.search-box {
+    display: grid;
+    margin-right: 100px;
+    margin-top: 20px;
+    min-width: 400px;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+
+}
+
+.search-box-text {
+    margin: 20px;
+
+}
+
+.search-container {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    max-width: auto;   
+}
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+#results {
+    list-style-type: none;
+    padding: 0;
+}
+.result-item {
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Сетка для плиток */
+.tile-list {
+    margin-left: -20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px); /* Автоподбор кол-ва колонок */
+    gap: 20px; /* Расстояние между плитками */
+    padding: 20px;
+    justify-content: left;
+    
+}
+
+/* Контейнер для загрузки изображения */
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    width: 300px;
+    height: 420px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* margin-left: 100px; */
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.upload-container:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: #666;
+}
+
+#file-input {
+    display: none;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    border-radius: 10px;
+}
+
+/* Обычный тайл */
+.tile {
+    --tile-color: rgba(255, 255, 255, 0.9);
+    --tile-color-bottom: rgba(255, 255, 255, 0.9);
+    --solid-color: var(--tile-color);
+    width: 200px;
+    height: 400px;
+    /* background-color: rgba(230, 230, 230, 0.6); */
+    background:   
+        linear-gradient(to bottom, 
+            var(--tile-color) 0%,
+            var(--solid-color) 20%,
+            var(--tile-color-bottom) 100%
+        ),
+        /* Фоновый цвет на случай, если градиент не загрузится */
+        rgba(230, 230, 230, 0.2); /* Фолбэк */
+    backdrop-filter: blur(20px); 
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.tile:hover {
+
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    
+}
+
+/* Изображение */
+.tile-img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: -1;
+}
+
+.tile-content {
+    margin-top: -10px;
+    padding-left: 10px;
+    position: relative;
+    z-index: 1;
+    width: 180px;
+    height: 100px;
+}
+
+/* Параметры для нового блока */
+.new-tile-data{
+    margin-top: 20px;
+    display: grid;
+}
+
+#header-title-style {
+    font-weight: bold;
+    font-size: 40px;
+    text-decoration: none;
+    color: inherit;
+    
+}
+
+#header-text-style {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+.text-preview {
+    /* margin-left: 120px; */
+    font-size: 30px;
+}
+
+.text-stl{
+    font-size: 30px;
+}
+
+.tile-title{
+    color: rgb(50, 50, 50);
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем текст двумя строками */
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    max-height: calc(2 * 1.2em);
+    height: 50px;
+    margin-top: 14px;
+}
+
+.tile-info{
+    color: rgb(50, 50, 50);
+    word-break: break-all;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+/* Обычное поле для заполнения */
+.input-description-lile{
+    font-size: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(250, 250, 250, 0);
+    background-color: rgba(255, 253, 253, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    transition: border-color 0.3s; 
+}
+
+.input-description-lile:focus{
+    border-color: rgba(230, 230, 230, 0.6);
+    outline: none;
+    box-shadow: 0 0 3px rgba(93, 93, 94, 0.3);
+}
+
+/* Большое поле для заполнения */
+.input-description-lile-huge{
+
+    font-size: 30px;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    max-height: 600px;
+    margin-bottom: 100px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(250, 250, 250, 0);
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    transition: border-color 0.3s; 
+    resize: none;
+}
+
+.input-description-lile-huge:focus{
+    border-color: rgba(230, 230, 230, 0.6);
+    outline: none;
+    box-shadow: 0 0 3px rgba(93, 93, 94, 0.3);
+}
+
+/* Выпадающий список */
+.tile-select-data{
+    font-family: sans-serif;
+    font-size: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border-color: rgba(230, 230, 230, 0);
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    appearance: none;
+    cursor: pointer;
+}
+
+.tile-select-data:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(250, 250, 250, 0.5);
+  }
+
+  /* Стиль при фокусе */
+.tile-select-data:focus {
+    outline: none;
+    border-color: rgba(180, 180, 180, 0.8);
+    box-shadow: 0 0 0 3px rgba(200, 200, 200, 0.3);
+  }
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    color: #666;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+.tile-select-data-tile{
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.tile-select-data-tile:hover {
+    background: #f0f0f0;
+}
+
+.tile-select-data-tile:checked {
+    background: linear-gradient(#f0f0f0, #f0f0f0);
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+/* Блок рейтигна */
+.rating {
+    font-size: 50px;
+    cursor: pointer;
+}
+.star {
+    color: #ccc;
+    transition: color 0.2s;
+}
+.star:hover,
+.star.active {
+    color: #ffcc00;
+}
+.rating-value {
+    font-size: 20px;
+    margin-left: 10px;
+    color: #666;
+}
