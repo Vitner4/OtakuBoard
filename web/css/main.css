@@ -1,0 +1,31 @@
+/* Импорт шрифтов */
+@font-face {
+    /* Typeface © Alexander Lange. 2023. All Rights Reserved */
+    font-family: 'Catrinity';
+    src: url('src/font/Catrinity/Catrinity.otf') format('oft');
+}
+
+/* Общие настройки */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Catrinity', sans-serif;
+}
+
+/* Настройки для отображения подвала */
+html, body {
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Занимает всю высоту экрана */
+}
+
+.main-content {
+    flex: 1; /* Растягивает контент, прижимая подвал вниз */
+}

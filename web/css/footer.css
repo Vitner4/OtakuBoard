@@ -1,0 +1,57 @@
+/* Стили подвала */
+.site-footer {
+    background-color: #1d1b1b;
+    color: white;
+    padding: 2rem 0;
+    margin-top: auto; /* Автоматический отступ сверху */
+    padding: 20px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.footer-section {
+    margin: 0.5rem 0;
+}
+
+.copyright {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.footer-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-section {
+        margin: 0.8rem 0;
+    }
+    
+    .footer-link {
+        margin: 0 0.5rem;
+        display: inline-block;
+    }
+}
