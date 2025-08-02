@@ -38,10 +38,11 @@
         </div>
     </header>
 
-    <!-- Сетка контент-блоков -->
+    <!-- Сетка с контентом -->
     <main>
         <section>
             <div class="base-win">
+                <!-- Контент-блоки -->
                 <div class="mine-selector">
                     <h1 class="text-preview">Все блоки</h1>
                     <div class="tile-list">
@@ -105,28 +106,85 @@
                     </div>
                 </div>
 
-                <!-- Фильтр поиска -->
-                <div class="search-selector">
-                    <div class="search-box">
-
-                        <h1 class="search-box-text">Поиск и фильтр</h1>
-                        <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Поиск">
+                <!-- Поиск и фильтр -->
+                <div class="right-sidebar-widget">
+                    <!-- Поиск -->
+                    <div class="search-filter-container">
+                        <h3 class="widget-title">Поиск</h3>
+                        <div class="search-box">
+                        <input type="text" id="site-search" placeholder="Что будем искать?" class="search-input">
+                        <button class="search-button">
+                            <a class="fas fa-search">Найти</a>
+                        </button>
                         </div>
-                        <ul id="results"></ul>
-                        <p class="search-box-text">Тут должен быть поиск и селектор с параметрами</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
-                        <p class="search-box-text">Заглушка</p>
+                    </div>
 
+                    <!-- Фильтр -->
+                    <div class="search-filter-container">
+                        <h3 class="widget-title">Фильтры</h3>
+                        <div class="filter-section">
+                            <h4 class="filter-title">Категории</h4>
+                            <ul class="filter-list">
+                                <li><label><input type="checkbox" name="category" value="anime"> Аниме</label></li>
+                                <li><label><input type="checkbox" name="category" value="films"> Фильмы</label></li>
+                                <li><label><input type="checkbox" name="category" value="series"> Сериалы</label></li>
+                                <li><label><input type="checkbox" name="category" value="games"> Игры</label></li>
+                            </ul>
+                        </div>
+                            
+                        <div>
+                            <div class="star-rating"> 
+                                <h4 class="filter-title">Звёздный рейтинг</h4>
+                                <div class="stars-container">
+                                    <input type="radio" id="star10" name="rating" value="10">
+                                    <label for="star10" title="10"></label>
+                                    
+                                    <input type="radio" id="star9" name="rating" value="9">
+                                    <label for="star9" title="9"></label>
+                                    
+                                    <input type="radio" id="star8" name="rating" value="8">
+                                    <label for="star8" title="8"></label>
+                                    
+                                    <input type="radio" id="star7" name="rating" value="7">
+                                    <label for="star7" title="7"></label>
+                                    
+                                    <input type="radio" id="star6" name="rating" value="6">
+                                    <label for="star6" title="6"></label>
+                                    
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5" title="5"></label>
+                                    
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4" title="4"></label>
+                                    
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3" title="3"></label>
+                                    
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2" title="2"></label>
+                                    
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1" title="1"></label>
+                                </div>
+                            </div>
+                            <ul class="filter-list">
+                                <!--!! Через JS сделать только один выбранный CheckBox !!-->
+                                <li><label><input type="checkbox" name="star" value="only" checked> Искать только выбранную звезду</label></li>
+                                <li><label><input type="checkbox" name="star" value="more"> Искать от выбранной звезды и выше</label></li>
+                        </div>
+                        
+                        <div class="filter-section-data">
+                            <h4 class="filter-title">Дата</h4>
+                            <select class="filter-select">
+                                <option value="all">За все время</option>
+                                <option value="week">За неделю</option>
+                                <option value="month">За месяц</option>
+                                <option value="year">За год</option>
+                            </select>
+                        </div>
+                        
+                        <button id="apply-filters" class="filter-button">Применить</button>
+                        <button id="reset-filters" class="filter-button secondary">Сбросить</button>
                     </div>
                 </div>
             </div>   
