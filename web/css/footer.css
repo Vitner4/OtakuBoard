@@ -12,9 +12,10 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    align-items: center; 
+    justify-content: center; 
 }
 
 .footer-section {
