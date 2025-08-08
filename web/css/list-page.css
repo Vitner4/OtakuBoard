@@ -403,7 +403,7 @@ section {
 /* Звёздный рейтинг */
 .star-rating {
     margin: 15px 0;
-    padding: 10px 0;
+    padding: 5px 0;
     border-top: 1px solid #eee;
 }
 
@@ -449,4 +449,10 @@ section {
 .stars-container input:checked ~ label:hover ~ label,
 .stars-container label:hover ~ input:checked ~ label {
     color: #ffcc00;
+}
+
+/* Радио кнопки */
+.radio-group{
+    display: block;
+    margin: 5px;
 }

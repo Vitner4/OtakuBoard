@@ -75,3 +75,4 @@ function getDominantColor(img) {
         resolve(`${Math.round(r / pixels)}, ${Math.round(g / pixels)}, ${Math.round(b / pixels)}`);
     });
 }
+

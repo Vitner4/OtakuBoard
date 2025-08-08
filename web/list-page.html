@@ -19,7 +19,7 @@
         <div class="header-content">
 
             <div class="branding">
-                <a href="https://github.com/Omiraii4/OtakuBoard" class="logo-title-group">
+                <a id="github-link" href="#" class="logo-title-group">
                     <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
                     <h1 class="page-title">OtakuBoard</h1>
                 </a>
@@ -167,10 +167,11 @@
                                     <label for="star1" title="1"></label>
                                 </div>
                             </div>
-                            <ul class="filter-list">
-                                <!--!! Через JS сделать только один выбранный CheckBox !!-->
-                                <li><label><input type="checkbox" name="star" value="only" checked> Искать только выбранную звезду</label></li>
-                                <li><label><input type="checkbox" name="star" value="more"> Искать от выбранной звезды и выше</label></li>
+
+                            <div class="filter-list">
+                                <label><input class="radio-group" type="radio" name="optionGroup" value="only" checked> Искать только выбранную звезду</label>
+                                <label><input class="radio-group" type="radio" name="optionGroup" value="more"> Искать от выбранной звезды и выше</label>
+                            </div>
                         </div>
                         
                         <div class="filter-section-data">
