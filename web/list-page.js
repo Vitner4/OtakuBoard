@@ -89,7 +89,7 @@ stars.forEach(stars => {
         stars.style = "background-color: #df1212ff";
     }
     if(value >= 4 && value <= 6){
-        stars.style = "background-color: #d8c200ff";
+        stars.style = "background-color: #e7d210ff";
     }
      if(value >= 7 && value <= 9){
         stars.style = "background-color: #0db10dff";
