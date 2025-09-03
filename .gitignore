@@ -2,6 +2,7 @@
 /data-test
 /__pycache__
 /.vscode
-index.html
-index.js
+/web-test
+/web/index.html
+/web/index.js
 /web/css/index.css

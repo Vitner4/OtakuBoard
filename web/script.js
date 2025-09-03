@@ -5,4 +5,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Ссылка на GitHub OtakuBoard
-document.getElementById('github-link').href = 'https://github.com/Vitner4/OtakuBoard';
+document.getElementById('github-link').href = 'https://github.com/Omiraiix/OtakuBoard';
