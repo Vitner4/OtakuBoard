@@ -1,0 +1,287 @@
+
+body {
+    background: url('src/img/background/ob-bg-girl-left.png') no-repeat fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+    z-index: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome-form {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    margin-left: 700px;  /* отступ влево */
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+}
+
+.welcome-title {
+    color: #fcfcfc;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.486);
+}
+
+.welcome-text {
+    color: #ddd;
+    font-size: 1.2rem;
+    margin-bottom: 70px;
+    /* 65px */
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.auth-btn {
+    padding: 15px 30px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-btn {
+    background: linear-gradient(47deg,rgb(31, 0, 49) 0%, rgb(135, 34, 250) 100%);
+    color: white;
+}
+
+.auth-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px); 
+    background: linear-gradient(47deg,rgb(40, 0, 78) 0%, rgb(135, 34, 250) 100%);
+    box-shadow: 0 5px 15px rgba(74, 0, 134, 0.473);
+}
+
+.auth-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.forms-container {
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 550px;
+}
+
+#login-form {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+}
+
+.form-title {
+    color: #fcfcfc;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.486);  
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;   
+}
+
+.form-group input {
+    width: 80%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #a66eff;
+    box-shadow: 0 0 0 2px rgba(85, 0, 141, 0.3);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+#register-form{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+}
+
+.form-register-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 8px;   
+}
+
+.form-register-group input {
+    width: 80%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-register-group input:focus {
+    outline: none;
+    border-color: #a66eff;
+    box-shadow: 0 0 0 2px rgba(85, 0, 141, 0.3);
+}
+
+.form-register-group p{
+    color: #aaa;
+    font-size: 1rem;
+    align-items: center;
+    margin: auto 0;
+}
+
+.select-folder-btn{
+    width: 20%;
+    height: 100%;
+    padding: 5px 15px;
+
+    background: rgba(56, 56, 56, 0.74);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.select-folder-btn:hover {
+    background: rgba(105, 105, 105, 0.74);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(47deg,rgb(31, 0, 49) 0%, rgb(135, 34, 250) 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px); 
+    background: linear-gradient(47deg,rgb(40, 0, 78) 0%, rgb(135, 34, 250) 100%);
+    box-shadow: 0 5px 15px rgba(74, 0, 134, 0.473);
+}
+
+.close-form {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.close-form:hover {
+    opacity: 1;
+}
+
+.footer {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    position: absolute;
+    bottom: 0;                  
+}
+
+.footer a {
+    color: #a201ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .main-container {
+        width: 95%;
+        padding: 20px;
+}
+            
+    h1 {
+        font-size: 2rem;
+    }
+}
