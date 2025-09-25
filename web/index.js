@@ -10,17 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Форма входа в аккаунт
     const loginForm = document.getElementById('login-form'); // форма входа в аккаунт
     const loginBtn = document.getElementById('login-btn'); // кнопка "Открыть форму входа в аккаунт"
+     const submitLoginBtn = document.getElementById('submit-login-btn'); // кнопка "Войти" в форме входа в аккаунт
     const loginCloseBtn = document.getElementById('close-login-btn'); // кнопка "Закрыть форму входа в аккаунт"
     // Форма создания нового аккаунта
     const registerForm = document.getElementById('register-form'); // форма создания нового аккаунта
     const registerBtn = document.getElementById('register-btn'); // кнопка "Открыть форму создания нового аккаунта"
+    const submitRegBtn = document.getElementById('submit-reg-btn'); // кнопка "Создать" в форме создания нового аккаунта
     const registerCloseBtn = document.getElementById('close-reg-btn'); // кнопка "Закрыть форму создания нового аккаунта"
     
 
     // Логика для формы входа в аккаунт
 
 
-    // Обработчик нажатия "Открыть форму входа в аккаунт"
+    // Обработчик нажатия кнопки "Открыть форму входа в аккаунт"
     loginBtn.addEventListener('click', () => {
         welcomeForm.classList.add('hidden'); // скрываем начальную форму
         loginForm.classList.remove('hidden'); // Открываем форму входа в аккаунт
@@ -36,7 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.backgroundRepeat = 'no-repeat';
     });
 
-    // Обработчик нажатия "Закрыть форму входа в аккаунт"
+    // Обработчик нажатия кнопки "Войти" в форме входа в аккаунт
+    submitLoginBtn.addEventListener('click', () => {
+        // Подтвержение Лицензионного соглашения и Политики конфиденциальности
+        confirm("Нажимая кнопку, вы соглашаетесь с Лицензионным соглашением и Политикой конфиденциальности приложения OtakuBoard.");
+    });
+
+    // Обработчик нажатия кнопки "Закрыть форму входа в аккаунт"
     loginCloseBtn.addEventListener('click', () => {
         welcomeForm.classList.remove('hidden'); // Показываем начальную форму
         loginForm.classList.add('hidden'); // Закрываем форму входа в аккаунт
@@ -56,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Логика для формы создания нового аккаунта
 
 
-    // Обработчик нажатия "Открыть форму создания нового аккаунта"
+    // Обработчик нажатия кнопки "Открыть форму создания нового аккаунта"
     registerBtn.addEventListener('click', () => {
         welcomeForm.classList.add('hidden'); // скрываем начальную форму
         registerForm.classList.remove('hidden'); // Открываем форму создания нового аккаунта
@@ -72,7 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.backgroundRepeat = 'no-repeat';
     });
 
-    // Обработчик нажатия "Закрыть форму создания нового аккаунта"
+    // Обработчик нажатия кнопки "Создать" в форме создания нового аккаунта
+    submitRegBtn.addEventListener('click', () => {
+        // Подтвержение Лицензионного соглашения и Политики конфиденциальности
+        confirm("Нажимая кнопку, вы соглашаетесь с Лицензионным соглашением и Политикой конфиденциальности приложения OtakuBoard.");
+    });
+
+    // Обработчик нажатия кнопки "Закрыть форму создания нового аккаунта"
     registerCloseBtn.addEventListener('click', () => {
         welcomeForm.classList.remove('hidden'); // Показываем начальную форму
         registerForm.classList.add('hidden'); // Закрываем форму создания нового аккаунта

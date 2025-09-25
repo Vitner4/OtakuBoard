@@ -14,6 +14,8 @@
 <body id="body">
     <!-- Блок взаимодействия -->
     <div class="main-container">
+
+        <!-- Начальная форма -->
         <form onsubmit="event.preventDefault()" id="welcome-form">
             <h1 class="welcome-title">Добро пожаловать в OtakuBoard!</h1>
             <p class="welcome-text">Создайте свою уникальную коллекцию цифрового контента с OtakuBoard</p>
@@ -30,7 +32,10 @@
             </div>
         </form>
         
+        <!-- Группа форм -->
         <div class="forms-container">
+
+             <!-- Форма входа в аккаунт -->
             <form id="login-form" class="hidden">
                 <h2 class="form-title">Вход в аккаунт</h2>
                 <div class="form-group">
@@ -43,6 +48,7 @@
                 <button type="button" class="close-form" id="close-login-btn">×</button>
             </form>
             
+             <!-- Форма регистрации нового аккаунта -->
             <form id="register-form" class="hidden">
                 <h2 class="form-title">Создание аккаунта</h2>
                 <div class="form-register-group">
@@ -58,11 +64,13 @@
                 <button type="submit" class="submit-btn" id="submit-reg-btn">Создать</button>
                 <button type="button" class="close-form" id="close-reg-btn">×</button>
             </form>
+
         </div>
 
         <div class="footer">
-            <p>Нажимая кнопку, вы соглашаетесь с <a href="#">лицензионным соглашением</a> и <a href="#">политикой конфиденциальности</a></p>
+            <p>Нажимая кнопку, вы соглашаетесь с <a href="pre-license.html">лицензионным соглашением</a> и <a href="privacy-policy.html">политикой конфиденциальности</a></p>
         </div>
+        
     </div>
 
     <!-- JS импорт -->
