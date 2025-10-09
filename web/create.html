@@ -38,12 +38,12 @@
         </div>
     </header>
 
-    <!-- Создание карточек -->
+    <!-- Создание карточки -->
     <div class="form-container">
         <h1>Создание новой карточки</h1>
         <form>
             <label for="name">Название:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" autocomplete="off">
 
             <label for="autor">Автор:</label>
             <input type="text" id="autor" name="autor">
@@ -56,6 +56,9 @@
 
             <label for="link">Ссылка на контент:</label>
             <input type="text" id="link" name="link">
+            
+            <label for="description" >Комментарии:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
 
             <div class="star-rating"> 
                 <h4 class="filter-title">Оценка:</h4>
@@ -90,6 +93,20 @@
                     <input type="radio" id="star1" name="rating" value="1" onclick="getSelectedStar('star1')">
                     <label for="star1" title="1"></label>
                 </div>
+            </div>
+            
+            <label for="cover">Обложка:</label>
+            <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+
+            <label for="header-image">Шапка:</label>
+            <input type="file" id="header-image" name="header_image" accept="image/*" style="cursor: pointer;">
+
+            <div id="cover-preview" class="cover-preview">
+                <p>Предпросмотр обложки появится здесь после выбора файла.</p>
+            </div>
+
+            <div id="header-preview" class="header-preview">
+                <p>Предпросмотр шапки появится здесь после выбора файла.</p>
             </div>
 
             <button type="submit" id="create-btn">Создать</button>

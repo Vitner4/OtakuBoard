@@ -31,12 +31,13 @@ form textarea {
     box-sizing: border-box;
 }
 
-/* Кнопка */
+/* Кнопка создания новой карточки */
 #create-btn {
     width: 50%;
     padding: 10px;
     display: block;
     margin: 0 auto;
+    margin-top: 30px;
     font-size: 16px;
     background: #4a5cff;
     color: #fff;
@@ -97,5 +98,57 @@ form textarea {
 .stars-container input:checked ~ label:hover ~ label,
 .stars-container label:hover ~ input:checked ~ label {
     color: #ffcc00;
+}
+
+/* Стили обложки */
+.cover-preview {
+    width: 200px;
+    height: 300px;
+    border: 2px dashed #ccc; 
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.cover-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.cover-preview p {
+    color: #666;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Стили шапки */
+.header-preview {
+    width: 500px; 
+    height: 150px;
+    border: 2px dashed #ccc; 
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    background-color: #f9f9f9;
+}
+
+.header-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.header-preview p {
+    color: #666;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 10px;
 }
 
