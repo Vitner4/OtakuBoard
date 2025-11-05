@@ -334,7 +334,7 @@ section {
 }
 
 .search-button {
-    background: #3b3a3a;
+    background:  #272727;
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;
@@ -344,7 +344,7 @@ section {
 }
 
 .search-button:hover {
-    background: #1d1b1b;
+    background:  #3f3f3f;
 }
 
 .filter-section {
@@ -397,7 +397,7 @@ section {
     width: 100%;
     padding: 8px;
     margin-top: 10px;
-    background: #3b3a3a;
+    background: #272727;
     color: white;
     border: none;
     border-radius: 4px;
@@ -407,7 +407,7 @@ section {
 }
 
 .filter-button:hover {
-    background: #1d1b1b;
+    background: #3f3f3f;
 }
 
 .filter-button.secondary {
@@ -415,7 +415,7 @@ section {
 }
 
 .filter-button.secondary:hover {
-    background: #5b5d5e;
+    background: #7f8080;
 }
 
 /* Звёздный рейтинг */

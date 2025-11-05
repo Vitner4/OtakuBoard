@@ -51,6 +51,9 @@
             <label for="genre">Жанр:</label>
             <input type="text" id="genre" name="genre">
 
+            <label for="year">Год:</label>
+            <input type="number" id="year" name="year">
+
             <label for="type">Тип контента:</label>
             <input type="text" id="type" name="type">
 
@@ -98,15 +101,8 @@
             <label for="cover">Обложка:</label>
             <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
 
-            <label for="header-image">Шапка:</label>
-            <input type="file" id="header-image" name="header_image" accept="image/*" style="cursor: pointer;">
-
             <div id="cover-preview" class="cover-preview">
                 <p>Предпросмотр обложки появится здесь после выбора файла.</p>
-            </div>
-
-            <div id="header-preview" class="header-preview">
-                <p>Предпросмотр шапки появится здесь после выбора файла.</p>
             </div>
 
             <button type="submit" id="create-btn">Создать</button>

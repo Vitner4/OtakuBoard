@@ -1,4 +1,3 @@
-
 // Получение выбранной звезды фильтра
 function getSelectedStar(starID){
     let starChoosed = document.getElementById(starID);
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Если файл не выбран (например, пользователь отменил выбор), 
             // восстанавливаем текст-заглушку
-            previewContainer.innerHTML = '<p>Предпросмотр обложки появится здесь после выбора файла.</p>';
+            previewContainer.innerHTML = '<div class="cover-placeholder">Загрузите изображение обложки</div>';
         }
     });
 });

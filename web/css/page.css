@@ -1,0 +1,309 @@
+/* Стили карточки контента: общий контейнер карточки */
+.content-card {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 22px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 22px rgba(8, 15, 25, 0.06);
+}
+
+/* Колонки внутри карточки: выстраивание в строку, отступ между колонками */
+.content-columns {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+/* Левая колонка: блок с деталями контента */
+.content-details {
+    flex: 1 1 65%;
+    min-width: 280px;
+}
+
+/* Заголовок контента */
+.content-title {
+    margin: 0 0 20px;
+    font-size: 2rem;
+    color: #111827;
+}
+
+/* Поля формы: общий контейнер для поля */
+.field {
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Полное поле (больше отступа снизу) */
+.field.full { margin-bottom: 18px; }
+
+/* Текстовая метка поля */
+.label-text {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0f0f0f;
+    margin-bottom: 6px;
+}
+
+/* Оформление текстовых и файловых инпутов и textarea */
+.field input[type="text"],
+.field input[type="number"],
+.field textarea,
+.field input[type="file"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    color: #111827;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+/* Текстовое поле с возможностью изменения высоты по вертикали */
+.field textarea { resize: vertical; min-height: 96px; }
+
+/* Малые поля в строку: сетка с тремя колонками */
+.small-fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* Блок для звёздного рейтинга */
+.star-rating {
+    margin-bottom: 30px;
+}
+
+/* Заголовок блока рейтинга */
+.rating-title {
+    font-size: 0.9rem;
+    color: #34495e;
+    margin: 0 0 8px 0;
+}
+
+/* Контейнер звёзд: реверсный порядок для удобства hover/checked логики */
+.stars-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+/* Скрываем реальные input радиокнопок (используются метки) */
+.stars-container input {
+    display: none;
+}
+
+/* Метки-звезды: размер, цвет по умолчанию, курсор */
+.stars-container label {
+    font-size: 33px;
+    color: #ddd;
+    cursor: pointer;
+    width: 25px;
+    height: 35px;
+    margin-right: 2px;
+    position: relative;
+}
+
+/* Вставляем символ звезды в псевдоэлемент */
+.stars-container label:before {
+    content: "★";
+    position: absolute;
+}
+
+/* Окраска звёзд при наведении и выборе */
+.stars-container input:checked ~ label,
+.stars-container label:hover,
+.stars-container label:hover ~ label {
+    color: #ffcc00;
+}
+
+/* Дополнительные состояния, чтобы hover и checked корректно взаимодействовали */
+.stars-container input:checked + label:hover,
+.stars-container input:checked ~ label:hover,
+.stars-container input:checked ~ label:hover ~ label,
+.stars-container label:hover ~ input:checked ~ label {
+    color: #ffcc00;
+}
+
+/* Предпросмотр рейтинга для page.html: метка */
+.rating-preview-label {
+    display:block;
+    font-weight:600;
+    margin:12px 0 6px;
+    color:#333;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-size:14px;
+}
+
+/* Коробка предпросмотра рейтинга: фон, границы, тень, выравнивание */
+.rating-preview-box {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:240px;
+    padding:14px 16px;
+    background:linear-gradient(#fff,#fbfbfb);
+    border:1px solid #bdbdbd; /* основная серая грань */
+    box-shadow:
+        inset 0 1px 0 #ffffff,   /* верхняя грань светлее */
+        inset 0 -1px 0 #e6e6e6,  /* нижняя грань чуть темнее */
+        3px 3px 0 #e0e0e0;       /* лёгкая внешняя грань */
+    border-radius:0; /* без скругления */
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:#222;
+}
+
+/* Обёртка для звезды внутри превью: фиксированный квадрат */
+.star-wrap {
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 48px;
+}
+
+/* Большой числовой показатель рейтинга */
+.rating-score {
+    font-size:28px;
+    font-weight:700;
+    line-height:1;
+    color:#222;
+}
+
+/* Максимум рейтинга (например "/10") */
+.rating-max {
+    font-size:12px;
+    color:#666;
+    margin-top:4px;
+}
+
+/* Стили для SVG-звезды в превью: размеры и лёгкая тень */
+.rating-preview-box svg.star {
+    width:48px;
+    height:48px;
+    display:block;
+    shape-rendering:geometricPrecision;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.05));
+}
+
+/* Блок с числовой информацией рядом со звездой: вертикальное выравнивание */
+.rating-text {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin-left:4px;
+    user-select:none;
+}
+
+/* Действия формы: контейнер для кнопок (с отступом сверху и промежутком между кнопками) */
+.form-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Базовый стиль кнопки: рамка, фон, отступы, радиус */
+.btn {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #111827;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .12s, border-color .12s;
+}
+
+/* Ховер состояние для кнопки */
+.btn:hover { background: #f8fafc; }
+
+/* Основная (primary) кнопка: тёмный фон, белый текст */
+.btn.primary {
+    background: #272727;
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Ховер для primary кнопки */
+.btn.primary:hover { background: #3f3f3f; }
+
+/* Правая колонка: панель обложки, фиксированные проценты */
+.cover-panel {
+    flex: 0 0 34%;
+    min-width: 220px;
+    max-width: 360px;
+}
+
+/* Предпросмотр обложки: фон, пунктирная рамка, центрирование содержимого */
+.cover-preview {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(180deg,#f8fafc,#fff);
+    border: 1px dashed #e6eef2;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Изображение обложки: заполнение контейнера с сохранением пропорций (cover) */
+.cover-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* Плейсхолдер внутри превью, когда нет изображения: центрированное сообщение */
+.cover-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 0.95rem;
+    padding: 12px;
+    text-align: center;
+}
+
+/* Поле выбора файла: отображается как блочный элемент */
+.file-field input[type="file"] {
+    display: block;
+    margin-top: 6px;
+}
+
+/* Небольшая подсказка под полем файла */
+.file-note {
+    display: block;
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 6px;
+}
+
+/* Кнопки управления обложкой: выравнивание по центру с пространством между */
+.cover-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Адаптивные изменения: при небольшой ширине меняем порядок колонок и ширины */
+@media (max-width: 880px) {
+    .content-columns { flex-direction: column-reverse; } /* картинка внизу на мобилках */
+    .cover-panel { width: 100%; max-width: none; }
+    .small-fields { grid-template-columns: repeat(2,1fr); } /* меньше колонок */
+}
+
+/* Ещё меньшие экраны: поля в одну колонку, уменьшение внутренних отступов и шрифтов */
+@media (max-width: 480px) {
+    .small-fields { grid-template-columns: 1fr; }
+    .content-card { padding: 14px; }
+    .content-title { font-size: 1.15rem; }
+    .star { font-size: 1.25rem; padding: 4px 6px; }
+}
