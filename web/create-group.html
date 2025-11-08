@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/create.css">
+    <link rel="stylesheet" href="css/create-group.css">
 </head>
 
 <body>
@@ -38,13 +38,26 @@
         </div>
     </header>
 
-    <!-- Выбор создания -->
-    <div class="creation-choice-form">
-        <h2>Что бы вы хотели создать?</h2>
-        <div class="button-group">
-            <a href="create-group.html"><button id="create-group-button" class="creation-button">Создать группу</button></a>
-            <a href="create-card.html"><button id="create-card-button" class="creation-button">Создать карточку</button></a>
-        </div>
+    <!-- Создание группы -->
+    <div class="form-container">
+        <h1>Создание новой группы</h1>
+        <form>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" placeholder="Укажите название">
+
+            <label for="type">Тип контента:</label>
+            <input type="text" id="type" name="type" placeholder="Укажите тип контента">
+
+            <label for="cover">Обложка:</label>
+            <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+            <!-- <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите ссылку на обложку"> -->
+
+            <div id="cover-preview" class="cover-preview">
+                <p>Предпросмотр обложки появится здесь после выбора файла.</p>
+            </div>
+
+            <button type="submit" id="create-btn">Создать</button>
+        </form>
     </div>
 
     <!-- Подвал сайта -->
@@ -66,7 +79,7 @@
 
     <!-- JS импорт -->
     <script src="script.js"></script>
-    <script src="create.js"></script>
+    <script src="create-group.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/create-card.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Главная</a></li>
+                    <li><a href="group.html">Группы</a></li>
+                    <li><a id="selected-page" href="create.html">Создать</a></li>
+                    <li><a href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Создание карточки -->
+    <div class="form-container">
+        <h1>Создание новой карточки</h1>
+        <form>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" placeholder="Укажите название">
+
+            <label for="autor">Автор:</label>
+            <input type="text" id="autor" name="autor" placeholder="Укажите автора">
+
+            <label for="genre">Жанр:</label>
+            <input type="text" id="genre" name="genre"placeholder="Укажите жанр">
+
+            <label for="year">Год:</label>
+            <input type="number" id="year" name="year" placeholder="Укажите год">
+
+            <label for="type">Тип контента:</label>
+            <input type="text" id="type" name="type" placeholder="Укажите тип контента">
+
+            <label for="link">Ссылка на контент:</label>
+            <input type="text" id="link" name="link" placeholder="Укажите ссылку на контент">
+            
+            <label for="description" >Комментарии:</label>
+            <textarea id="description" name="description" rows="4" placeholder="Напишите ваши комментарии"></textarea>
+
+            <div class="star-rating"> 
+                <h4 class="filter-title">Оценка:</h4>
+                <div class="stars-container">
+                    <input type="radio" id="star10" name="rating" value="10" onclick="getSelectedStar('star10')">
+                    <label for="star10" title="10"></label>
+                    
+                    <input type="radio" id="star9" name="rating" value="9" onclick="getSelectedStar('star9')">
+                    <label for="star9" title="9"></label>
+                    
+                    <input type="radio" id="star8" name="rating" value="8" onclick="getSelectedStar('star8')">
+                    <label for="star8" title="8"></label>
+                    
+                    <input type="radio" id="star7" name="rating" value="7" onclick="getSelectedStar('star7')">
+                    <label for="star7" title="7"></label>
+                    
+                    <input type="radio" id="star6" name="rating" value="6" onclick="getSelectedStar('star6')">
+                    <label for="star6" title="6"></label>
+                    
+                    <input type="radio" id="star5" name="rating" value="5" onclick="getSelectedStar('star5')">
+                    <label for="star5" title="5"></label>
+                    
+                    <input type="radio" id="star4" name="rating" value="4" onclick="getSelectedStar('star4')">
+                    <label for="star4" title="4"></label>
+                    
+                    <input type="radio" id="star3" name="rating" value="3" onclick="getSelectedStar('star3')">
+                    <label for="star3" title="3"></label>
+                    
+                    <input type="radio" id="star2" name="rating" value="2" onclick="getSelectedStar('star2')">
+                    <label for="star2" title="2"></label>
+                    
+                    <input type="radio" id="star1" name="rating" value="1" onclick="getSelectedStar('star1')">
+                    <label for="star1" title="1"></label>
+                </div>
+            </div>
+            
+            <label for="cover">Обложка:</label>
+            <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+
+            <div id="cover-preview" class="cover-preview">
+                <p>Предпросмотр обложки появится здесь после выбора файла.</p>
+            </div>
+
+            <button type="submit" id="create-btn">Создать</button>
+        </form>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+        </div>
+
+        <div class="footer-section">
+            <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+        </div>
+
+        <div class="footer-section">
+            <a href="about-us.html" class="footer-link">О нас</a>
+        </div>
+    </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="script.js"></script>
+    <script src="create-card.js"></script>
+</body>
+
+</html>
