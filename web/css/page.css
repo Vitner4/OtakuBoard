@@ -232,6 +232,9 @@
 .btn.primary:hover { background: #3f3f3f; }
 
 /* Правая колонка: панель обложки, фиксированные проценты */
+#cover{
+    margin-bottom: 6px ;
+}
 .cover-panel {
     flex: 0 0 34%;
     min-width: 220px;

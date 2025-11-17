@@ -49,13 +49,16 @@
             <input type="text" id="type" name="type" placeholder="Укажите тип контента">
 
             <label for="cover">Обложка:</label>
-            <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
-            <!-- <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите ссылку на обложку"> -->
-
-            <div id="cover-preview" class="cover-preview">
-                <p>Предпросмотр обложки появится здесь после выбора файла.</p>
+            <div class="cover-group">
+                <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+                <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на обложку">
             </div>
-
+            
+            <div id="cover-preview" class="cover-preview">
+                <p>Предпросмотр обложки появится здесь</p>
+            </div>
+            <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
+            
             <button type="submit" id="create-btn">Создать</button>
         </form>
     </div>
@@ -80,6 +83,7 @@
     <!-- JS импорт -->
     <script src="script.js"></script>
     <script src="create-group.js"></script>
+    <script src="set-cover.js"></script>
 </body>
 
 </html>

@@ -123,16 +123,17 @@
                 <aside class="cover-panel">
                     <label class="label-text">Обложка</label>
 
-                    <div class="cover-preview" aria-live="polite" id="cover-preview">
-                        <div class="cover-placeholder">Загрузите изображение обложки</div>
+                    <div class="cover-preview" aria-live="polite" >
+                        <div class="cover-placeholder" id="cover-preview">Предпросмотр обложки появится здесь</div>
                     </div>
 
                     <label class="field file-field">
-                        <input type="file" name="cover" id="cover" accept="image/*" style="cursor: pointer;"/>
+                        <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+                        <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на обложку">
                     </label>
 
                     <div class="cover-actions">
-                        <button type="button" class="btn" id="cover-remove">Убрать обложку</button>
+                        <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
                     </div>
                 </aside>
             </div>
@@ -159,6 +160,7 @@
     <!-- JS импорт -->
     <script src="script.js"></script>
     <script src="page.js"></script>
+    <script src="set-cover.js"></script>
 </body>
 
 </html>

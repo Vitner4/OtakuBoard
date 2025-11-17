@@ -50,6 +50,22 @@ form textarea {
     background: #383838;    
 }
 
+/* Кнопка удаления обложки */
+#cover-remove {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #111827;
+    margin-top: 10px;
+    margin-left: 30px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .12s, border-color .12s;
+}
+
+#cover-remove:hover { background: #f8fafc; }
+
 /* Звёздный рейтинг */
 .star-rating {
     margin-bottom: 20px;
@@ -100,6 +116,12 @@ form textarea {
 }
 
 /* Стили обложки */
+.cover-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .cover-preview {
     width: 200px;
     height: 300px;

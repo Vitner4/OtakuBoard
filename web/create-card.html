@@ -99,11 +99,15 @@
             </div>
             
             <label for="cover">Обложка:</label>
-            <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+            <div class="cover-group">
+                <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+                <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на обложку">
+            </div>
 
             <div id="cover-preview" class="cover-preview">
                 <p>Предпросмотр обложки появится здесь после выбора файла.</p>
             </div>
+            <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
 
             <button type="submit" id="create-btn">Создать</button>
         </form>
@@ -129,6 +133,7 @@
     <!-- JS импорт -->
     <script src="script.js"></script>
     <script src="create-card.js"></script>
+    <script src="set-cover.js"></script>
 </body>
 
 </html>
