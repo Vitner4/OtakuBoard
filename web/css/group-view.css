@@ -1,6 +1,6 @@
 /* Главная форма */
 .group-form{
-    max-width: 1260px;
+    width: 1080px;
     max-height: auto;
     margin: 40px auto; 
     /* display: flex; */
@@ -98,4 +98,46 @@
 .title-block p{
     font-size: 0.9rem;
     margin-top: 0;
+}
+
+
+
+/* Стили для карточек на странице группы */
+.tile {
+    width: 200px;
+    height: 400px;
+    cursor: pointer;   
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s ease;
+}
+.tile-title {
+    font-size: 1.2rem;
+    margin: 10px 0 5px 0;
+}
+.tile-info {
+    font-size: 1rem;
+    color: #555;    
+    margin: 0;
+}
+
+.tile-img {
+    height: 300px;
+    width: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: -1;
+}
+.tile-content {
+    margin-top: -10px;
+    padding-left: 10px;
+    position: relative;
+    z-index: 1;
+    width: 180px;
+    height: 100px;
+}
+.tile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
