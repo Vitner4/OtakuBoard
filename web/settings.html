@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/settings.css">
 </head>
 
 <body>
@@ -37,29 +38,56 @@
         </div>
     </header>
 
+    <!-- Блок настроек приложения -->
+     <div class="settings-form">
+        <h1 id="title">Настройки приложения</h1>
+        <div class="settings-data-block">
+            <div class="settings-data"> 
+                <p id="dark-mode-p">Тёмная тема</p>
+                <label class="switch"><input type="checkbox" id="dark-mode-toggle"><span class="slider round"></span></label>
+            </div>
 
-    <!-- Место наполнения страницы -->
+            <div class="settings-data"> 
+                <p id="dark-mode-p" >Градиент у карточек</p>
+                <label class="switch"><input type="checkbox" id="dark-mode-toggle" checked><span class="slider round"></span></label>
+            </div>
 
+            <div class="settings-data"> 
+                <p id="language-select-p">Язык интерфейса</p>
+                <select id="language-select">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>  
+     </div>
 
     <!-- Подвал сайта -->
     <footer class="site-footer">
-    <div class="footer-container">
-        <div class="footer-section">
-            <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
-        </div>
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
 
-        <div class="footer-section">
-            <a href="license.html" class="footer-link">Лицензионное соглашение</a>
-        </div>
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
 
-        <div class="footer-section">
-            <a href="about-us.html" class="footer-link">О нас</a>
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
         </div>
-    </div>
     </footer>
 
     <!-- JS импорт -->
     <script src="script.js"></script>
+    <script src="settings.js"></script>
+
+    <!-- <script>
+        document.getElementById('dark-mode-toggle').addEventListener('change', function(e) {
+            console.log('Значение переключателя:', e.target.checked);
+        });
+    </script> -->
 </body>
 
 </html>
