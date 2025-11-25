@@ -1,4 +1,3 @@
-
 /* Основное содержимое */
 main {
     margin-left: 100px;
@@ -19,6 +18,7 @@ main {
     width: 65%;
 }
 
+/* Подсветка */
 .highlight {
     background-color: yellow;
     font-weight: bold;
@@ -57,77 +57,12 @@ main {
     border-color: #666;
 }
 
+/* Превью изображения */
 #preview {
     max-width: 100%;
     max-height: 100%;
     display: none;
     border-radius: 10px;
-}
-
-/* Обычный тайл */
-.tile {
-    --tile-color: rgba(233, 233, 233, 0.9);
-    --tile-color-bottom: rgba(233, 233, 233, 0.9);
-    --solid-color: var(--tile-color);
-    width: 200px;
-    height: 400px;
-    /* background-color: rgba(230, 230, 230, 0.6); */
-    background:   
-        linear-gradient(to bottom, 
-            var(--tile-color) 0%,
-            var(--solid-color) 20%,
-            var(--tile-color-bottom) 100%
-        ),
-        /* Фоновый цвет на случай, если градиент не загрузится */
-        rgba(230, 230, 230, 0.2); /* Фолбэк */
-    backdrop-filter: blur(20px); 
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.star-icon {
-  height: 30px;
-  width: 50px;
-  border-radius: 5px;
-  background-color: #0db10d;
-  /* Позиция */
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  padding: 3px;
-  right: 5px;
-  top: 5px;
-  /* текст */
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  font: bold;
-}
-
-.tile:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Изображение */
-.tile-img {
-    width: 100%;
-    height: 300px;
-    border-radius: 10px;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: -1;
-}
-
-.tile-content {
-    margin-top: -10px;
-    padding-left: 10px;
-    position: relative;
-    z-index: 1;
-    width: 180px;
-    height: 100px;
 }
 
 /* Параметры для нового блока */
@@ -136,34 +71,15 @@ main {
     display: grid;
 }
 
+/* Текст-превью */
 .text-preview {
     /* margin-left: 120px; */
     font-size: 30px;
 }
 
+/* Стиль текста */
 .text-stl{
     font-size: 30px;
-}
-
-.tile-title{
-    color: rgb(50, 50, 50);
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Ограничиваем текст двумя строками */
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-    max-height: calc(2 * 1.2em);
-    height: 50px;
-    margin-top: 14px;
-}
-
-.tile-info{
-    color: rgb(50, 50, 50);
-    word-break: break-all;
-    overflow: hidden;
-    margin-top: 25px;
 }
 
 /* Обычное поле для заполнения */
@@ -179,7 +95,6 @@ main {
     box-sizing: border-box;
     transition: border-color 0.3s; 
 }
-
 .input-description-lile:focus{
     border-color: rgba(230, 230, 230, 0.6);
     outline: none;
@@ -226,24 +141,27 @@ main {
     cursor: pointer;
 }
 
+/* Ховер для выпадающего списка */
 .tile-select-data:hover {
     background-color: rgba(255, 255, 255, 0.9);
     border-color: rgba(250, 250, 250, 0.5);
   }
 
-  /* Стиль при фокусе */
+/* Фокус для выпадающего списка */
 .tile-select-data:focus {
     outline: none;
     border-color: rgba(180, 180, 180, 0.8);
     box-shadow: 0 0 0 3px rgba(200, 200, 200, 0.3);
   }
 
+/* Обёртка для кастомного селекта */
 .select-wrapper {
     position: relative;
     width: 100%;
     max-width: 400px;
   }
 
+/* Стрелка селекта */
 .select-wrapper::after {
     content: "▼";
     font-size: 0.8rem;
@@ -255,6 +173,7 @@ main {
     pointer-events: none;
   }
 
+/* Элемент списка селекта */
 .tile-select-data-tile{
     padding: 12px;
     background: rgba(255, 255, 255, 0.9);
@@ -262,14 +181,17 @@ main {
     border-bottom: 1px solid #eee;
 }
 
+/* Ховер для элемента селекта */
 .tile-select-data-tile:hover {
     background: #f0f0f0;
 }
 
+/* Состояние выбранного элемента селекта */
 .tile-select-data-tile:checked {
     background: linear-gradient(#f0f0f0, #f0f0f0);
 }
 
+ /* Секции страницы */
 section {
     margin-bottom: 20px;
 }
@@ -280,16 +202,19 @@ section {
     cursor: pointer;
 }
 
+/* Звезда рейтинга */
 .star {
     color: #ccc;
     transition: color 0.2s;
 }
 
+/* Активная звезда или при наведении */
 .star:hover,
 .star.active {
     color: #ffcc00;
 }
 
+/* Значение рейтинга */
 .rating-value {
     font-size: 20px;
     margin-left: 10px;
@@ -314,11 +239,13 @@ section {
     border-bottom: 1px solid #eee;
 }
 
+/* Поле поиска */
 .search-box {
     display: flex;
     margin-bottom: 20px;
 }
 
+/* Вход поискового запроса */
 .search-input {
     flex: 1;
     padding: 10px 15px;
@@ -329,10 +256,12 @@ section {
     transition: border-color 0.3s;
 }
 
+/* Фокус для поля поиска */
 .search-input:focus {
     border-color: #232425;  
 }
 
+/* Кнопка поиска */
 .search-button {
     background:  #272727;
     color: white;
@@ -343,14 +272,17 @@ section {
     transition: background 0.3s;
 }
 
+/* Ховер кнопки поиска */
 .search-button:hover {
     background:  #3f3f3f;
 }
 
+/* Секция фильтров */
 .filter-section {
     margin-bottom: 15px;
 }
 
+/* Данные в секции фильтров */
 .filter-section-data{
     margin-top: 15px;
     margin-bottom: 20px;
@@ -358,22 +290,26 @@ section {
     border-top: 1px solid #eee;
 }
 
+/* Заголовок фильтра */
 .filter-title {
     font-size: 0.9rem;
     color:  #0e1013;
     margin: 0 0 8px 0;
 }
 
+/* Список фильтров */
 .filter-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* Элемент списка фильтров */
 .filter-list li {
     margin-bottom: 5px;
 }
 
+/* Лейбл фильтра */
 .filter-list label {
     display: flex;
     align-items: center;
@@ -381,10 +317,12 @@ section {
     font-size: 0.85rem;
 }
 
+/* Чекбокс фильтра */
 .filter-list input[type="checkbox"] {
     margin-right: 8px;
 }
 
+/* Выпадающий список фильтра */
 .filter-select {
     width: 100%;
     padding: 8px 10px;
@@ -393,6 +331,7 @@ section {
     font-size: 0.85rem;
 }
 
+/* Кнопка фильтра */
 .filter-button {
     width: 100%;
     padding: 8px;
@@ -406,14 +345,17 @@ section {
     transition: background 0.3s;
 }
 
+/* Ховер кнопки фильтра */
 .filter-button:hover {
     background: #3f3f3f;
 }
 
+/* Второстепенная кнопка фильтра */
 .filter-button.secondary {
     background: #757575;
 }
 
+/* Ховер второстепенной кнопки */
 .filter-button.secondary:hover {
     background: #7f8080;
 }
@@ -425,22 +367,26 @@ section {
     border-top: 1px solid #eee;
 }
 
+/* Название рейтинга */
 .rating-title {
     font-size: 0.9rem;
     color: #34495e;
     margin: 0 0 8px 0;
 }
 
+/* Контейнер звёзд для рейтинга */
 .stars-container {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
 }
 
+/* Скрываем input в рейтинге */
 .stars-container input {
     display: none;
 }
 
+/* Лейблы звёзд */
 .stars-container label {
     font-size: 24px;
     color: #ddd;
@@ -451,11 +397,13 @@ section {
     position: relative;
 }
 
+/* Отображение символа звезды */
 .stars-container label:before {
     content: "★";
     position: absolute;
 }
 
+/* Стили для выбранных и наведенных звёзд */
 .stars-container input:checked ~ label,
 .stars-container label:hover,
 .stars-container label:hover ~ label {

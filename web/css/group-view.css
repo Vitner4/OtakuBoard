@@ -1,15 +1,44 @@
 /* Главная форма */
 .group-form{
-    width: 1080px;
-    max-height: auto;
-    margin: 40px auto; 
-    /* display: flex; */
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1112px;
+    margin: 40px auto;
+    padding: 16px;
+    display: flex;
     flex-wrap: wrap;
-    /* gap: 10px; */
+    gap: 20px;
     white-space: normal;
     overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
+    align-items: flex-start;
+}
+
+/* Подстраиваем контейнер и блоки внутри формы */
+.group-form .groups-block-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.group-form .group-block{
+    flex: 1 1 280px;
+    max-width: 300px;
+    min-width: 200px;
+    width: auto;
+}
+
+/* На узких экранах — блоки в столбец */
+@media (max-width: 600px){
+    .group-form{
+        padding: 12px;
+    }
+    .group-form .group-block{
+        flex-basis: 100%;
+        max-width: 100%;
+    }
 }
 
 .group-form h1{
@@ -48,20 +77,6 @@
     transform: scale(1.05);
 }
 
-/* Зетемнение поверх блока*/
-/* .group-block::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.877);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-}
-.group-block:hover::after{
-    opacity: 1;
-} */
-
 .group-block img{
     display: block;
     width: 100%;
@@ -99,8 +114,6 @@
     font-size: 0.9rem;
     margin-top: 0;
 }
-
-
 
 /* Стили для карточек на странице группы */
 .tile {

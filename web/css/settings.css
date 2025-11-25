@@ -149,3 +149,8 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+#app-version {
+    font-size: 1rem;
+    color: #7a7a7a;
+}
