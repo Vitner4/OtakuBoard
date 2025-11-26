@@ -101,5 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.backgroundSize = 'cover';
         element.style.backgroundRepeat = 'no-repeat';
     });
-
 });

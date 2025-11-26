@@ -88,7 +88,7 @@
     overflow: hidden;
     margin-top: 25px;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* Ограничиваем текст двумя строками */
+    -webkit-line-clamp: 1; /* Ограничиваем текст одной строкой */
     line-clamp: 1;
     -webkit-box-orient: vertical;
 }

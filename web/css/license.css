@@ -1,36 +1,40 @@
+/* Переменные темы и цвета */
 :root {
-    --primary: #3a86ff;
-    --secondary: #8338ec;
-    --accent: #ff006e;
-    --text: #2b2d42;
-    --light: #f8f9fa;
-    --gray: #6c757d;
+    --primary: #3a86ff; /* основной цвет */
+    --secondary: #8338ec; /* вторичный градиентный цвет */
+    --accent: #ff006e; /* акцентный цвет */
+    --text: #2b2d42; /* цвет основного текста */
+    --light: #f8f9fa; /* светлый фон/подложка */
+    --gray: #6c757d; /* серый оттенок для вспомогательного текста */
 }
 
+/* Контейнер лицензии: шрифт, размеры, тень, скругление */
 .cc-license {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     max-width: 800px;
-    margin: 2rem auto;
+    margin: 2rem auto; /* центрирование по горизонтали и отступ сверху/снизу */
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* плавные переходы при hover */
 }
-
+/* При наведении: усиление тени и небольшой сдвиг вверх */
 .cc-license:hover {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
+/* Заголовочная часть с градиентом и выравниванием по центру */
 .cc-header {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     padding: 2rem;
     text-align: center;
-    position: relative;
+    position: relative; /* для позиционирования переключателя языка */
 }
 
+/* Значок/бейдж в шапке: крупный размер и центрирование */
 .cc-badge {
     font-size: 3.5rem;
     margin-bottom: 1rem;
@@ -39,26 +43,31 @@
     gap: 0.5rem;
 }
 
+/* Основной заголовок: крупный и жирный */
 .cc-title {
     font-size: 1.8rem;
     margin: 0.5rem 0;
     font-weight: 700;
 }
 
+/* Подзаголовок: чуть мельче и полупрозрачный */
 .cc-subtitle {
     font-size: 1rem;
     opacity: 0.9;
     margin: 0;
 }
 
+/* Основной контент внутри карточки */
 .cc-content {
     padding: 2rem;
 }
 
+/* Секция внутри контента: отступ снизу */
 .cc-section {
     margin-bottom: 2rem;
 }
 
+/* Заголовок секции: иконка + текст, выравнивание по центру по вертикали */
 .cc-section-title {
     display: flex;
     align-items: center;
@@ -68,16 +77,19 @@
     color: var(--text);
 }
 
+/* Список внутри секции: отступ слева */
 .cc-list {
     padding-left: 1.5rem;
     margin: 0;
 }
 
+/* Элемент списка: расстояние между строками и отступ снизу */
 .cc-list li {
     margin-bottom: 0.75rem;
     line-height: 1.6;
 }
 
+/* Нижняя часть карточки: фон, отступ и верхняя граница */
 .cc-footer {
     padding: 1.5rem;
     text-align: center;
@@ -85,17 +97,18 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* Ссылка: основной акцентный цвет и стиль */
 .cc-link {
     color: var(--primary);
     text-decoration: none;
     font-weight: 500;
 }
-
+/* Эффект при наведении на ссылку */
 .cc-link:hover {
     text-decoration: underline;
 }
 
-/* Language switcher */
+/* Переключатель языка: позиция в правом верхнем углу шапки */
 .cc-lang-switcher {
     position: absolute;
     top: 1rem;
@@ -104,6 +117,7 @@
     gap: 0.5rem;
 }
 
+/* Кнопки переключения языка: прозрачный фон, скругление */
 .cc-lang-btn {
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -114,32 +128,25 @@
     font-size: 0.8rem;
     transition: all 0.2s;
 }
-
+/* hover для кнопок языка: чуть более яркий фон */
 .cc-lang-btn:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
+/* Активная кнопка языка: белый фон и акцентный цвет текста */
 .cc-lang-btn.active {
     background: white;
     color: var(--primary);
     font-weight: 500;
 }
 
-/* Icons */
-.cc-icon-free { color: #2ecc71; }
-.cc-icon-terms { color: #e67e22; }
-.cc-icon-info { color: #3498db; }
-.fa-creative-commons { color: white; }
-.fa-creative-commons-by { color: #f1c40f; }
-.fa-creative-commons-nc { color: #e74c3c; }
-.fa-creative-commons-sa { color: #2ecc71; }
-
-/* Animations */
+/* Анимация появления контента (плавное появление и подъём) */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Применение анимации при смене языка/контента */
 .cc-lang-content {
     animation: fadeIn 0.3s ease-out;
 }

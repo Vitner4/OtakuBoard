@@ -1,9 +1,11 @@
+/* Сброс стандартных отступов и установка box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Стили для body: фон, шрифт, выравнивание, отступы */
 body {
     background: url('src/img/background/ob-bg.png') no-repeat fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,6 +18,7 @@ body {
     position: relative;
 }
 
+/* Затемнение фона через псевдоэлемент */
 body::before {
     content: '';
     position: fixed;
@@ -27,6 +30,7 @@ body::before {
     z-index: -1;
 }  
 
+/* Основной контейнер: ширина, фон, скругление, тень, анимация */
 .container {
     max-width: 800px;
     width: 100%;
@@ -36,11 +40,13 @@ body::before {
     overflow: hidden;
     transition: all 0.3s ease;
 }
+/* Эффект наведения на контейнер */
 .container:hover {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
     transform: translateY(-3px);
 }
 
+/* Шапка: градиентный фон, цвет текста, отступы, выравнивание */
 header {
     background: linear-gradient(135deg, #3a86ff, #8338ec);
     color: white;
@@ -50,26 +56,31 @@ header {
     align-items: center;
 }
 
+/* Логотип: выравнивание по центру, отступы между элементами */
 .logo {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
+/* Заголовок логотипа: размер и вес шрифта */
 .logo h1 {
     font-size: 2.5em;
     font-weight: 300;
 }
 
+/* Дополнительный текст логотипа: размер шрифта */
 .logo span {
     font-size: 2em;
 }
 
+/* Переключатель языков: горизонтальное расположение кнопок */
 .language-switcher {
     display: flex;
     gap: 10px;
 }
 
+/* Кнопка языка: стилизация, анимация */
 .lang-btn {
     padding: 8px 16px;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -80,19 +91,21 @@ header {
     transition: all 0.3s ease;
 }
 
+/* Активная кнопка языка */
 .lang-btn.active {
     color: #3a86ff;
     background: rgb(255, 255, 255);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Эффект наведения на кнопку языка */
 .lang-btn:hover {
     color: white;
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Close button */
+/* Кнопка закрытия формы: стилизация, анимация */
 .close-form {
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -106,39 +119,47 @@ header {
     border-radius: 8px;
     transition: all 0.2s;
 }
+/* Эффект наведения на кнопку закрытия */
 .close-form:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
+/* Карточка политики: убираем внутренние отступы */
 .policy-card {
     padding: 0;
 }
 
+/* Заголовок карточки: фон, отступы, граница снизу */
 .card-header {
     background: #f8f9fa;
     padding: 30px;
     border-bottom: 1px solid #e9ecef;
 }
 
+/* Заголовок в карточке: цвет, размер, отступ снизу */
 .card-header h2 {
     color: #2c3e50;
     font-size: 2em;
     margin-bottom: 10px;
 }
 
+/* Дата последнего обновления: цвет, размер шрифта */
 .last-updated {
     color: #6c757d;
     font-size: 0.9em;
 }
 
+/* Контент карточки: внутренние отступы */
 .card-content {
     padding: 30px;
 }
 
+/* Секция политики: отступ снизу */
 .policy-section {
     margin-bottom: 30px;
 }
 
+/* Заголовок секции политики: цвет, размер, отступ, оформление слева */
 .policy-section h3 {
     color: #34495e;
     font-size: 1.3em;
@@ -147,12 +168,14 @@ header {
     padding-left: 15px;
 }
 
+/* Текст секции политики: цвет, межстрочный интервал, размер шрифта */
 .policy-section p {
     color: #555;
     line-height: 1.6;
     font-size: 1.1em;
 }
 
+/* Футер: фон, цвет текста, выравнивание, отступы, размер шрифта */
 footer {
     background: #2c3e50;
     color: white;
@@ -161,6 +184,7 @@ footer {
     font-size: 0.9em;
 }
 
+/* Адаптивные стили для экранов до 768px */
 @media (max-width: 768px) {
     .container {
         margin: 10px;

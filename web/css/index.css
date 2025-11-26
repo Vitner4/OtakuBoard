@@ -1,4 +1,4 @@
-
+/* Основной фон страницы: изображение, покрытие, центрирование содержимого */
 body {
     background: url('src/img/background/ob-bg-girl-left.png') no-repeat fixed;
     background-size: cover;
@@ -10,6 +10,7 @@ body {
     overflow: hidden;
 }
 
+/* Полупрозрачный градиент поверх фона для затемнения */
 body::before {
     content: '';
     position: absolute;
@@ -21,10 +22,12 @@ body::before {
     z-index: -1;
 }
 
+/* Утилитарный класс для скрытия элементов */
 .hidden {
   display: none;
 }
 
+/* Контейнер для основного контента, центрирование и позиционирование по z-index */
 .main-container {
     position: relative;
     z-index: 1;
@@ -35,6 +38,7 @@ body::before {
     align-items: center;
 }
 
+/* Стилизованный блок приветствия: фон, отступы, скругление и тень */
 #welcome-form {
     text-align: center;
     background: rgba(0, 0, 0, 0.8);
@@ -48,6 +52,7 @@ body::before {
     width: 90%;
 }
 
+/* Заголовок приветствия: цвет, размер, тень */
 .welcome-title {
     color: #fcfcfc;
     font-size: 2.5rem;
@@ -55,6 +60,7 @@ body::before {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.486);
 }
 
+/* Текст приветствия: цвет и отступ снизу */
 .welcome-text {
     color: #ddd;
     font-size: 1.2rem;
@@ -62,12 +68,14 @@ body::before {
     /* 65px */
 }
 
+/* Контейнер кнопок аутентификации: выравнивание и промежутки */
 .auth-buttons {
     display: flex;
     gap: 15px;
     justify-content: center;
 }
 
+/* Базовый стиль кнопок аутентификации: отступы, скругление, курсор */
 .auth-btn {
     padding: 15px 30px;
     margin-top: 5px;
@@ -82,28 +90,31 @@ body::before {
     gap: 8px;
 }
 
+/* Градиентный фон для основной кнопки аутентификации */
 .auth-btn {
     background: linear-gradient(47deg,rgb(31, 0, 49) 0%, rgb(135, 34, 250) 100%);
     color: white;
 }
 
+/* Альтернативный стиль для вторичной кнопки */
 .auth-btn.secondary {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Hover-эффекты для кнопок: подъём, смена фона и тень */
 .auth-btn:hover {
     transform: translateY(-2px); 
     background: linear-gradient(47deg,rgb(40, 0, 78) 0%, rgb(135, 34, 250) 100%);
     box-shadow: 0 5px 15px rgba(74, 0, 134, 0.473);
 }
-
 .auth-btn.secondary:hover {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
+/* Контейнер форм: абсолютное позиционирование и ограничение ширины */
 .forms-container {
     position: absolute;
     top: 50%;
@@ -113,6 +124,7 @@ body::before {
     max-width: 550px;
 }
 
+/* Общий стиль формы входа: фон, отступы, скругление и тень */
 #login-form {
     text-align: center;
     background: rgba(0, 0, 0, 0.8);
@@ -125,6 +137,7 @@ body::before {
     width: 90%;
 }
 
+/* Заголовок формы: цвет, размер и тень */
 .form-title {
     color: #fcfcfc;
     font-size: 2.5rem;
@@ -132,12 +145,14 @@ body::before {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.486);  
 }
 
+/* Группа полей формы: отступ снизу и промежуток между элементами */
 .form-group {
     margin-bottom: 20px;
     display: flex;
     gap: 8px;   
 }
 
+/* Стили для input в формах: ширина, отступ, фон, рамка и плавные переходы */
 .form-group input {
     width: 80%;
     padding: 15px;
@@ -148,17 +163,18 @@ body::before {
     font-size: 1rem;
     transition: all 0.3s;
 }
-
+/* Состояние фокуса на input: подсветка рамки и тень */
 .form-group input:focus {
     outline: none;
     border-color: #a66eff;
     box-shadow: 0 0 0 2px rgba(85, 0, 141, 0.3);
 }
-
+/* Цвет плейсхолдера */
 .form-group input::placeholder {
     color: #aaa;
 }
 
+/* Общий стиль формы регистрации: совпадает со стилем входа */
 #register-form{
     text-align: center;
     background: rgba(0, 0, 0, 0.8);
@@ -171,12 +187,14 @@ body::before {
     width: 90%;
 }
 
+/* Группа полей регистрации: отступ и промежутки */
 .form-register-group {
     margin-bottom: 20px;
     display: flex;
     gap: 8px;   
 }
 
+/* Input в форме регистрации: стиль совпадает с input в форме входа */
 .form-register-group input {
     width: 80%;
     padding: 15px;
@@ -187,13 +205,13 @@ body::before {
     font-size: 1rem;
     transition: all 0.3s;
 }
-
 .form-register-group input:focus {
     outline: none;
     border-color: #a66eff;
     box-shadow: 0 0 0 2px rgba(85, 0, 141, 0.3);
 }
 
+/* Текст рядом с полем выбора папки: цвет и выравнивание */
 .form-register-group p{
     color: #aaa;
     font-size: 1rem;
@@ -201,6 +219,7 @@ body::before {
     margin: auto 0;
 }
 
+/* Кнопка выбора папки: ширина, фон, скругление и hover */
 .select-folder-btn{
     width: 20%;
     height: 100%;
@@ -216,11 +235,11 @@ body::before {
     transition: all 0.3s;
     margin-top: 10px;
 }
-
 .select-folder-btn:hover {
     background: rgba(105, 105, 105, 0.74);
 }
 
+/* Кнопка отправки формы: ширина, градиент и hover-эффект */
 .submit-btn {
     width: 100%;
     padding: 15px;
@@ -233,13 +252,13 @@ body::before {
     cursor: pointer;
     transition: all 0.3s;
 }
-
 .submit-btn:hover {
     transform: translateY(-2px); 
     background: linear-gradient(47deg,rgb(40, 0, 78) 0%, rgb(135, 34, 250) 100%);
     box-shadow: 0 5px 15px rgba(74, 0, 134, 0.473);
 }
 
+/* Кнопка закрытия формы: абсолютное позиционирование и прозрачность */
 .close-form {
     position: absolute;
     top: 15px;
@@ -252,11 +271,11 @@ body::before {
     opacity: 0.7;
     transition: opacity 0.3s;
 }
-
 .close-form:hover {
     opacity: 1;
 }
 
+/* Футер: фиксирован внизу, цвет и ссылки */
 .footer {
     text-align: center;
     margin-bottom: 30px;
@@ -270,11 +289,11 @@ body::before {
     color: #a201ff;
     text-decoration: none;
 }
-
 .footer a:hover {
     text-decoration: underline;
 }
 
+/* Адаптивные стили для маленьких экранов: упрощение контейнера и заголовка */
 @media (max-width: 600px) {
     .main-container {
         width: 95%;

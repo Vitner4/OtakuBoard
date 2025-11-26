@@ -1,198 +1,213 @@
+/* :root — определяет CSS-переменные для основных цветов интерфейса */
 :root {
-    --primary: #3a86ff;
-    --secondary: #8338ec;
-    --accent: #ff006e;
-    --text: #2b2d42;
-    --light: #f8f9fa;
-    --gray: #6c757d;
+    --primary: #3a86ff; /* Основной цвет */
+    --secondary: #8338ec; /* Вторичный цвет */
+    --accent: #ff006e; /* Акцентный цвет */
+    --text: #2b2d42; /* Цвет текста */
+    --light: #f8f9fa; /* Светлый цвет */
+    --gray: #6c757d; /* Серый цвет */
 }
 
+/* Стили для body — фон, выравнивание, размеры */
 body {
-    background: url('src/img/background/ob-bg.png') no-repeat fixed;
-    background-size: cover;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    /* overflow: hidden; */
-    margin: 0%;
+    background: url('src/img/background/ob-bg.png') no-repeat fixed; /* Фоновое изображение */
+    background-size: cover; /* Растягивает фон на весь экран */
+    height: 100%; /* Высота 100% */
+    display: flex; /* Flex-контейнер */
+    justify-content: center; /* Горизонтальное выравнивание по центру */
+    align-items: center; /* Вертикальное выравнивание по центру */
+    position: relative; /* Относительное позиционирование */
+    /* overflow: hidden; */ /* Отключено: скрытие переполнения */
+    margin: 0%; /* Убирает внешние отступы */
 }
 
+/* Затемнение фона через псевдоэлемент */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
-    z-index: -1;
+    content: ''; /* Пустой контент */
+    position: fixed; /* Фиксированное позиционирование */
+    top: 0; /* Отступ сверху */
+    left: 0; /* Отступ слева */
+    width: 100%; /* Ширина 100% */
+    height: 100%; /* Высота 100% */
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)); /* Градиентное затемнение */
+    z-index: -1; /* Помещает под основной контент */
 }  
 
+/* Контейнер формы лицензии */
 .license-form {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative; /* Относительное позиционирование */
+    width: 100%; /* Ширина 100% */
+    height: 100vh; /* Высота экрана */
+    display: flex; /* Flex-контейнер */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
 }
 
+/* Основной блок лицензии */
 .cc-license {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    max-width: 800px;
-    margin: 2rem auto;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* Шрифт */
+    max-width: 800px; /* Максимальная ширина */
+    margin: 2rem auto; /* Внешние отступы сверху и снизу, центрирование */
+    background: white; /* Белый фон */
+    border-radius: 16px; /* Скругление углов */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Тень */
+    overflow: hidden; /* Скрытие переполнения */
+    transition: all 0.3s ease; /* Плавные переходы */
 }
 
+/* Эффект наведения на блок лицензии */
 .cc-license:hover {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Усиленная тень */
+    transform: translateY(-2px); /* Сдвиг вверх */
 }
 
+/* Заголовок лицензии */
 .cc-header {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 2rem;
-    text-align: center;
-    position: relative;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Градиентный фон */
+    color: white; /* Белый текст */
+    padding: 2rem; /* Внутренние отступы */
+    text-align: center; /* Центрирование текста */
+    position: relative; /* Относительное позиционирование */
 }
 
+/* Значок лицензии */
 .cc-badge {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
+    font-size: 3.5rem; /* Размер шрифта */
+    margin-bottom: 1rem; /* Отступ снизу */
+    display: flex; /* Flex-контейнер */
+    justify-content: center; /* Центрирование */
+    gap: 0.5rem; /* Промежуток между элементами */
 }
 
+/* Название лицензии */
 .cc-title {
-    font-size: 1.8rem;
-    margin: 0.5rem 0;
-    font-weight: 700;
+    font-size: 1.8rem; /* Размер шрифта */
+    margin: 0.5rem 0; /* Отступы сверху и снизу */
+    font-weight: 700; /* Жирный шрифт */
 }
 
+/* Подзаголовок лицензии */
 .cc-subtitle {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin: 0;
+    font-size: 1rem; /* Размер шрифта */
+    opacity: 0.9; /* Прозрачность */
+    margin: 0; /* Нет отступов */
 }
 
+/* Контент лицензии */
 .cc-content {
-    padding: 2rem;
+    padding: 2rem; /* Внутренние отступы */
 }
 
+/* Секция лицензии */
 .cc-section {
-    margin-bottom: 2rem;
+    margin-bottom: 2rem; /* Отступ снизу */
 }
 
+/* Заголовок секции */
 .cc-section-title {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    color: var(--text);
+    display: flex; /* Flex-контейнер */
+    align-items: center; /* Выравнивание по центру */
+    gap: 0.75rem; /* Промежуток между элементами */
+    font-size: 1.3rem; /* Размер шрифта */
+    margin-bottom: 1rem; /* Отступ снизу */
+    color: var(--text); /* Цвет текста */
 }
 
+/* Список условий */
 .cc-list {
-    padding-left: 1.5rem;
-    margin: 0;
+    padding-left: 1.5rem; /* Отступ слева */
+    margin: 0; /* Нет внешних отступов */
 }
 
+/* Элементы списка */
 .cc-list li {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
+    margin-bottom: 0.75rem; /* Отступ снизу */
+    line-height: 1.6; /* Межстрочный интервал */
 }
 
+/* Футер лицензии */
 .cc-footer {
-    padding: 1.5rem;
-    text-align: center;
-    background: var(--light);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.5rem; /* Внутренние отступы */
+    text-align: center; /* Центрирование текста */
+    background: var(--light); /* Светлый фон */
+    border-top: 1px solid rgba(0, 0, 0, 0.05); /* Верхняя граница */
 }
 
+/* Ссылка */
 .cc-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
+    color: var(--primary); /* Цвет ссылки */
+    text-decoration: none; /* Без подчеркивания */
+    font-weight: 500; /* Полужирный шрифт */
 }
 
+/* Эффект наведения на ссылку */
 .cc-link:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Подчеркивание при наведении */
 }
 
-/* Language switcher */
+/* Переключатель языка */
 .cc-lang-switcher {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    gap: 0.5rem;
+    position: absolute; /* Абсолютное позиционирование */
+    top: 1rem; /* Отступ сверху */
+    right: 1rem; /* Отступ справа */
+    display: flex; /* Flex-контейнер */
+    gap: 0.5rem; /* Промежуток между кнопками */
 }
 
+/* Кнопка переключения языка */
 .cc-lang-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.2); /* Полупрозрачный фон */
+    border: none; /* Без границы */
+    color: white; /* Белый текст */
+    padding: 0.25rem 0.75rem; /* Внутренние отступы */
+    border-radius: 20px; /* Скругление */
+    cursor: pointer; /* Курсор-указатель */
+    font-size: 0.8rem; /* Размер шрифта */
+    transition: all 0.2s; /* Плавный переход */
 }
 
+/* Эффект наведения на кнопку языка */
 .cc-lang-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3); /* Более светлый фон */
 }
 
+/* Активная кнопка языка */
 .cc-lang-btn.active {
-    background: white;
-    color: var(--primary);
-    font-weight: 500;
+    background: white; /* Белый фон */
+    color: var(--primary); /* Основной цвет текста */
+    font-weight: 500; /* Полужирный шрифт */
 }
 
-/* Close button */
+/* Кнопка закрытия формы */
 .close-form {
-    width: 39px;
-    height: 35px;
-    padding-top: 2px;
-    position: absolute;
-    top: 0.5rem;
-    left: 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.2s;
+    width: 39px; /* Ширина */
+    height: 35px; /* Высота */
+    padding-top: 2px; /* Отступ сверху */
+    position: absolute; /* Абсолютное позиционирование */
+    top: 0.5rem; /* Отступ сверху */
+    left: 1rem; /* Отступ слева */
+    background: rgba(255, 255, 255, 0.2); /* Полупрозрачный фон */
+    border: none; /* Без границы */
+    color: white; /* Белый текст */
+    font-size: 1.5rem; /* Размер шрифта */
+    cursor: pointer; /* Курсор-указатель */
+    text-decoration: none; /* Без подчеркивания */
+    border-radius: 8px; /* Скругление */
+    transition: all 0.2s; /* Плавный переход */
 }
+
+/* Эффект наведения на кнопку закрытия */
 .close-form:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3); /* Более светлый фон */
 }
 
-/* Icons */
-.cc-icon-free { color: #2ecc71; }
-.cc-icon-terms { color: #e67e22; }
-.cc-icon-info { color: #3498db; }
-.fa-creative-commons { color: white; }
-.fa-creative-commons-by { color: #f1c40f; }
-.fa-creative-commons-nc { color: #e74c3c; }
-.fa-creative-commons-sa { color: #2ecc71; }
-
-/* Animations */
+/* Анимация появления */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(10px); } /* Начальное состояние */
+    to { opacity: 1; transform: translateY(0); } /* Конечное состояние */
 }
 
+/* Контент с анимацией появления */
 .cc-lang-content {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.3s ease-out; /* Применение анимации */
 }

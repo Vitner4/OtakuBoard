@@ -1,4 +1,3 @@
-
 // Ждем полной загрузки DOM-дерева перед выполнением скрипта
 document.addEventListener('DOMContentLoaded', function() {
     // Находим все элементы с классом 'tile'

@@ -106,7 +106,6 @@
     margin-right: 2px;
     position: relative;
 }
-
 /* Вставляем символ звезды в псевдоэлемент */
 .stars-container label:before {
     content: "★";
@@ -217,7 +216,6 @@
     font-weight: 600;
     transition: background .12s, border-color .12s;
 }
-
 /* Ховер состояние для кнопки */
 .btn:hover { background: #f8fafc; }
 
@@ -227,7 +225,6 @@
     color: #fff;
     border-color: transparent;
 }
-
 /* Ховер для primary кнопки */
 .btn.primary:hover { background: #3f3f3f; }
 
