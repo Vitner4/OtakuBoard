@@ -1,0 +1,94 @@
+/* Плитка (карточка) — фон с градиентом, размеры и эффекты */
+.tile {
+    --tile-color: rgba(233, 233, 233, 0.9);
+    --tile-color-bottom: rgba(233, 233, 233, 0.9);
+    --solid-color: var(--tile-color);
+    width: 200px;
+    height: 400px;
+    background:   
+        linear-gradient(to bottom, 
+            var(--tile-color) 0%,
+            var(--solid-color) 20%,
+            var(--tile-color-bottom) 100%
+        ),
+        /* Фоновый цвет на случай, если градиент не загрузится */
+        rgba(230, 230, 230, 0.2); /* Фолбэк */
+    backdrop-filter: blur(20px); 
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Иконка-звезда для отметки (фиксированная позиция в углу) */
+.star-icon {
+  height: 30px;
+  width: 50px;
+  border-radius: 5px;
+  background-color: #0db10d;
+  /* Позиция */
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  padding-top: 2px;
+  right: 5px;
+  top: 5px;
+  /* текст */
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font: bold;
+}
+
+/* Ховер-эффект для плитки: масштаб и тень */
+.tile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Изображение в плитке: занимает верхнюю часть, обрезается по размеру */
+.tile-img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: -1;
+}
+
+/* Контент плитки под изображением: позиционирование и размеры */
+.tile-content {
+    margin-top: -10px;
+    padding-left: 10px;
+    position: relative;
+    z-index: 1;
+    width: 180px;
+    height: 100px;
+}
+
+/* Заголовок плитки: ограничение двумя строками и многоточие */
+.tile-title{
+    color: rgb(50, 50, 50);
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем текст двумя строками */
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    max-height: calc(2 * 1.2em);
+    height: 50px;
+    margin-top: 14px;
+}
+
+/* Информационная часть плитки: перенос длинных слов и отступ */
+.tile-info{
+    color: rgb(50, 50, 50);
+    word-break: break-all;
+    overflow: hidden;
+    margin-top: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Ограничиваем текст одной строкой */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

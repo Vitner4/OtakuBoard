@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Главная</a></li>
+                    <li><a href="group.html">Группы</a></li>
+                    <li><a href="create.html">Создать</a></li>
+                    <li><a id="selected-page" href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Блок аккаунта пользователя -->
+    <div class="account-form">
+        <div id="account-btn-container">
+            <a href="account-edit.html"><button id="account-edit" title="Редактировать аккаунт">Ред</button></a>
+            <a href="index.html"><button id="account-logout" title="Выйти из аккаунта">Выйти</button></a>
+        </div>
+        <div class="account-data">
+            <div id="account-avatar-container">
+                <img src="https://lifehacker.ru/wp-content/uploads/2024/12/Podborka_romanticheskix_anime_1733906532.jpg" alt="" id="account-avatar">
+            </div>
+            <h1 id="account-name">Name</h1>
+            <p id="account-id">id: 1223111225</p>
+        </div>
+
+        <div id="account-Partition"></div>
+
+        <div class="account-statistics">
+            <h2 id="account-statistic-title">Статистика</h2>
+            <div class="account-nav-group">
+                <nav class="account-statistics-nav-left">
+                    <ul>
+                        <li id="account-reg-data">Аккаунт создан: 18.11.2025</li>
+                        <li id="account-all-groups">Время работы: 0д.0ч.18м</li>
+                    </ul>
+                </nav>
+
+                <nav class="account-statistics-nav-right">
+                    <ul>
+                        <li id="account-all-cards">Всего карточек: 7</li>
+                        <li id="account-all-groups">Всего групп: 7</li>
+                    </ul>
+                </nav>  
+            </div> 
+        </div>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="js/script.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>

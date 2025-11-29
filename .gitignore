@@ -1,4 +1,5 @@
+/windowTest.py
+/data-test
 /__pycache__
-data-test/
-windowTest.py
-.vscode
+/.vscode
+/.venv
