@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body id="body">
+    <!-- Блок взаимодействия -->
+    <div class="main-container">
+        <!-- Начальная форма -->
+        <form onsubmit="event.preventDefault()" id="welcome-form">
+            <h1 class="welcome-title">Добро пожаловать в OtakuBoard!</h1>
+            <p class="welcome-text">Создайте свою уникальную коллекцию цифрового контента с OtakuBoard</p>
+            <!-- <p class="welcome-text">Удобные карточки, веб-доступ и полный контроль над данными на вашем устройстве.</p> -->
+            
+            <div class="auth-buttons">
+                <button class="auth-btn" id="login-btn">
+                    Войти
+                </button>
+
+                <button class="auth-btn secondary" id="register-btn">
+                    Создать аккаунт
+                </button>
+            </div>
+        </form>
+        
+        <!-- Группа форм -->
+        <div class="forms-container">
+             <!-- Форма входа в аккаунт -->
+            <form id="login-form" class="hidden">
+                <h2 class="form-title">Вход в аккаунт</h2>
+                <div class="form-group">
+                    <input type="link" placeholder="Введите путь до вашего аккаунта" title="Укажите путь до папки вашего аккаунта OtakuBoard" required>
+                    <button type class="select-folder-btn" id="login-url-btn" title="Открыть проводник">Найти..</button>  
+                    <!-- <input type="file" id="fileInput" style="display: none;"> -->
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-login-btn">Войти</button>
+                <button type="button" class="close-form" id="close-login-btn">×</button>
+            </form>
+            
+             <!-- Форма регистрации нового аккаунта -->
+            <form id="register-form" class="hidden">
+                <h2 class="form-title">Создание аккаунта</h2>
+                <div class="form-register-group">
+                    <p id="regName">Имя</p>
+                    <input type="link" placeholder="Введите имя" title="Введите ваше имя. Его можно изменить в дальнейшем" required>
+                </div>
+
+                <div class="form-register-group">
+                    <p id="regID" style="margin-left: 16px ;"> ID</p>
+                    <input type="link" placeholder="Введите ID. Его нельзя будет изменить!" title="Это уникальное имя акканута. Его нельзя будет изменить!" required>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-reg-btn">Создать</button>
+                <button type="button" class="close-form" id="close-reg-btn">×</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Нажимая кнопку, вы соглашаетесь с <a href="pre-license.html">лицензионным соглашением</a> и <a href="privacy-policy.html">политикой конфиденциальности</a></p>
+        </div>     
+    </div>
+
+    <!-- JS импорт -->
+    <script src="js/index.js"></script>
+</body>
+</html>

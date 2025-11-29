@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Вернуться назад</a></li>
+                    <li><a href="page.html">Просмотр</a></li>
+                    <li><a id="selected-page" href="#">Редактировать</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Блок с контентом карточки -->
+    <form>
+        <section class="content-card">
+            <div class="content-columns">
+                <div class="content-details">
+                    <!-- <h2 class="content-title">Название</h2> -->
+                    <label class="field">
+                        <span class="label-text">Название</span>
+                        <input type="text" name="name" id="name" placeholder="Укажите название" value=""/>
+                    </label>
+
+                    <div class="small-fields">
+                        <label class="field">
+                            <span class="label-text">Год</span>
+                            <input type="number" name="year" id="year" placeholder="Укажите год" value=""/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Автор</span>
+                            <input type="text" name="autor" id="autor" placeholder="Имя автора" value=""/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Жанр</span>
+                            <input type="text" name="genre" id="genre" placeholder="Укажите жанр" value=""/>
+                        </label>
+
+                         <label class="field">
+                            <span class="label-text">Тип контента</span>
+                            <input type="text" name="content" id="content" placeholder="Укажите тип контента" value=""/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Ссылка на контент</span>
+                            <input type="text" name="link" id="link" placeholder="Укажите ссылку" value=""/>
+                        </label>
+                    </div>
+
+                    <label class="field full">
+                        <span class="label-text">Комментарии</span>
+                        <textarea name="description" id="description" rows="8" placeholder="Ваши комментарии" value=""></textarea>
+                    </label>
+
+                    <div class="star-rating"> 
+                        <span class="label-text" style="margin-bottom: 0px;">Рейтинг</span>
+                        <div class="stars-container">
+                            <input type="radio" id="star10" name="rating" value="10" onclick="getSelectedStar('star10')">
+                            <label for="star10" title="10"></label>
+                            
+                            <input type="radio" id="star9" name="rating" value="9" onclick="getSelectedStar('star9')">
+                            <label for="star9" title="9"></label>
+                            
+                            <input type="radio" id="star8" name="rating" value="8" onclick="getSelectedStar('star8')">
+                            <label for="star8" title="8"></label>
+                            
+                            <input type="radio" id="star7" name="rating" value="7" onclick="getSelectedStar('star7')">
+                            <label for="star7" title="7"></label>
+                            
+                            <input type="radio" id="star6" name="rating" value="6" onclick="getSelectedStar('star6')">
+                            <label for="star6" title="6"></label>
+                            
+                            <input type="radio" id="star5" name="rating" value="5" onclick="getSelectedStar('star5')">
+                            <label for="star5" title="5"></label>
+                            
+                            <input type="radio" id="star4" name="rating" value="4" onclick="getSelectedStar('star4')">
+                            <label for="star4" title="4"></label>
+                            
+                            <input type="radio" id="star3" name="rating" value="3" onclick="getSelectedStar('star3')">
+                            <label for="star3" title="3"></label>
+                            
+                            <input type="radio" id="star2" name="rating" value="2" onclick="getSelectedStar('star2')">
+                            <label for="star2" title="2"></label>
+                            
+                            <input type="radio" id="star1" name="rating" value="1" onclick="getSelectedStar('star1')">
+                            <label for="star1" title="1"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Сохранить</button>
+                        <button type="button" class="btn">Отмена</button>
+                    </div>
+                </div>
+
+                <aside class="cover-panel">
+                    <label class="label-text">Обложка</label>
+
+                    <div class="cover-preview" aria-live="polite" >
+                        <div class="cover-placeholder" id="cover-preview">Предпросмотр обложки появится здесь</div>
+                    </div>
+
+                    <label class="field file-field">
+                        <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+                        <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на обложку">
+                    </label>
+
+                    <div class="cover-actions">
+                        <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </form>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="js/script.js"></script>
+    <script src="js/page.js"></script>
+    <script src="js/set-cover.js"></script>
+</body>
+</html>

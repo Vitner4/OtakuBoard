@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/group-view.css">
+    <link rel="stylesheet" href="css/card.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Главная</a></li>
+                    <li><a id="selected-page" href="group.html">Группы</a></li>
+                    <li><a href="create.html">Создать</a></li>
+                    <li><a href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Группы карточек -->
+    <div class="group-form">
+        <h1 class="group-title">Группа: Название группы</h1>
+        <div class="groups-block-container">
+            <!--!! Пример !!-->
+            <div id="page_name" class="tile">                 
+                <img class="tile-img" src="css/src/img/test/solo leveling.jpg" alt="SoloLeveling">
+                <div class="tile-content">
+                    <h3 class="tile-title">Solo Leveling</h3>
+                    <p class="tile-info">Экшен</p>
+                    <div class="star-icon">10★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/SlimeDataKen.jpg" alt="SlimeDataKen">
+                <div class="tile-content">
+                    <h3 class="tile-title">О моём перерождении в слизь</h3>
+                    <p class="tile-info">Экшен</p>
+                    <div class="star-icon">0★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/DrSTONE.jpg" alt="DrSTONE">
+                <div class="tile-content">
+                    <h3 class="tile-title">Dr.STONE</h3>
+                    <p class="tile-info">Приключения</p>
+                    <div class="star-icon">6★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/Бездомный бог.jpg" alt="Бездомный бог">
+                <div class="tile-content">
+                    <h3 class="tile-title">Бездомный бог</h3>
+                    <p class="tile-info">Фэнтези</p>
+                    <div class="star-icon">2★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/Ходячий замок.jpg" alt="Ходячий замок">
+                <div class="tile-content">
+                    <h3 class="tile-title">Ходячий замок</h3>
+                    <p class="tile-info">Драма</p>
+                    <div class="star-icon">9★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/Наруто.jpg" alt="Наруто">
+                <div class="tile-content">
+                    <h3 class="tile-title">Наруто</h3>
+                    <p class="tile-info">Приключения</p>
+                    <div class="star-icon">8★</div> 
+                </div>
+            </div>
+
+            <div id="page_name" class="tile">
+                <img class="tile-img" src="css/src/img/test/Нет игры - нет жизни.jpg" alt="Нет игры - нет жизни">
+                <div class="tile-content">
+                    <h3 class="tile-title">Нет игры - нет жизни</h3>
+                    <p class="tile-info">Приключения</p>
+                    <div class="star-icon">1★</div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="js/script.js"></script>
+    <script src="js/group-view.js"></script>
+    <script src="js/card.js"></script>
+</body>
+</html>

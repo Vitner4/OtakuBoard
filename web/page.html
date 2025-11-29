@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Вернуться назад</a></li>
+                    <li><a id="selected-page" href="">Просмотр</a></li>
+                    <li><a href="page-edit.html">Редактировать</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Блок с контентом карточки -->
+    <form>
+        <section class="content-card">
+            <div class="content-columns">
+                <div class="content-details">
+                    <h2 class="content-title">Название не указано</h2>
+
+                    <div class="small-fields">
+                        <label class="field">
+                            <span class="label-text">Год</span>
+                            <input type="text" name="year" id="year" placeholder="Не указан" value="" readonly/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Автор</span>
+                            <input type="text" name="autor" id="autor" placeholder="Не указан" value="" readonly/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Жанр</span>
+                            <input type="text" name="genre" id="genre" placeholder="Не указан" value="" readonly/>
+                        </label>
+
+                         <label class="field">
+                            <span class="label-text">Тип контента</span>
+                            <input type="text" name="content" id="content" placeholder="Не указан" value="" readonly/>
+                        </label>
+
+                        <label class="field">
+                            <span class="label-text">Ссылка на контент</span>
+                            <input type="text" name="link" id="link" placeholder="Не указана" value="" readonly/>
+                        </label>
+                    </div>
+
+                    <label class="field full">
+                        <span class="label-text">Комментарии</span>
+                        <textarea name="description" id="description" rows="8" placeholder="Пусто" value="" readonly></textarea>
+                    </label>
+
+                    <span class="label-text" style="margin-bottom: 5px;">Рейтинг</span>
+                    <div class="rating-preview-box" role="img">
+                        <div class="star-wrap">
+                            <svg class="star" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0" stop-color="#FFD54A"/>
+                                        <stop offset="1" stop-color="#FFC107"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M12 2.2l2.6 5.27 5.82.85-4.21 4.1.99 5.78L12 16.9 6.8 18.2l.99-5.78L3.58 8.3l5.82-.85L12 2.2z" fill="url(#g)" stroke="#C68600" stroke-width="0.6"/>
+                            </svg>
+                        </div>
+
+                        <div class="rating-text">
+                            <div class="rating-score">0</div>
+                            <div class="rating-max">из 10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="cover-panel">
+                    <label class="label-text">Обложка</label>
+
+                    <div class="cover-preview" aria-live="polite" id="cover-preview">
+                        <div class="cover-placeholder" id="cover-preview">Изображение обложки отсутствует</div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </form>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="js/script.js"></script>
+    <script src="js/page.js"></script>
+</body>
+</html>
