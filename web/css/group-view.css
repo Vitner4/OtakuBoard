@@ -45,10 +45,33 @@
     margin-bottom: 15px;
 }
 
+/* Шапка формы группы */
+.group-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 /* Заголовок */
 .group-title{
     font-size: 2.2rem;
     margin-bottom: 5px;
+}
+
+/* Тип контента группы */
+.group-content-info{
+    width: 100%;
+    display: inline;
+    font-size: 1.2rem;
+    color: #4d4d4d;
+    margin-top: -50px;
+}
+
+/* Тип группы и колличество карточек */
+#group-type, #group-cards{
+    display: inline;
 }
 
 /* Контейнер с блоками */
@@ -153,4 +176,17 @@
 .tile:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Кнопка редактирования группы */
+#group-edit{
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
 }

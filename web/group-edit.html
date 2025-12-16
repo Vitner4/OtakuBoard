@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/group-edit.css">
 </head>
 
 <body>
@@ -20,44 +20,44 @@
                     <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
                     <h1 class="page-title">OtakuBoard</h1>
                 </a>
-            </div>   
+            </div>  
 
             <nav class="site-nav">
                 <ul>
                     <li><a href="list-page.html">Главная</a></li>
-                    <li><a href="group.html">Группы</a></li>
+                    <li><a id="selected-page" href="group.html">Группы</a></li>
                     <li><a href="create.html">Создать</a></li>
                     <li><a href="account.html">Аккаунт</a></li>
-                    <li><a id="selected-page" href="settings.html">Настройки</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Блок настроек приложения -->
-    <div class="settings-form">
-        <h1 id="title">Настройки приложения</h1>
-        <div class="settings-data-block">
-            <div class="settings-data"> 
-                <p id="gradient-cards-p" >Градиент у карточек</p>
-                <label class="switch"><input type="checkbox" id="gradient-cards-toggle" checked><span class="slider round"></span></label>
-            </div>
+    <!-- Редактирование группы -->
+    <div class="form-container">
+        <h1>Редактирование группы</h1>
+        <form>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" placeholder="Укажите название">
 
-            <div class="settings-data"> 
-                <p id="logging-p" >Ведение логов</p>
-                <label class="switch"><input type="checkbox" id="logging-toggle" checked><span class="slider round"></span></label>
-            </div>
+            <label for="type">Тип контента:</label>
+            <input type="text" id="type" name="type" placeholder="Укажите тип контента">
 
-            <div class="settings-data"> 
-                <p id="language-select-p">Язык интерфейса</p>
-                <select id="language-select">
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
+            <label for="cover">Обложка:</label>
+            <div class="cover-group">
+                <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
+                <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на обложку">
             </div>
-
-            <p id="app-version">Version 0.1</p>
-        </div>  
+            
+            <div id="cover-preview" class="cover-preview">
+                <p>Предпросмотр обложки появится здесь</p>
+            </div>
+            <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
+            
+            <button type="submit" id="edit-btn">Сохранить</button>
+            <button type="submit" id="delete-btn">Удалить группу</button>
+        </form>
     </div>
 
     <!-- Подвал сайта -->
@@ -79,12 +79,7 @@
 
     <!-- JS импорт -->
     <script src="js/script.js"></script>
-    <script src="js/settings.js"></script>
-
-    <!-- <script>
-        document.getElementById('dark-mode-toggle').addEventListener('change', function(e) {
-            console.log('Значение переключателя:', e.target.checked);
-        });
-    </script> -->
+    <script src="js/set-cover.js"></script>
+    <script src="js/group-edit.js"></script>
 </body>
 </html>
