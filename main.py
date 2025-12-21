@@ -2,8 +2,9 @@
 # Author: Vitner4
 
 import eel
-import config
 import log
+import config
+import cardManager
 
 try:
    # Проверка и загрузка компонентов перед запуском приложения
@@ -18,13 +19,6 @@ try:
 
    # Запуск приложения
    log.log("main.py", "Запуск приложения!") # Логирование 
-   eel.start(main_page, mode=open_mode, port=port_value) 
+   eel.start(main_page, mode=open_mode, port=port_value, block=True) # Запуск приложения с указанными параметрами
 except Exception as e:
-   log.log("main.py", f"Произошла ошибка при открытии приложения: {str(e)}") # Логирование 
-
-
-
-
-
-
-
+   log.log("main.py", f"Произошла ошибка при открытии приложения: {str(e)}") # Логирование

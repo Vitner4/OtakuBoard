@@ -145,3 +145,10 @@ form textarea {
     text-align: center;
     padding: 10px;
 }
+
+/* Стили статуса */
+#status {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}

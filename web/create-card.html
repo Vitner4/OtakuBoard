@@ -51,7 +51,7 @@
             <input type="number" id="year" name="year" placeholder="Укажите год">
 
             <label for="type">Тип контента:</label>
-            <input type="text" id="type" name="type" placeholder="Укажите тип контента">
+            <input type="text" id="type" name="type" placeholder="Укажите тип контента" >
 
             <label for="link">Ссылка на контент:</label>
             <input type="text" id="link" name="link" placeholder="Укажите ссылку на контент">
@@ -105,7 +105,9 @@
             </div>
             <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать обложку</button>
 
-            <button type="submit" id="create-btn">Создать</button>
+            <p id="status"></p>
+
+            <button type="button" id="create-btn" onclick="createNewCard()">Создать</button>
         </form>
     </div>
 
@@ -127,8 +129,9 @@
     </footer>
 
     <!-- JS импорт -->
+    <script src="/eel.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/create-card.js"></script>
     <script src="js/set-cover.js"></script>
+    <script src="js/card-manager.js"></script>
 </body>
 </html>

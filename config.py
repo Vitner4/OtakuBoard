@@ -1,10 +1,10 @@
 # Type: работа с файлом конфигурации
 # Author: Vitner4
 
-import json
-import sys
 import os
+import sys
 import log
+import json
 
 # Данные файла конфигурации
 config_path = "config.json" # Путь к файлу конфигурации
@@ -12,13 +12,18 @@ config_data = {} # Данные конфигурации, загружанные
 
 # Стандартные данные конфигурации
 default_config_data = { 
+    "app": {
+    "name": "OtakuBoard"
+    },
+
     "account": {
         "connection": "false",
         "account_link": "none",
     },
 
     "settings": {
-        "main_page": "index.html",
+        "start_page": "index.html",
+        "main_page": "list-page.html",
         "open_mode": "chrome",
         "port_value": 0,
         "theme": "light",
@@ -29,7 +34,9 @@ default_config_data = {
 
     "directories": {
         "web_dir": "web",
-        "account_dir": "account"
+        "account_dir": "account",
+        "card_dir": "cards",
+        "group_dir": "groups"
     }
 }
 
