@@ -5,8 +5,8 @@ let star = "0"; // Переменная для хранения выбранно
 
 // Получение выбранной звезды рейтинга
 function getSelectedStar(starID) {
-    let starChoosed = document.getElementById(starID);
-    star = starChoosed.value;
+    let starChosen = document.getElementById(starID);
+    star = starChosen.value;
 }
 
 // Функция получения локальной обложки из поля
@@ -49,7 +49,7 @@ async function createNewCard() {
             // Собираем данные формы
             const formData = {
             name: document.getElementById('name').value,
-            autor: document.getElementById('autor').value,
+            author: document.getElementById('author').value,
             genre: document.getElementById('genre').value,
             year: document.getElementById('year').value,
             type: document.getElementById('type').value,

@@ -34,7 +34,7 @@ def create_card(formData):
         with open(accountDir + name, 'w', encoding='utf-8') as file: #!! Добавить account и cardDir в путь при реализации скрипта аккаунтов
             json.dump(cards, file, ensure_ascii=False, indent=4)
 
-        # Возвращаем статус выполнения для фронтенда
+        # Возвращаем статус выполнения для frontend
         log.log("cardManager.py", f"Создана новая карточка: {name}")
         return {"status": "success"}
     except Exception as e:

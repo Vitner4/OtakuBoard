@@ -35,12 +35,13 @@
             <form id="login-form" class="hidden">
                 <h2 class="form-title">Вход в аккаунт</h2>
                 <div class="form-group">
-                    <input type="link" placeholder="Введите путь до вашего аккаунта" title="Укажите путь до папки вашего аккаунта OtakuBoard" required>
-                    <button type class="select-folder-btn" id="login-url-btn" title="Открыть проводник">Найти..</button>  
+                    <input id="link-field" type="link" placeholder="Введите путь до папки вашего аккаунта" title="Укажите путь до папки вашего аккаунта OtakuBoard. Пример названия папки: @MasterFal.ob">
+                    <!-- <button type class="select-folder-btn" id="login-url-btn" title="Открыть проводник">Найти..</button>   -->
                     <!-- <input type="file" id="fileInput" style="display: none;"> -->
                 </div>
 
-                <button type="submit" class="submit-btn" id="submit-login-btn">Войти</button>
+                <p id="login-status" class="status"></p>
+                <button type="button" class="submit-btn" id="submit-login-btn" onclick="accountLogin()">Войти</button>
                 <button type="button" class="close-form" id="close-login-btn">×</button>
             </form>
             
@@ -48,16 +49,17 @@
             <form id="register-form" class="hidden">
                 <h2 class="form-title">Создание аккаунта</h2>
                 <div class="form-register-group">
-                    <p id="regName">Имя</p>
-                    <input type="link" placeholder="Введите имя" title="Введите ваше имя. Его можно изменить в дальнейшем" required>
+                    <p>Имя</p>
+                    <input type="text" id="regName" placeholder="Введите имя" title="Введите ваше имя. Его можно изменить в дальнейшем" maxlength="25">
                 </div>
 
                 <div class="form-register-group">
-                    <p id="regID" style="margin-left: 16px ;"> ID</p>
-                    <input type="link" placeholder="Введите ID. Его нельзя будет изменить!" title="Это уникальное имя акканута. Его нельзя будет изменить!" required>
+                    <p style="margin-left: 16px ;"> ID</p>
+                    <input type="text" id="regID" placeholder="Введите ID. Его нельзя будет изменить!" title="Это уникальное имя аккаунта. Его нельзя будет изменить!" maxlength="25">
                 </div>
 
-                <button type="submit" class="submit-btn" id="submit-reg-btn">Создать</button>
+                <p id="status" class="status"></p>
+                <button type="button" class="submit-btn" id="submit-reg-btn" onclick="createNewAccount()">Создать</button>
                 <button type="button" class="close-form" id="close-reg-btn">×</button>
             </form>
         </div>
@@ -70,5 +72,6 @@
     <!-- JS импорт -->
     <script src="/eel.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/account-manager.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import eel
 import log
 import config
 import cardManager
+import accountManager
 
 try:
    # Проверка и загрузка компонентов перед запуском приложения
@@ -18,7 +19,8 @@ try:
    port_value = config.get_value("settings", "port_value") # Порт для запуска приложения
 
    # Запуск приложения
-   log.log("main.py", "Запуск приложения!") # Логирование 
-   eel.start(main_page, mode=open_mode, port=port_value, block=True) # Запуск приложения с указанными параметрами
+   if __name__ == "__main__":
+      log.log("main.py", "Запуск приложения!") # Логирование 
+      eel.start(main_page, mode=open_mode, port=port_value, block=True, cmdline_args=['--start-maximized']) # Запуск приложения с указанными параметрами
 except Exception as e:
    log.log("main.py", f"Произошла ошибка при открытии приложения: {str(e)}") # Логирование

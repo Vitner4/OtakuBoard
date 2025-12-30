@@ -8,7 +8,7 @@ import json
 
 # Данные файла конфигурации
 config_path = "config.json" # Путь к файлу конфигурации
-config_data = {} # Данные конфигурации, загружанные из файла
+config_data = {} # Данные конфигурации, загруженные из файла
 
 # Стандартные данные конфигурации
 default_config_data = { 
@@ -18,7 +18,8 @@ default_config_data = {
 
     "account": {
         "connection": "false",
-        "account_link": "none",
+        "account_id": "none",
+        "account_link": "none"
     },
 
     "settings": {
@@ -36,7 +37,10 @@ default_config_data = {
         "web_dir": "web",
         "account_dir": "account",
         "card_dir": "cards",
-        "group_dir": "groups"
+        "group_dir": "groups",
+        "src_dir": "src",
+        "cover_dir": "cover",
+        "avatar_dir": "avatar"
     }
 }
 
@@ -55,7 +59,7 @@ def config_loading():
         log.log("config.py", f"Ошибка при проверке и загрузке файла конфигурации: {str(e)}") # Логирование
         sys.exit(1)
  
-# Фунцкия проверки на наличие файла конфигурации
+# Функция проверки на наличие файла конфигурации
 def check_config_file():
     if not os.path.exists(config_path):
         # Если файла нет, создаем его с стандартными настройками
@@ -95,7 +99,7 @@ def restore_default_config():
         with open(config_path, 'w', encoding='utf-8') as f:
             json.dump(default_config_data, f, ensure_ascii=False, indent=4)
         config_data = default_config_data
-        log.log("config.py", "Файл конфигурации успешно восстановлён к стандартным настройкам!") # Логирование
+        log.log("config.py", "Файл конфигурации успешно восстановлен к стандартным настройкам!") # Логирование
     except Exception as e:
         log.log("config.py", f"Ошибка восстановления файла конфигурации и закрытие приложения: {str(e)}") # Логирование
         sys.exit(1)
@@ -118,7 +122,9 @@ def get_value_from_file(section, key):
 def set_value(section, key, new_value):
     global config_data
     try:
+        # Установка значения в загруженных данных config_data
         config_data[section][key] = new_value
+        # Установка значения в файл
         with open(config_path, 'w', encoding='utf-8') as f:
             json.dump(config_data, f, ensure_ascii=False, indent=4)
         log.log("config.py", "Файл конфигурации успешно обновлён!") # Логирование

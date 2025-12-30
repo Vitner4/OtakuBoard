@@ -154,7 +154,7 @@ body::before {
 
 /* Стили для input в формах: ширина, отступ, фон, рамка и плавные переходы */
 .form-group input {
-    width: 80%;
+    width: 100%;
     padding: 15px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -303,4 +303,12 @@ body::before {
     h1 {
         font-size: 2rem;
     }
+}
+
+/* Стили статуса */
+.status {
+    color: #fcfcfc;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
 }
