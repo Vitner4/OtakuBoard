@@ -175,8 +175,6 @@ async function accountLogin(){
     }  
 }
 
-// Функция выхода из аккаунта
-
 // Функция получения данных аккаунта
 async function getData(){
     // Процесс получения данных аккаунта
@@ -184,7 +182,7 @@ async function getData(){
     
     // Установка данных аккаунта
     document.getElementById('account-name').textContent = func['name']; 
-    document.getElementById('account-id').textContent = "id: " + func['id'];
+    document.getElementById('account-id').textContent = func['id'];
     document.getElementById('account-reg-data').textContent = "Аккаунт создан: " + func['timestamp'];
     document.getElementById('account_work_time').textContent = "Время работы: " + func['work_time'] + "д"; //! Решить вопрос с счётом времени работы программы
     document.getElementById('account-all-cards').textContent = "Всего карточек: " + func['cards'];
@@ -195,3 +193,23 @@ async function getData(){
 
 // Функция редактирования аккаунта  
 
+// Функция выхода из аккаунта
+logoutBtn = document.getElementById('account-logout');
+
+async function accountLogout(){
+    // Процесс выхода из аккаунта
+    func = await eel.account_logout("true")();
+    
+    if(func['status'] == 'success'){
+        // Переход на начальную страницу после успешного выхода из аккаунта
+        window.location.href = "index.html";
+    }
+    else{
+        // Вывод ошибки при неудачном выходе из аккаунта
+        alert("Ошибка при выходе из аккаунта: " + func['message']);
+    }
+}
+
+logoutBtn.addEventListener('click', () => {
+    accountLogout();
+});

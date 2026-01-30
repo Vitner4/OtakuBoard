@@ -122,7 +122,7 @@ def account_login(link):
             if file_path.exists():
                 log.log("accountManager.py", f"Папка аккаунта найдена! Ссылка: {link['link']}")
 
-                # Поиск файла аккаунта по типу файла
+                # Поиск файла аккаунта по типу
                 for fp in file_path.glob(f"*{acc_type}*"):
                     if fp.is_file():
                         log.log("accountManager.py", f"Найден файл аккаунта: {fp.name}")
@@ -158,15 +158,12 @@ def account_login(link):
         log.log("accountManager.py", f"Произошла ошибка при попытке найти аккаунт на стороне Python! ({e})")
         return {"status": "error", "message": f"Произошла ошибка при попытке найти аккаунт на стороне Python! ({e})"}
 
-# Функция выхода из аккаунта
-
 # Функция отправки данных аккаунта на frontend
 @eel.expose
 def sending_account_data():
     # Проверка статуса загрузки данных аккаунта
     if data_loading_status_get() == True:    
         try:
-            log.log("accountManager.py", "Отправка данных аккаунта на frontend")
             return account_data_get()
         except Exception as e:
             # Возвращаем False при ошибке отправки данных аккаунта
@@ -178,3 +175,30 @@ def sending_account_data():
         return {"status": "error", "message": "Произошла ошибка при отправке данных аккаунта. Аккаунт не подключен!"}
 
 # Функция редактирования аккаунта
+
+# Функция выхода из аккаунта
+@eel.expose
+def account_logout(value):
+    try:
+        if value == "true":
+            # Запись id аккаунта для log
+            acc_id = account_data_get_value('id')
+
+            # Очистка данных аккаунта и статуса загрузки
+            account_data_set(None)
+            data_loading_status_set(False)
+
+            # Очистка пути до аккаунта в Config.json
+            config.set_value("account", "account_link", config.get_default_config_value("account", "account_link"))
+            config.set_value("account", "account_id", config.get_default_config_value("account", "account_id"))
+            config.set_value("account", "connection", config.get_default_config_value("account", "connection"))
+
+            # Возвращаем True при успешном выходе из аккаунта
+            log.log("accountManager.py", f"Выход из аккаунта {acc_id} выполнен!")
+            return {"status": "success"}
+        else:
+            return {"status": "error", "message": f"Отмена выхода из аккаунта {acc_id}!"}
+    except Exception as e:
+        return {"status": "error", "message": f"Произошла ошибка при выходе из аккаунта {acc_id} на стороне Python! ({e})"}       
+
+

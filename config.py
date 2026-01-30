@@ -130,3 +130,7 @@ def set_value(section, key, new_value):
         log.log("config.py", "Файл конфигурации успешно обновлён!") # Логирование
     except Exception as e:
         log.log("config.py", f"Ошибка обновления файла конфигурации: {str(e)}") # Логирование
+
+# Getter для стандартных значений конфигурации
+def get_default_config_value(section, key):
+    return default_config_data[section][key]

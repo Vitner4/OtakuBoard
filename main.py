@@ -20,6 +20,7 @@ try:
 
    # Запуск приложения
    if __name__ == "__main__":
+      #! Добавить проверку наличия аккаунта и открывать определенное окно в зависимости от этого
       log.log("main.py", "Запуск приложения!") # Логирование 
       eel.start(main_page, mode=open_mode, port=port_value, block=True, cmdline_args=['--start-maximized']) # Запуск приложения с указанными параметрами
 except Exception as e:
