@@ -142,7 +142,8 @@ async function accountLogin(){
     }else{
         // Собираем данные
         const formData = {
-                link: document.getElementById('link-field').value
+                link: document.getElementById('link-field').value,
+                write_data_to_config: "true"
         };
 
         // Отправляем данные

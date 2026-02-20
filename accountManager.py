@@ -135,12 +135,15 @@ def account_login(link):
                         data_loading_status_set(True) 
                         
                         # Записываем данные аккаунта в Config.json
-                        config.set_value("account", "account_link", link['link'])
-                        config.set_value("account", "account_id", account_data_get_value('id'))
-                        config.set_value("account", "connection", 'true')
+                        if link['write_data_to_config'] == "true":
+                            config.set_value("account", "account_link", link['link'])
+                            config.set_value("account", "account_id", account_data_get_value('id'))
+                            config.set_value("account", "connection", 'true')
+                        else:
+                            log.log("accountManager.py", "Запись данных аккаунта в Config.json пропущена")
                         
                         # Возвращаем True при успешном нахождении аккаунта
-                        log.log("accountManager.py", "Файл аккаунта найден и загружен!")
+                        log.log("accountManager.py", f"Вход в аккаунт {account_data_get_value('id')} успешно выполнен!")
                         return {"status": "success"}
                     else:
                         # Возвращаем False при ошибке поиска файла аккаунта
@@ -167,8 +170,8 @@ def sending_account_data():
             return account_data_get()
         except Exception as e:
             # Возвращаем False при ошибке отправки данных аккаунта
-            log.log("accountManager.py", "Произошла ошибка при отправке данных аккаунта! ({e})")
-            return {"status": "error", "message": "Произошла ошибка при отправке данных аккаунта! ({e})"}
+            log.log("accountManager.py", f"Произошла ошибка при отправке данных аккаунта! ({e})")
+            return {"status": "error", "message": f"Произошла ошибка при отправке данных аккаунта! ({e})"}
     else:
         # Возвращаем False при ошибке отправки данных аккаунта
         log.log("accountManager.py", "Произошла ошибка при отправке данных аккаунта. Аккаунт не подключен!")
