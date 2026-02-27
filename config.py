@@ -36,11 +36,12 @@ default_config_data = {
     "directories": {
         "web_dir": "web",
         "account_dir": "account",
-        "card_dir": "cards",
-        "group_dir": "groups",
-        "src_dir": "src",
+        "data_dir": "data",
         "cover_dir": "cover",
-        "avatar_dir": "avatar"
+        "card_cvr_dir": "card",
+        "group_cvr_dir": "group",
+        "profile_dir": "profile",
+        "logo_dir": "logo"
     }
 }
 

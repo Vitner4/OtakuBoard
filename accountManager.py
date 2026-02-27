@@ -41,7 +41,7 @@ def data_loading_status_set(data):
 
 # Функция создания нового аккаунта
 @eel.expose
-def create_new_account(formData):
+def create_new_account(formData):    
     try:
         # Добавляем доп. поля в данные аккаунта
         # Модифицируем ID
@@ -59,31 +59,28 @@ def create_new_account(formData):
         formData['for'] = config.get_value("app", "name")
 
         # Определяем имена директорий
-        acc_dir = f"{formData['id']}{acc_suffix}" # Директория аккаунта
         acc_place = config.get_value("directories", "account_dir") # Место создания аккаунта
-        card_dir = config.get_value("directories", "card_dir") # Директория карточек
-        group_dir = config.get_value("directories", "group_dir") # Директория групп 
-        src_dir = config.get_value("directories", "src_dir") # Директория источника
+        acc_dir = f"{formData['id']}{acc_suffix}" # Директория аккаунта
+        data_dir = config.get_value("directories", "data_dir") # Директория данных
         cover_dir = config.get_value("directories", "cover_dir") # Директория обложек
-        avatar_dir = config.get_value("directories", "avatar_dir") # Директория аватара аккаунта
-
+        card_cvr_dir = config.get_value("directories", "card_cvr_dir") # Директория обложек карточек
+        group_cvr_dir = config.get_value("directories", "group_cvr_dir") # Директория обложек групп
+        profile_dir = config.get_value("directories", "profile_dir") # Директория профиля
+        logo_dir = config.get_value("directories", "logo_dir") # Директория логотипа аккаунта
+               
         # Определяем имена файлов
         acc_file = f"{formData['id']}{acc_type}" # Файл аккаунта
 
         # Создаём директорию аккаунта
         os.mkdir(f'{acc_place}/{acc_dir}')
-        # Создаём директорию src
-        os.mkdir(f'{acc_place}/{acc_dir}/{src_dir}')
-        os.mkdir(f'{acc_place}/{acc_dir}/{src_dir}/{avatar_dir}')
-        # Создаём директорию cards
-        os.mkdir(f'{acc_place}/{acc_dir}/{card_dir}')
-        os.mkdir(f'{acc_place}/{acc_dir}/{card_dir}/{src_dir}')
-        os.mkdir(f'{acc_place}/{acc_dir}/{card_dir}/{src_dir}/{cover_dir}')
-        # Создаём директорию groups
-        os.mkdir(f'{acc_place}/{acc_dir}/{group_dir}')
-        os.mkdir(f'{acc_place}/{acc_dir}/{group_dir}/{src_dir}')
-        os.mkdir(f'{acc_place}/{acc_dir}/{group_dir}/{src_dir}/{cover_dir}')
-
+        # Создаём директорию data
+        os.mkdir(f'{acc_place}/{acc_dir}/{data_dir}')
+        os.mkdir(f'{acc_place}/{acc_dir}/{data_dir}/{cover_dir}')
+        # Создаём директорию profile
+        os.mkdir(f'{acc_place}/{acc_dir}/{profile_dir}')
+        os.mkdir(f'{acc_place}/{acc_dir}/{profile_dir}/{logo_dir}')
+        os.mkdir(f'{acc_place}/{acc_dir}/{data_dir}/{cover_dir}/{card_cvr_dir}')
+        os.mkdir(f'{acc_place}/{acc_dir}/{data_dir}/{cover_dir}/{group_cvr_dir}')
         # Создаём файл аккаунта
         with open(f'{acc_place}/{acc_dir}/{acc_file}', 'w', encoding='utf-8') as file:
             json.dump(formData, file, ensure_ascii=False, indent=4)
@@ -100,16 +97,15 @@ def create_new_account(formData):
         # Возвращение успешного создания аккаунта
         log.log("accountManager.py", f"Новый аккаунт {formData['id']} создан!")
         return {"status": "success"}
-    except Exception as e:
-        if FileExistsError:
-            # Возвращение ошибки при создании уже существующего аккаунта
-            log.log("accountManager.py", f"Произошла ошибка при создании аккаунта. Аккаунт {formData['id']} уже существует! ({e})")
-            return {"status": "error", "message": f"Произошла ошибка при создании аккаунта. Аккаунт {formData['id']} уже существует!"}
-        else:
-            # Возвращение ошибки при создании
-            log.log("accountManager.py", f"Произошла ошибка при создании аккаунта на стороне Python! ({e})")
-            return {"status": "error", "message": f"Произошла ошибка при создании аккаунта на стороне Python! ({str(e)})"}
-
+    # Возвращение ошибки при создании уже существующего аккаунта
+    except FileExistsError as e:       
+        log.log("accountManager.py", f"Произошла ошибка при создании аккаунта. Аккаунт {formData['id']} уже существует! ({e})")
+        return {"status": "error", "message": f"Произошла ошибка при создании аккаунта. Аккаунт {formData['id']} уже существует!"}
+    # Возвращение ошибки при создании аккаунта
+    except Exception as e:      
+        log.log("accountManager.py", f"Произошла ошибка при создании аккаунта на стороне Python! ({e})")
+        return {"status": "error", "message": f"Произошла ошибка при создании аккаунта на стороне Python! ({str(e)})"}
+    
 # Функция входа в аккаунт
 @eel.expose
 def account_login(link):
@@ -121,7 +117,7 @@ def account_login(link):
             # Проверка на существование папки аккаунта
             if file_path.exists():
                 log.log("accountManager.py", f"Папка аккаунта найдена! Ссылка: {link['link']}")
-
+      
                 # Поиск файла аккаунта по типу
                 for fp in file_path.glob(f"*{acc_type}*"):
                     if fp.is_file():
@@ -142,13 +138,21 @@ def account_login(link):
                         else:
                             log.log("accountManager.py", "Запись данных аккаунта в Config.json пропущена")
                         
-                        # Возвращаем True при успешном нахождении аккаунта
-                        log.log("accountManager.py", f"Вход в аккаунт {account_data_get_value('id')} успешно выполнен!")
-                        return {"status": "success"}
-                    else:
-                        # Возвращаем False при ошибке поиска файла аккаунта
-                        log.log("accountManager.py", "Файл аккаунта не найден!")
-                        return {"status": "error", "message": "Файл аккаунта не найден!"}                                      
+                        # Проверка структуры папок аккаунта
+                        if folder_structure_check() == True:
+                            log.log("accountManager.py", "Структура папок аккаунта соответствует требованиям!")
+
+                            # Возвращаем True при успешном нахождении аккаунта
+                            log.log("accountManager.py", f"Вход в аккаунт {account_data_get_value('id')} успешно выполнен!")
+                            return {"status": "success"}
+                        else:
+                            log.log("accountManager.py", "Структура папок аккаунта нарушена. Не удалось восстановить структуру папок аккаунта!")
+                            # Возвращаем False при ошибке структуры папок аккаунта
+                            return {"status": "error", "message": "Структура папок аккаунта не соответствует требованиям!"} 
+                else:
+                    # Возвращаем False при ошибке поиска файла аккаунта
+                    log.log("accountManager.py", "Файл аккаунта не найден!")
+                    return {"status": "error", "message": "Файл аккаунта не найден!"}                                                    
             else:
                 log.log("accountManager.py", f"Папка аккаунта не найдена! Ссылка: {link['link']}")
                  # Возвращаем False при ошибке поиска аккаунта
@@ -204,4 +208,38 @@ def account_logout(value):
     except Exception as e:
         return {"status": "error", "message": f"Произошла ошибка при выходе из аккаунта {acc_id} на стороне Python! ({e})"}       
 
+# Функция проверки папок аккаунта пользователя 
+def folder_structure_check():
+    try:
+        # Путь до папки аккаунта
+        account_path = config.get_value("account", "account_link") 
 
+        # Структура папок аккаунта
+        FOLDERS_STRUCTURE = [
+            # data
+            f"{config.get_value("directories", "data_dir")}",
+            f"{config.get_value("directories", "data_dir")}/{config.get_value("directories", "cover_dir")}",
+            f"{config.get_value("directories", "data_dir")}/{config.get_value("directories", "cover_dir")}/{config.get_value("directories", "card_cvr_dir")}",
+            f"{config.get_value("directories", "data_dir")}/{config.get_value("directories", "cover_dir")}/{config.get_value("directories", "group_cvr_dir")}",
+            # profile
+            f"{config.get_value("directories", "profile_dir")}",
+            f"{config.get_value("directories", "profile_dir")}/{config.get_value("directories", "logo_dir")}"        
+        ]
+
+        # Проверка структуры папок аккаунта
+        log.log("accountManager.py", "Проверка структуры папок аккаунта...")
+        for folder in FOLDERS_STRUCTURE:
+            folder_path = os.path.join(account_path, folder)
+            
+            if os.path.isdir(folder_path):  
+                log.log("accountManager.py", f"Папка найдена: {folder_path}")              
+            else:
+                log.log("accountManager.py", f"Нет папки: {folder_path}. Создание новой папки...")
+                os.mkdir(folder_path)
+                log.log("accountManager.py", f"Папка создана: {folder_path}")
+
+        log.log("accountManager.py", "Проверка структуры папок аккаунта завершена!")
+        return True  
+    except Exception as e:
+        log.log("accountManager.py", f"Произошла ошибка при проверке структуры папок аккаунта! ({e})")
+        return False

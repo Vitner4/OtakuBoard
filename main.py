@@ -20,7 +20,7 @@ try:
 
    # Проверка наличия аккаунта
    if config.get_value("account", "connection") == "true":
-      # Вход в аккаунт
+      # Автоматический вход в аккаунт
       login = accountManager.account_login({"link": config.get_value("account", "account_link"), "write_data_to_config": "false"})
       if login['status'] == "success":
          open_page = config.get_value("settings", "main_page") # Установка главной страницы приложения
