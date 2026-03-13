@@ -42,6 +42,10 @@ default_config_data = {
         "group_cvr_dir": "group",
         "profile_dir": "profile",
         "logo_dir": "logo"
+    },
+
+    "files": {
+        "db_file": "database-ob.db"
     }
 }
 
@@ -112,7 +116,7 @@ def set_value(section, key, new_value):
         # Установка значения в файл
         with open(config_path, 'w', encoding='utf-8') as f:
             json.dump(config_data, f, ensure_ascii=False, indent=4)
-        log.log("config.py", f"Файл конфигурации успешно обновлён. Изменено в {section}-{key}: {new_value}") # Логирование
+        log.log("config.py", f"Файл конфигурации успешно обновлён. Значение в \"{section}\": {{\"{key}\"}} изменено на \"{new_value}\"") # Логирование
     except Exception as e:
         log.log("config.py", f"Ошибка обновления файла конфигурации: {str(e)}") # Логирование
 

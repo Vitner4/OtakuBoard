@@ -7,6 +7,7 @@ import log
 import time
 import json
 import config
+import dataManager
 from pathlib import Path
 
 account_data = None # Данные аккаунта, полученные из файла
@@ -55,7 +56,7 @@ def create_new_account(formData):
         # Добавляем время создания, работы и пометку приложения
         formData['timestamp'] = time.strftime('%d.%m.%Y')
         formData['timestamp_extra'] = time.strftime('%H:%M:%S')
-        formData['work_time'] = 0 #! Решить вопрос с счётом времени работы программы
+        formData['work_time'] = 0 #! Решить вопрос с учётом времени работы приложения
         formData['for'] = config.get_value("app", "name")
 
         # Определяем имена директорий
@@ -90,6 +91,9 @@ def create_new_account(formData):
         config.set_value("account", "account_id", f'{formData['id']}')
         config.set_value("account", "connection", "true")
 
+        # Создаём базу данных аккаунта
+        dataManager.create_database()
+
         # Загружаем данные аккаунта и устанавливаем статус загрузки
         account_data_set(formData) 
         data_loading_status_set(True)
@@ -116,7 +120,7 @@ def account_login(link):
 
             # Проверка на существование папки аккаунта
             if file_path.exists():
-                log.log("accountManager.py", f"Папка аккаунта найдена! Ссылка: {link['link']}")
+                log.log("accountManager.py", f"Папка аккаунта найдена! Ссылка на аккаунт: {link['link']}")
       
                 # Поиск файла аккаунта по типу
                 for fp in file_path.glob(f"*{acc_type}*"):
@@ -142,26 +146,38 @@ def account_login(link):
                         if folder_structure_check() == True:
                             log.log("accountManager.py", "Структура папок аккаунта соответствует требованиям!")
 
-                            # Возвращаем True при успешном нахождении аккаунта
-                            log.log("accountManager.py", f"Вход в аккаунт {account_data_get_value('id')} успешно выполнен!")
-                            return {"status": "success"}
+                            # Проверка наличия базы данных аккаунта
+                            db_path = os.path.join(
+                                link["link"],
+                                config.get_value('directories', 'data_dir'),
+                                config.get_value('files', 'db_file')
+                            )
+                            if os.path.isfile(db_path):
+                                log.log("accountManager.py", "База данных аккаунта найдена!")
+                            
+                                # Возвращаем "success" при успешном нахождении и входе в аккаунт
+                                log.log("accountManager.py", f"Вход в аккаунт {account_data_get_value('id')} успешно выполнен!")
+                                return {"status": "success"}
+                            else:
+                                log.log("accountManager.py", "База данных аккаунта не найдена!")    
+                                return {"status": "error", "message": "Ошибка! База данных аккаунта не найдена!"}                     
                         else:
                             log.log("accountManager.py", "Структура папок аккаунта нарушена. Не удалось восстановить структуру папок аккаунта!")
-                            # Возвращаем False при ошибке структуры папок аккаунта
+                            # Возвращаем "error" при ошибке структуры папок аккаунта
                             return {"status": "error", "message": "Структура папок аккаунта не соответствует требованиям!"} 
                 else:
-                    # Возвращаем False при ошибке поиска файла аккаунта
+                    # Возвращаем "error" при ошибке поиска файла аккаунта
                     log.log("accountManager.py", "Файл аккаунта не найден!")
                     return {"status": "error", "message": "Файл аккаунта не найден!"}                                                    
             else:
-                log.log("accountManager.py", f"Папка аккаунта не найдена! Ссылка: {link['link']}")
-                 # Возвращаем False при ошибке поиска аккаунта
+                log.log("accountManager.py", f"Папка аккаунта не найдена! Ссылка на аккаунт: {link['link']}")
+                 # Возвращаем "error" при ошибке поиска аккаунта
                 return {"status": "error", "message": "Папка аккаунта не найдена!"}
         else:
-            # Возвращаем False при ошибке неверной ссылки
+            # Возвращаем "error" при ошибке неверной ссылки
             return {"status": "error", "message": "Неверная ссылка аккаунта!"}
     except Exception as e:
-        # Возвращаем False при ошибке попытки найти аккаунт
+        # Возвращаем "error" при ошибке попытки найти аккаунт
         log.log("accountManager.py", f"Произошла ошибка при попытке найти аккаунт на стороне Python! ({e})")
         return {"status": "error", "message": f"Произошла ошибка при попытке найти аккаунт на стороне Python! ({e})"}
 

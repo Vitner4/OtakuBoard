@@ -1,3 +1,4 @@
+//! Заменено на set-image.js
 // Предпросмотр загружаемого локального аватара
 document.addEventListener('DOMContentLoaded', () => {
     // Получаем ссылки на HTML-элементы

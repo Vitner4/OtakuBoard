@@ -5,7 +5,7 @@ import eel
 import log
 import init
 import config
-import cardManager
+import dataManager
 import accountManager
 
 try:
@@ -26,6 +26,10 @@ try:
          open_page = config.get_value("settings", "main_page") # Установка главной страницы приложения
       else:
          log.log("main.py", "Автоматический вход в аккаунт не выполнен!") # Логирование
+         # Очистка пути до аккаунта в Config.json
+         config.set_value("account", "account_link", config.get_default_config_value("account", "account_link"))
+         config.set_value("account", "account_id", config.get_default_config_value("account", "account_id"))
+         config.set_value("account", "connection", config.get_default_config_value("account", "connection"))
 
    # Запуск приложения
    if __name__ == "__main__":

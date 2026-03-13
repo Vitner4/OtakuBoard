@@ -1,3 +1,5 @@
+// ! Пример кода. Удалить после модуля создания карточки!
+
 // Получение данных JSON файла из Python
 document.addEventListener('DOMContentLoaded', async () => {
     const response = await eel.load_json_data()();

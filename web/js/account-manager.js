@@ -211,6 +211,7 @@ async function accountLogout(){
     }
 }
 
+// Отслеживание действия выхода из аккаунта по нажатию кнопки
 logoutBtn.addEventListener('click', () => {
     accountLogout();
 });

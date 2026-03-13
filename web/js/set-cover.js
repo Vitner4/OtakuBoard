@@ -1,4 +1,6 @@
+//! Заменено на set-image.js
 // Предпросмотр загружаемой локальной обложки
+// todo Переписано в новой функции card-manager!
 document.addEventListener('DOMContentLoaded', () => {
     // Получаем ссылки на HTML-элементы
     const fileInput = document.getElementById('cover');
@@ -139,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // удаление обложки при нажатии кнопки
+// todo Переписано в новой функции card-manager!
 function removeCover(){
     let coverInput = document.getElementById("cover");
     let coverLinkInput = document.getElementById("cover-link");
