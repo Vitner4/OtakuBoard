@@ -1,18 +1,21 @@
 // Type: работа с карточками на frontend
 // Author: Vitner4
 
+import { getSelectedFormat } from "./image-uploader.js"; // Импорт функции получения выбранного формата изображения
 import { createImageUploader } from "./image-uploader.js"; // Импорт функции загрузки изображения
+import { fileToBase64 } from "./image-uploader.js"; // Импорт функции преобразования файла в строку base64
+import { URLViewer } from "./image-uploader.js"; // Импорт функции предпросмотра URL обложки
+import { selectionChecker } from "./image-uploader.js"; // Импорт функции взаимного исключения выбора файла и ввода ссылки
 import { removeCover } from "./image-uploader.js"; // Импорт функции удаления изображения
 
 // Переменные 
-const cardCover = createImageUploader("cover", "cover-preview"); // Получение обложки карточки
+const cardCover = createImageUploader("cover", "cover-preview"); // Получение обложки из файла 
 const stars = document.querySelectorAll('input[name="rating"]'); // Звёзды рейтинга 
 let selectedStar = 0 // Выбранная звезда рейтинга (0 по умолчанию)
 
 // Обработчик события для каждой звезды рейтинга
 stars.forEach(star => {
     star.addEventListener("change", () => {
-        console.log(star.value)
         selectedStar = star.value;
     });
 });
@@ -23,17 +26,11 @@ function checkInvalidChars(text) {
     return forbidden.test(text);
 }
 
-// Функция преобразования файла в строку base64
-function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader(); // Создаём FileReader для чтения файла
+// Метод просмотра URL обложки 
+document.addEventListener('DOMContentLoaded', () => {URLViewer("cover-link", "cover-preview")});
 
-        reader.readAsDataURL(file); // Читаем файл как DataURL (base64)
-
-        reader.onload = () => resolve(reader.result); // При успешном чтении возвращаем результат
-        reader.onerror = error => reject(error); // При ошибке возвращаем ошибку
-    });
-}
+// Метод проверки выбранного формата обложки
+document.addEventListener('DOMContentLoaded', () => {selectionChecker("cover", "cover-link")});
 
 // Метод удаления обложки
 document.getElementById("cover-remove").addEventListener("click", () => removeCover("cover", "cover-preview", "cover-link")); 
@@ -41,7 +38,7 @@ document.getElementById("cover-remove").addEventListener("click", () => removeCo
 // Метод отправки данных в Python для создания новой карточки
 document.getElementById("create-btn").addEventListener("click", async () => {
     // Переменные
-    let statusField = null; // Переменная поля статуса
+    const statusField = document.getElementById('status'); // Переменная поля статуса
 
     // Проверка 
     if(document.getElementById('name').value.trim().length === 0){
@@ -49,7 +46,6 @@ document.getElementById("create-btn").addEventListener("click", async () => {
         const name = document.getElementById('name');
         name.style.borderColor = 'red';
         // Получение статуса и установка цвета при ошибке
-        const statusField = document.getElementById('status');
         statusField.style.color = 'red';
         statusField.textContent = "Укажите название карточки!";
     }else{
@@ -58,21 +54,39 @@ document.getElementById("create-btn").addEventListener("click", async () => {
             const name = document.getElementById('name');
             name.style.borderColor = 'red';
             // Получение статуса и установка цвета при ошибке
-            statusField = document.getElementById('status');
             statusField.style.color = 'red';
             statusField.textContent = "В названии карточки указаны запрещённые символы!";      
-        }else{           
-            const file = cardCover.getFile(); // Получаем файл обложки, если он выбран
-            let coverData = null; // Данные обложки с обновленными в base64 данными изображения
-            
-            if (file) {
+        }else{  
+            const now = new Date(); // Получение текущей даты    
+            const selectedFormat = getSelectedFormat(); // Получение формата изображения
+            let coverData = null; // Данные обложки
+       
+            // Если выбран файл изображения
+            if (selectedFormat == "file") {
+                const file = cardCover.getFile(); // Получаем файл обложки
+
                 // Преобразуем файл в строку base64
-                const base64 = await fileToBase64(file);
+                const base64 = await fileToBase64(file, 'cover');
 
                 // Формируем объект с именем файла и его base64-данными
                 coverData = {
                     name: file.name,
-                    data: base64
+                    data: base64,
+                    type: "file"
+                };
+            }
+
+            // Если введён URL изображения
+            else if (selectedFormat == "URL") {
+                const coverURL = document.getElementById("cover-link").value; // Получение URL обложки
+                statusField.style.color = 'blue';
+                statusField.textContent = 'Загрузка URL изображения...';
+
+                // Формируем объект
+                coverData = {
+                    name: "urlImage",
+                    data: coverURL,
+                    type: "URL"
                 };
             }
 
@@ -98,7 +112,6 @@ document.getElementById("create-btn").addEventListener("click", async () => {
                 const name = document.getElementById('name');
                 name.style.borderColor = '#ccc';
                 // Статус загрузки данных
-                statusField = document.getElementById('status');
 
                 if (func['status'] == 'success') {
                     statusField.style.color = 'green';

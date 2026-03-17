@@ -8,6 +8,7 @@ import time
 import config
 import base64
 import sqlite3
+import urllib.request
 import accountManager
 
 # =========================
@@ -133,18 +134,16 @@ def add_card(card_data: dict):
                 return {"status": "error", "message": "Структура папок восстановлена, повторите создание карточки."}
 
         # Сохраняем обложку
-        cover_path = None # Путь до обложки (None по умолчанию)
-        cover_file = card_data.get("cover", {})
-        # Проверка на наличие обложки
-        if cover_file and cover_file.get("name") and cover_file.get("data"):
-            timestamp = int(time.time() * 1000) # текущее время
-            safe_name = f"card{timestamp:x}_{cover_file['name']}" # Имя файла для сохранения
-            # Сохраняем файл в папку
-            cover_path = os.path.join(folder_path, safe_name)
-            # Переводим файл из Base64 в бинарные данные
-            cover_data = base64.b64decode(cover_file["data"].split(",")[1])
-            with open(cover_path, "wb") as f:
-                f.write(cover_data)
+        cover = card_data.get("cover") or {}
+        cover_path = None
+
+        # Проверка на тип изображения
+        if isinstance(cover, dict):
+            if cover.get("type") == "file":
+                cover_path = saveImage(cover, folder_path)
+
+            elif cover.get("type") == "URL":
+                cover_path = saveURLImage(cover, folder_path)
 
         # Вставляем карточку в SQLite
         cursor.execute("""
@@ -255,6 +254,7 @@ def add_group(group_data: dict):
 # =============================
 # СВЯЗЫВАНИЕ КАРТОЧКИ С ГРУППОЙ
 # =============================
+# ! Не протестировано. Протестировать функцию!
 def link_card_to_group(card_id: str, group_id: str):
     # Подключаемся к базе данных
     conn = get_connection()
@@ -286,6 +286,7 @@ def link_card_to_group(card_id: str, group_id: str):
 # ============================
 # ПОЛУЧИТЬ ВСЕ КАРТОЧКИ ГРУППЫ
 # ============================
+# ! Не протестировано. Протестировать функцию!
 def get_cards_by_group(group_id: str):
     # Подключаемся к базе данных
     conn = get_connection()
@@ -306,6 +307,7 @@ def get_cards_by_group(group_id: str):
 # ================================
 # ПОЛУЧИТЬ ВСЕ ГРУППЫ С КАРТОЧКАМИ
 # ================================
+# ! Не протестировано. Протестировать функцию!
 def get_groups_by_card(card_id: str):
     # Подключаемся к базе данных
     conn = get_connection()
@@ -330,3 +332,62 @@ def get_groups_by_card(card_id: str):
 # ===================
 # СОРТИРОВКА КАРТОЧЕК
 # ===================
+
+# ======================
+# СОХРАНЕНИЕ ИЗОБРАЖЕНИЯ
+# ======================
+def saveImage(image: dict, path):
+        try:          
+            # Проверка на наличие обложки
+            if image and image.get("name") and image.get("data"):
+                timestamp = int(time.time() * 1000) # Текущее время
+                safe_name = f"card{timestamp:x}_{image['name']}" # Имя файла для сохранения
+
+                # Сохраняем файл в папку
+                cover_path = os.path.join(path, safe_name)
+                # Переводим файл из Base64 в бинарные данные
+                cover_data = base64.b64decode(image["data"].split(",")[1])
+                with open(cover_path, "wb") as f:
+                    f.write(cover_data)
+                log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{path}\"")
+                return cover_path
+            else:
+                return None
+        except Exception as e:
+            log.log("dataManager.py", f"Произошла ошибка при сохранении изображения \"{safe_name}\": {e}")
+            return None
+
+# ==========================
+# СОХРАНЕНИЕ URL ИЗОБРАЖЕНИЯ
+# ==========================
+def saveURLImage(image: dict, save_folder: str):
+    try:
+        # Получаем URL изображения из данных
+        url = image.get("data")
+
+        timestamp = int(time.time() * 1000) # Получаем текущее время
+        file_name = f"card{timestamp:x}_urlImage.jpg" # Имя файла
+
+        # Формируем полный путь до файла
+        file_path = os.path.join(save_folder, file_name)
+        
+        headers = {
+            "User-Agent": "Mozilla/5.0"
+        }
+
+        req = urllib.request.Request(url, headers=headers)
+
+        # Скачиваем изображение потоком с таймаутом 10 секунд
+        with urllib.request.urlopen(req, timeout=5) as response, open(file_path, "wb") as f:
+            while True:
+                # Читаем по 256KB блокам
+                chunk = response.read(262144)
+                if not chunk:
+                    break
+                f.write(chunk)
+
+        log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{file_path}\"")
+        return file_path
+    except Exception as e:
+        log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}")
+        return None
