@@ -1,4 +1,4 @@
-# Type: точка входа в приложение
+# Type: точка входа в приложение 
 # Author: Vitner4
 
 import eel

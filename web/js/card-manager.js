@@ -84,7 +84,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
 
                 // Формируем объект
                 coverData = {
-                    name: "urlImage",
+                    name: coverURL.split('/').pop(), // Получаем имя файла из URL
                     data: coverURL,
                     type: "URL"
                 };
@@ -92,7 +92,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
 
             // Собираем данные формы
             const formData = {
-            id: `card_${Date.now().toString(36)}${Math.random().toString(36).slice(2,10)}`, 
+            id: `${Date.now().toString(36)}${Math.random().toString(36).slice(2,10)}`, 
             name: document.getElementById('name').value,
             author: document.getElementById('author').value,
             genre: document.getElementById('genre').value,
@@ -115,7 +115,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
 
                 if (func['status'] == 'success') {
                     statusField.style.color = 'green';
-                    statusField.textContent = 'Карточка успешно создана!';
+                    statusField.textContent = func['message'];
                 }
                 if (func['status'] == 'error') {
                     statusField.style.color = 'red';

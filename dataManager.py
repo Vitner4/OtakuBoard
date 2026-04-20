@@ -6,6 +6,7 @@ import log
 import eel
 import time
 import config
+import random
 import base64
 import sqlite3
 import urllib.request
@@ -125,12 +126,12 @@ def add_card(card_data: dict):
 
         # Проверка на наличие папки
         if not os.path.exists(folder_path):
-            log.log("dataManager.py", "Папка сохранения обложки не найдена, проверяем структуру...")
+            log.log("dataManager.py", "Папка сохранения обложки не найдена, проверяем структуру...") # Логирование
             if not accountManager.folder_structure_check():
-                log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!")
+                log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
                 raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
             else:
-                log.log("dataManager.py", "Структура папок восстановлена, повторите создание карточки.")
+                log.log("dataManager.py", "Структура папок восстановлена, повторите создание карточки.") # Логирование
                 return {"status": "error", "message": "Структура папок восстановлена, повторите создание карточки."}
 
         # Сохраняем обложку
@@ -140,10 +141,10 @@ def add_card(card_data: dict):
         # Проверка на тип изображения
         if isinstance(cover, dict):
             if cover.get("type") == "file":
-                cover_path = saveImage(cover, folder_path)
+                cover_path = saveImage(card_data.get("id"), cover, folder_path)
 
             elif cover.get("type") == "URL":
-                cover_path = saveURLImage(cover, folder_path)
+                cover_path = saveURLImage(card_data.get("id"), cover, folder_path)
 
         # Вставляем карточку в SQLite
         cursor.execute("""
@@ -166,10 +167,10 @@ def add_card(card_data: dict):
         ))
 
         conn.commit()
-        log.log("dataManager.py", f"Новая карточка '{card_data.get('name', '')}' добавлена!")
-        return {"status": "success"}
+        log.log("dataManager.py", f"Новая карточка '{card_data.get('name', '')}' добавлена!") # Логирование
+        return {"status": "success", "message": f"Карточка '{card_data.get('name', '')}' успешно создана!"}
     except Exception as e:
-        log.log("dataManager.py", f"Ошибка при добавлении карточки: {str(e)}")
+        log.log("dataManager.py", f"Ошибка при добавлении карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
 
     finally:
@@ -336,12 +337,11 @@ def get_groups_by_card(card_id: str):
 # ======================
 # СОХРАНЕНИЕ ИЗОБРАЖЕНИЯ
 # ======================
-def saveImage(image: dict, path):
+def saveImage(cardID: str, image: dict, path):
         try:          
             # Проверка на наличие обложки
             if image and image.get("name") and image.get("data"):
-                timestamp = int(time.time() * 1000) # Текущее время
-                safe_name = f"card{timestamp:x}_{image['name']}" # Имя файла для сохранения
+                safe_name = f"{cardID}_{random.randint(1, 1000)}{image['name']}" # Имя файла для сохранения
 
                 # Сохраняем файл в папку
                 cover_path = os.path.join(path, safe_name)
@@ -349,24 +349,22 @@ def saveImage(image: dict, path):
                 cover_data = base64.b64decode(image["data"].split(",")[1])
                 with open(cover_path, "wb") as f:
                     f.write(cover_data)
-                log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{path}\"")
+                log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{path}\"") # Логирование
                 return cover_path
             else:
                 return None
         except Exception as e:
-            log.log("dataManager.py", f"Произошла ошибка при сохранении изображения \"{safe_name}\": {e}")
+            log.log("dataManager.py", f"Произошла ошибка при сохранении изображения \"{safe_name}\": {e}") # Логирование
             return None
 
 # ==========================
 # СОХРАНЕНИЕ URL ИЗОБРАЖЕНИЯ
 # ==========================
-def saveURLImage(image: dict, save_folder: str):
+def saveURLImage(cardID: str, image: dict, save_folder: str):
     try:
         # Получаем URL изображения из данных
         url = image.get("data")
-
-        timestamp = int(time.time() * 1000) # Получаем текущее время
-        file_name = f"card{timestamp:x}_urlImage.jpg" # Имя файла
+        file_name = f"{cardID}_{random.randint(1, 1000)}{image['name']}" # Имя файла для сохранения
 
         # Формируем полный путь до файла
         file_path = os.path.join(save_folder, file_name)
@@ -386,8 +384,8 @@ def saveURLImage(image: dict, save_folder: str):
                     break
                 f.write(chunk)
 
-        log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{file_path}\"")
+        log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{file_path}\"") # Логирование
         return file_path
     except Exception as e:
-        log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}")
+        log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}") # Логирование
         return None

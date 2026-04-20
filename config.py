@@ -45,7 +45,7 @@ default_config_data = {
     },
 
     "files": {
-        "db_file": "database-ob.db"
+        "db_file": "cardholder.db"
     }
 }
 
