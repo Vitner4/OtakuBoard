@@ -75,7 +75,7 @@ body{
 } */
 
 /* Звезда рейтинга */
-.star{
+.card_star{
     position: absolute;
     background-color: rgba(208, 208, 208, 0.664);
     color: rgb(255, 255, 255);

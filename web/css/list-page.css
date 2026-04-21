@@ -410,3 +410,43 @@ section {
     display: block;
     margin: 5px;
 }
+
+/* Форма при отсутствии карточек */
+#no_card_block{
+    display: block;
+    width: 45%;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* расположение блока по центру */
+    margin: 0 auto;
+    margin-top: 15%;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Текст формы при отсутствии карточек */
+#no_card_message{
+    font-size: 1.4rem;
+    color: #727272;
+}
+
+/* Кнопка создания новой формы */
+#create_card_button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+    border: #646464 solid 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+}
+#create_card_button:hover{
+    color: #ffffff;
+    background-color: #000000;
+    transform: scale(1.05);
+    
+}
+    

@@ -1,99 +1,48 @@
-// Ждем полной загрузки DOM-дерева перед выполнением скрипта
-document.addEventListener('DOMContentLoaded', function() {
-    // Находим все элементы с классом 'tile'
-    const tiles = document.querySelectorAll('.tile');
-    
-    // Перебираем все найденные плитки
-    tiles.forEach(tile => {
-        // Ищем изображение внутри текущей плитки
-        const img = tile.querySelector('.tile-img');
-        // Если изображение не найдено, пропускаем эту плитку
-        if (!img) return;
-        
-        // Проверяем, загружено ли изображение
-        if (img.complete) {
-            // Если изображение уже загружено, сразу устанавливаем цвет
-            setTileColor(tile, img);
-        } else {
-            // Если изображение еще загружается, добавляем обработчики событий:
-            // 1. На успешную загрузку
-            img.addEventListener('load', () => setTileColor(tile, img));
-            // 2. На ошибку загрузки
-            img.addEventListener('error', () => console.error('Image load error'));
-        }
-    });
-});
-
-// Функция для установки цвета плитки на основе изображения
-function setTileColor(tile, img) {
-    // Получаем доминирующий цвет изображения
-    getDominantColor(img).then(color => {
-        // Устанавливаем CSS-переменные для плитки:
-        // 1. Основной цвет (полная непрозрачность)
-        tile.style.setProperty('--solid-color', `rgba(${color}, 1)`);
-        // 2. Цвет плитки (80% непрозрачности)
-        tile.style.setProperty('--tile-color', `rgba(${color}, 0.8)`);
-        // 3. Цвет нижней части плитки (10% непрозрачности)
-        tile.style.setProperty('--tile-color-bottom', `rgba(${color}, 0.1)`);
-        // Показываем изображение (изначально оно могло быть скрыто)
-        img.style.opacity = '1';
-    });
-}
-
-// Функция для определения доминирующего цвета изображения
-function getDominantColor(img) {
-    // Возвращаем Promise, так как работа с изображением асинхронна
-    return new Promise((resolve) => {
-        // Создаем временный canvas для анализа изображения
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        // Устанавливаем маленький размер для оптимизации
-        canvas.width = 10;
-        canvas.height = 10;
-        
-        // Рисуем изображение на canvas (с масштабированием)
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        
-        // Получаем данные о пикселях изображения
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        // Переменные для накопления значений RGB
-        let r = 0, g = 0, b = 0;
-        
-        // Перебираем все пиксели (каждый 4-й элемент массива - новый пиксель: R,G,B,A)
-        for (let i = 0; i < imageData.length; i += 4) {
-            // Суммируем значения красного, зеленого и синего каналов
-            r += imageData[i];       // Красный
-            g += imageData[i + 1];   // Зеленый
-            b += imageData[i + 2];   // Синий
-            // Прозрачность (imageData[i + 3]) не учитываем
-        }
-        
-        // Вычисляем количество пикселей
-        const pixels = imageData.length / 4;
-        // Возвращаем средние значения RGB в формате "R, G, B"
-        resolve(`${Math.round(r / pixels)}, ${Math.round(g / pixels)}, ${Math.round(b / pixels)}`);
-    });
-}
-
 // Получаем все блоки звёзд на карточках
-const stars = document.querySelectorAll('.star-icon');
+const stars = document.querySelectorAll('.card_star'); 
 
 // Установка цвета блока звёзд на карточке
 stars.forEach(stars => {
     const value = parseInt(stars.textContent);
     if(value == 0){
-        stars.style = "background-color: #444444ff";
+        stars.style = "background-color: rgb(139, 139, 139)";
     }
     if(value >= 1 && value <= 3){
-        stars.style = "background-color: #df1212ff";
+        stars.style = "background-color: rgb(220, 20, 20)";
     }
     if(value >= 4 && value <= 6){
-        stars.style = "background-color: #e7d210ff";
+        stars.style = "background-color: rgb(228, 186, 16)";
     }
      if(value >= 7 && value <= 9){
-        stars.style = "background-color: #0db10dff";
+        stars.style = "background-color: rgb(24, 217, 24)";
     }
     if(value == 10){
         stars.style = "background: linear-gradient(22deg,rgba(140, 72, 0, 1) 0%, rgba(158, 98, 14, 1) 0%, rgba(255, 215, 0, 1) 100%)";
     }   
+});
+
+// 3D анимация карточки при наведении мыши
+const containers = document.querySelectorAll('.card-container'); // Выбираем ВСЕ контейнеры карточек
+
+containers.forEach(container => {
+    // Находим цель для наклона ВНУТРИ текущего контейнера
+    const card = container.querySelector('.tilt-target');
+
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        
+        // Вычисляем позицию мыши относительно текущей карточки
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const degX = y * -20; 
+        const degY = x * 20;
+
+        card.style.transform = `rotateX(${degX}deg) rotateY(${degY}deg) scale(1.05)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        // Сбрасываем именно эту карточку
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    });
 });

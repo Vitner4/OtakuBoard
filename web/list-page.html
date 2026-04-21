@@ -43,68 +43,19 @@
                 <div class="mine-selector">
                     <h1 class="text-preview">Все карточки</h1>
                     <p id="easter-egg" hidden>Hello, from Vitner4!</p>
+                    <form id="no_card_form">
+                        <div id="no_card_block">
+                            <p id="no_card_message">Ваша коллекция пуста. Начните её создание прямо сейчас!</p>
+                            <a href="create-card.html"><button type="button" id="create_card_button">Создать карточку</button></a>
+                        </div>
+                    </form>    
                     <div class="tile-list">
-                        <!--!! Пример !!-->
-                        <div id="page_name" class="tile">                 
-                            <img class="tile-img" src="css/src/img/test/solo leveling.jpg" alt="SoloLeveling">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Solo Leveling</h3>
-                                <p class="tile-info">Экшен</p>
-                                <div class="star-icon">10★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/SlimeDataKen.jpg" alt="SlimeDataKen">
-                            <div class="tile-content">
-                                <h3 class="tile-title">О моём перерождении в слизь</h3>
-                                <p class="tile-info">Экшен</p>
-                                <div class="star-icon">0★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/DrSTONE.jpg" alt="DrSTONE">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Dr.STONE</h3>
-                                <p class="tile-info">Приключения</p>
-                                <div class="star-icon">6★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/Бездомный бог.jpg" alt="Бездомный бог">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Бездомный бог</h3>
-                                <p class="tile-info">Фэнтези</p>
-                                <div class="star-icon">2★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/Ходячий замок.jpg" alt="Ходячий замок">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Ходячий замок</h3>
-                                <p class="tile-info">Драма</p>
-                                <div class="star-icon">9★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/Наруто.jpg" alt="Наруто">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Наруто</h3>
-                                <p class="tile-info">Приключения</p>
-                                <div class="star-icon">8★</div> 
-                            </div>
-                        </div>
-
-                        <div id="page_name" class="tile">
-                            <img class="tile-img" src="css/src/img/test/Нет игры - нет жизни.jpg" alt="Нет игры - нет жизни">
-                            <div class="tile-content">
-                                <h3 class="tile-title">Нет игры - нет жизни</h3>
-                                <p class="tile-info">Приключения</p>
-                                <div class="star-icon">1★</div> 
+                        <!-- Расположение карточек находится здесь -->
+                        <div id="card_id_1" class="card-container" title="Dr. Stone">
+                            <div class="tilt-target">
+                                <div class="glare"></div>
+                                <div class="card_star">4</div>     
+                                <img id="img_id_1" class="card-img" src="css/src/img/test/temp1.jpg" alt="Dr. Stone">
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 // Получаем все блоки звёзд на карточках
-const stars = document.querySelectorAll('.star'); 
+const stars = document.querySelectorAll('.card_star'); 
 
 // Установка цвета блока звёзд на карточке
 stars.forEach(stars => {
