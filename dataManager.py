@@ -188,24 +188,53 @@ def add_card(card_data: dict):
 # ПОЛУЧЕНИЕ КАРТОЧКИ ПО ID
 # ========================
 
-# =======================
-# ПОЛУЧЕНИЕ ВСЕХ КАРТОЧЕК
-# =======================
-def get_all_cards():
+# =========================================
+# ПОЛУЧЕНИЕ ВСЕХ КАРТОЧЕК + ПОИСК + ФИЛЬТРЫ
+# =========================================
+@eel.expose
+def get_cards(limit=50, offset=0, search=None, type_filter=None):
     try:
         # Подключаемся к базе данных
         conn = get_connection()
         cursor = conn.cursor()
-        
-        # Получаем все карточки из таблицы cards
-        cursor.execute("SELECT * FROM cards")
+
+        # Формируем базовый SQL запрос
+        query = "SELECT * FROM cards ORDER BY id DESC LIMIT ? OFFSET ?"
+        params = []
+
+        # TODO: Добавить возможность поиска и фильтрации карточек по различным полям (название, автор, жанр, год, тип и т.д.)
+
+        # Добавляем условие поиска по названию если параметр передан
+        # if search:
+        #     query += " AND name LIKE ?"
+        #     params.append(f"%{search}%")
+
+        # Добавляем фильтр по типу если параметр передан
+        # if type_filter:
+        #     query += " AND type = ?"
+        #     params.append(type_filter)
+
+        # Добавляем сортировку, лимит и смещение для пагинации
+        # query += " ORDER BY id DESC LIMIT ? OFFSET ?"
+
+        # Добавляем параметры для пагинации
+        params.extend([limit, offset])
+
+        # Выполняем запрос к базе данных
+        cursor.execute(query, params)
+
+        # Преобразуем результаты в список словарей
         result = [dict(row) for row in cursor.fetchall()]
+        
+        # Закрываем соединение
         conn.close()
 
-        log.log("dataManager.py", "Выполнено получение всех карточек!") # Логирование
+        # Возвращаем результаты
         return {"status": "success", "data": result}
     except Exception as e:
-        log.log("dataManager.py", f"Ошибка при получении всех карточек: {str(e)}") # Логирование
+        if conn is not None:
+            conn.close()
+        log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
     
 # ===============
@@ -325,14 +354,6 @@ def get_groups_by_card(card_id: str):
     conn.close()
 
     return result
-
-# ==============
-# ПОИСК КАРТОЧКИ
-# ==============
-
-# ===================
-# СОРТИРОВКА КАРТОЧЕК
-# ===================
 
 # ======================
 # СОХРАНЕНИЕ ИЗОБРАЖЕНИЯ
