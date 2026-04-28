@@ -93,6 +93,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// Обработчик кликов на карточки для открытия страницы с подробной информацией о карточке
+document.addEventListener('click', (event) => {
+    const cardContainer = event.target.closest('.card-container'); // Ищем ближайший элемент с классом 'card-container' от места клика
+
+    if (cardContainer) { // Если такой элемент найден
+        const cardId = cardContainer.id; // Получаем ID карточки из атрибута id элемента
+        window.location.href = `page.html?card_id=${cardId}`; // Перенаправляем на страницу с подробной информацией о карточке, передавая ID в URL
+    }
+});
+
 // Пасхалка №1: Привет от автора
     const easterEgg = document.getElementById('easter-egg');
     let eeNum = Math.floor(Math.random() * (50 - 1 + 1)) + 1;

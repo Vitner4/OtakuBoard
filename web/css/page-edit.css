@@ -57,7 +57,7 @@
     border: 1px solid #d1d5db;
     border-radius: 8px;
     background: #fff;
-    color:  #111827;
+    color: #111827;
     font-size: 1.1rem;
     outline: none;
 }
@@ -68,26 +68,8 @@
 /* Малые поля в строку: сетка с тремя колонками */
 .small-fields {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-}
-
-/* Стилизация ссылки */
-.small-fields a {
-    display: block;
-    width: 100%;
-    padding: 10px 12px;
-    background: #f0f0f0;
-    color: #444444;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 1.0rem;
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.small-fields a:hover {
-    background: #e0e0e0;
-    color: #448bd6;
 }
 
 /* Блок для звёздного рейтинга */
