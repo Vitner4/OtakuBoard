@@ -72,9 +72,6 @@ def create_database():
         );
         """)
 
-        # TODO idea №1: Создать таблицу Media для хранения цифровых объектов (Видео, аудио, изображения) и связать её с карточками.
-        # TODO ...
-
         # Связующая таблица карточка ↔ группа (many-to-many)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS group_cards (
@@ -93,12 +90,6 @@ def create_database():
         log.log("dataManager.py", f"Новая база данных аккаунта {config.get_value("account","account_id")} создана!") # Логирование
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при создании базы данных: {str(e)}") # Логирование
-
-# ==========================
-# ВОССТАНОВЛЕНИЕ БАЗЫ ДАННЫХ 
-# ==========================
-# TODO idea №2: Функция восстановление при потере доступа к БД. Поиск или создание новой БД в настройках приложения!
-# TODO ...
 
 # ===================
 # ДОБАВЛЕНИЕ КАРТОЧКИ
@@ -187,12 +178,40 @@ def add_card(card_data: dict):
 # ========================
 # ПОЛУЧЕНИЕ КАРТОЧКИ ПО ID
 # ========================
+@eel.expose
+def get_card_by_id(card_id: str):
+    try:
+        # Подключаемся к базе данных
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Выполняем запрос к базе данных по id карточки
+        cursor.execute("SELECT * FROM cards WHERE id = ?", (card_id,))
+        row = cursor.fetchone()
+
+        # Если запись найдена, возвращаем её как словарь
+        if row:
+            result = dict(row)
+            return {"status": "success", "data": result}
+        else:
+            # Если карточка не найдена, возвращаем ошибку
+            return {"status": "error", "message": "Карточка не найдена"}
+
+    except Exception as e:
+        # Логирование ошибки и возврат описания ошибки
+        log.log("dataManager.py", f"Ошибка при получении карточки по ID: {str(e)}")
+        return {"status": "error", "message": str(e)}
+
+    finally:
+        # Закрываем соединение с базой данных в любом случае
+        conn.close()
 
 # =========================================
 # ПОЛУЧЕНИЕ ВСЕХ КАРТОЧЕК + ПОИСК + ФИЛЬТРЫ
 # =========================================
 @eel.expose
 def get_cards(limit=50, offset=0, search=None, type_filter=None):
+    # Функция возвращает список карточек с пагинацией и возможностью фильтрации
     try:
         # Подключаемся к базе данных
         conn = get_connection()
@@ -358,19 +377,19 @@ def get_groups_by_card(card_id: str):
 # ======================
 # СОХРАНЕНИЕ ИЗОБРАЖЕНИЯ
 # ======================
-def saveImage(cardID: str, image: dict, path):
+def saveImage(cardID: str, image: dict, save_path: str):
         try:          
             # Проверка на наличие обложки
             if image and image.get("name") and image.get("data"):
                 safe_name = f"{cardID}_{random.randint(1, 1000)}{image['name']}" # Имя файла для сохранения
 
                 # Сохраняем файл в папку
-                cover_path = os.path.join(path, safe_name)
+                cover_path = os.path.join(save_path, safe_name)
                 # Переводим файл из Base64 в бинарные данные
                 cover_data = base64.b64decode(image["data"].split(",")[1])
                 with open(cover_path, "wb") as f:
                     f.write(cover_data)
-                log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{path}\"") # Логирование
+                log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{save_path}\"") # Логирование
                 return cover_path
             else:
                 return None
@@ -381,14 +400,14 @@ def saveImage(cardID: str, image: dict, path):
 # ==========================
 # СОХРАНЕНИЕ URL ИЗОБРАЖЕНИЯ
 # ==========================
-def saveURLImage(cardID: str, image: dict, save_folder: str):
+def saveURLImage(cardID: str, image: dict, save_path: str):
     try:
         # Получаем URL изображения из данных
         url = image.get("data")
         file_name = f"{cardID}_{random.randint(1, 1000)}{image['name']}" # Имя файла для сохранения
 
         # Формируем полный путь до файла
-        file_path = os.path.join(save_folder, file_name)
+        cover_path = os.path.join(save_path, file_name)
         
         headers = {
             "User-Agent": "Mozilla/5.0"
@@ -397,7 +416,7 @@ def saveURLImage(cardID: str, image: dict, save_folder: str):
         req = urllib.request.Request(url, headers=headers)
 
         # Скачиваем изображение потоком с таймаутом 10 секунд
-        with urllib.request.urlopen(req, timeout=5) as response, open(file_path, "wb") as f:
+        with urllib.request.urlopen(req, timeout=5) as response, open(cover_path, "wb") as f:
             while True:
                 # Читаем по 256KB блокам
                 chunk = response.read(262144)
@@ -405,8 +424,8 @@ def saveURLImage(cardID: str, image: dict, save_folder: str):
                     break
                 f.write(chunk)
 
-        log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{file_path}\"") # Логирование
-        return file_path
+        log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{cover_path}\"") # Логирование
+        return cover_path
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}") # Логирование
         return None

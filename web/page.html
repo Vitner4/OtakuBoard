@@ -39,10 +39,10 @@
         <section class="content-card">
             <div class="content-columns">
                 <div class="content-details">
-                    <h2 class="content-title">Название не указано</h2>
+                    <h2 id="name" class="content-title">Название не указано</h2>
                     <label class="field">
                         <span class="label-text">Автор</span>
-                        <input type="text" name="author" id="autor" placeholder="Не указан" value="" readonly/>
+                        <input type="text" name="author" id="author" placeholder="Не указан" value="" readonly/>
                     </label>
                     <div class="small-fields">
                         <label class="field">
@@ -62,7 +62,7 @@
 
                         <label class="field">
                             <span class="label-text">Ссылка на контент</span>
-                            <a id="link" href="">Ссылка не указана</a>  <!-- Нажми на меня! -->
+                            <a id="link" href="" target="_blank">Ссылка не указана</a>
                         </label>
                     </div>
 
@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="rating-text">
-                            <div class="rating-score">0</div>
+                            <div id="rating-star" class="rating-score">0</div>
                             <div class="rating-max">из 10</div>
                         </div>
                     </div>
@@ -95,8 +95,9 @@
                 <aside class="cover-panel">
                     <label class="label-text">Обложка</label>
 
-                    <div class="cover-preview" aria-live="polite" id="cover-preview">
-                        <div class="cover-placeholder" id="cover-preview">Изображение обложки отсутствует</div>
+                    <div class="cover-preview" aria-live="polite">
+                        <img id="cover" class="cover-placeholder" src="">
+                        <div  id="cover-message" class="cover-placeholder">Изображение обложки отсутствует</div>
                     </div>
                 </aside>
             </div>
