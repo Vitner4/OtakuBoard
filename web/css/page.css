@@ -8,6 +8,11 @@
     box-shadow: 0 6px 22px rgba(8, 15, 25, 0.06);
 }
 
+.content-card p {
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* Колонки внутри карточки: выстраивание в строку, отступ между колонками */
 .content-columns {
     display: flex;
@@ -340,4 +345,10 @@
     .content-card { padding: 14px; }
     .content-title { font-size: 1.15rem; }
     .star { font-size: 1.25rem; padding: 4px 6px; }
+}
+
+/* Текст о дате выхода карточки */
+.created {
+    font-size: 0.9rem;
+    color: #919295;
 }

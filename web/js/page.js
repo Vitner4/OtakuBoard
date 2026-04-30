@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (cardData['data']['star']) {
                 document.getElementById('rating-star').textContent = cardData['data']['star'];
             }
+            // Дата создания карточки
+            if (cardData['data']['timestamp']) {
+                // Форматируем дату в более читаемый вид (например, "2024-06-01 14:30:00" -> "1 июня 2024 г., 14:30")
+                timestamp = new Date(cardData['data']['timestamp']);
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const formattedDate = timestamp.toLocaleDateString('ru-RU', options);
+                // Выводим отформатированную дату на страницу
+                document.getElementById('timestamp').textContent = `Дата создания: ${formattedDate}`;
+            }
             // Изображение карточки
             if (cardData['data']['cover']) {
                 document.getElementById('cover').src =`../${cardData['data']['cover']}`;
