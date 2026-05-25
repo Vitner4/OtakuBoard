@@ -1,6 +1,7 @@
 # Type: Загрузка и проверка компонентов перед запуском приложения
 # Author: Vitner4
 
+import os
 import log
 import sys
 import config
@@ -32,6 +33,9 @@ def start():
             log.log("config.py", "Файл конфигурации повреждён или имеет неверный формат. Восстановление стандартных настроек...") # Логирование
             config.restore_default_config() # Восстановление файла конфигурации к стандартным настройкам
         
+        # Проверка наличия папки account и её создание при отсутствии
+        # os.makedirs(config.get_value("directories", "account_dir"), exist_ok=True)
+
         log.log("init.py", "Компоненты приложения успешно проверены и загружены!") # Логирование
     except Exception as e:
         log.log("init.py", f"Ошибка при запуске и проверке компонентов приложения: {str(e)}")

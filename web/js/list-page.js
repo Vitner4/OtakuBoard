@@ -67,8 +67,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Создаём IntersectionObserver для отслеживания видимости триггера
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
-                console.log("Дошли до конца");
-
                 // Загружаем следующую порцию карточек при достижении конца страницы
                 if (loadCards(limit, offset)){
                     if (CardLoading) { // Проверяем, можно ли продолжать загрузку карточек
