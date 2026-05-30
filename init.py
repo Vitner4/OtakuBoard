@@ -34,7 +34,7 @@ def start():
             config.restore_default_config() # Восстановление файла конфигурации к стандартным настройкам
         
         # Проверка наличия папки account и её создание при отсутствии
-        # os.makedirs(config.get_value("directories", "account_dir"), exist_ok=True)
+        os.makedirs(config.get_value("directories", "account_dir"), exist_ok=True)
 
         log.log("init.py", "Компоненты приложения успешно проверены и загружены!") # Логирование
     except Exception as e:

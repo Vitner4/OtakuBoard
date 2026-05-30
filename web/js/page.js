@@ -32,11 +32,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (cardData['data']['type']) {
                 document.getElementById('content').value = cardData['data']['type'];
             }
-            // Ссылка на контент карточки 
+            // Ссылка на контент карточки
+            const link = document.getElementById('link'); 
             if (cardData['data']['link']) {
-                const link = document.getElementById('link');
                 link.href = cardData['data']['link'];
                 link.textContent = "Нажми на меня!";
+            }else{
+                link.href = "#";
+                link.removeAttribute("target"); 
+                link.textContent = "Ссылка не указана";
             }
             // Комментарии карточки
             if (cardData['data']['description']) {
@@ -68,4 +72,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }catch (error) {
         console.error("Ошибка при загрузке карточки на стороне python: ", error);
     }
+});
+
+// Метод перехода на страницу редактирования карточки и передача ID карточки через URL
+const button = document.getElementById('page-edit');
+
+button.addEventListener('click', () => {
+    event.preventDefault(); // Предотвращаем стандартное поведение ссылки, чтобы не произошло перезагрузки страницы при клике на кнопку
+    window.location.href = `page-edit.html?card_id=${encodeURIComponent(cardId)}`; // Кодируем данные карточки в строку и передаем через URL
 });

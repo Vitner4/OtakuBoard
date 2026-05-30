@@ -91,7 +91,7 @@
     justify-content: flex-end;
 }
 
-/* Скрываем реальные input радиокнопок (используются метки) */
+/* Скрываем реальные input радио-кнопок (используются метки) */
 .stars-container input {
     display: none;
 }
@@ -322,4 +322,10 @@
     .content-card { padding: 14px; }
     .content-title { font-size: 1.15rem; }
     .star { font-size: 1.25rem; padding: 4px 6px; }
+}
+
+/* Стили статуса */
+#status {
+    margin-top: 20px;
+    font-weight: bold;
 }

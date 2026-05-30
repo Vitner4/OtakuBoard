@@ -66,7 +66,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
                 const file = cardCover.getFile(); // Получаем файл обложки
 
                 // Преобразуем файл в строку base64
-                const base64 = await fileToBase64(file, 'cover');
+                const base64 = await fileToBase64(file, 'status');
 
                 // Формируем объект с именем файла и его base64-данными
                 coverData = {
@@ -111,8 +111,8 @@ document.getElementById("create-btn").addEventListener("click", async () => {
                 // Возвращение цвета полей
                 const name = document.getElementById('name');
                 name.style.borderColor = '#ccc';
+                
                 // Статус загрузки данных
-
                 if (func['status'] == 'success') {
                     statusField.style.color = 'green';
                     statusField.textContent = func['message'];

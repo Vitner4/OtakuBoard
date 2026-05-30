@@ -44,7 +44,7 @@ export function createImageUploader(inputId, previewId) {
         const url = URL.createObjectURL(selected);
 
         // Отображаем превью изображения
-        preview.innerHTML = `<img src="${url}" alt="preview">`;
+        preview.innerHTML = `<img src="${url}" alt="Превью обложки">`;
     });
 
     // Возвращаем объект с методом для получения файла и статуса

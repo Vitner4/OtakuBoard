@@ -4,13 +4,13 @@
 import os
 import log
 import eel
-import time
 import config
 import random
 import base64
 import sqlite3
 import urllib.request
 import accountManager
+from pathlib import Path
 
 # =========================
 # ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ
@@ -85,11 +85,13 @@ def create_database():
 
         # Сохраняем изменения и закрываем соединение
         conn.commit()
-        conn.close()
 
         log.log("dataManager.py", f"Новая база данных аккаунта {config.get_value("account","account_id")} создана!") # Логирование
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при создании базы данных: {str(e)}") # Логирование
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()
 
 # ===================
 # ДОБАВЛЕНИЕ КАРТОЧКИ
@@ -163,17 +165,145 @@ def add_card(card_data: dict):
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при добавлении карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
-
     finally:
+        # Закрываем соединение с базой данных
         conn.close()
 
 # ==================
 # ИЗМЕНЕНИЕ КАРТОЧКИ
 # ==================
+@eel.expose
+def edit_card(card_id: str, updated_data: dict):
+    try:
+        # Подключаемся к базе данных
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Получаем текущую карточку из базы данных
+        cursor.execute("SELECT * FROM cards WHERE id = ?", (card_id,))
+        existing_card = cursor.fetchone()
+
+        # Если карточка не найдена, возвращаем ошибку
+        if not existing_card:
+            return {"status": "error", "message": "Карточка не найдена!"}
+        
+        # Путь до папки обложек карточек
+        folder_path = os.path.join(
+            config.get_value("account", "account_link"),
+            config.get_value("directories", "data_dir"),
+            config.get_value("directories", "cover_dir"),
+            config.get_value("directories", "card_cvr_dir")
+        )
+
+        # Проверка на наличие папки
+        if not os.path.exists(folder_path):
+            log.log("dataManager.py", "Папка сохранения обложки не найдена, проверяем структуру...") # Логирование
+            if not accountManager.folder_structure_check():
+                log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
+                raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
+            else:
+                log.log("dataManager.py", "Структура папок восстановлена, повторите создание карточки.") # Логирование
+                return {"status": "error", "message": "Структура папок восстановлена, повторите создание карточки."}
+
+        # Сохраняем обложку
+        cover = updated_data.get("cover") or {}
+        cover_path = None
+
+        # Проверка на тип изображения
+        if isinstance(cover, dict):
+            if cover.get("type") == "file":
+                # Удаляем обложку карточки из папки, если она существует
+                if existing_card["cover"] and os.path.exists(existing_card["cover"]):
+                    os.remove(existing_card["cover"])
+                log.log("dataManager.py", f"Старая обложка \"{existing_card['cover']}\" удалена!") # Логирование
+                cover_path = saveImage(card_id, cover, folder_path)
+
+            elif cover.get("type") == "URL":
+                # Удаляем обложку карточки из папки, если она существует
+                if existing_card["cover"] and os.path.exists(existing_card["cover"]):
+                    os.remove(existing_card["cover"])
+                log.log("dataManager.py", f"Старая обложка \"{existing_card['cover']}\" удалена!") # Логирование
+                cover_path = saveURLImage(card_id, cover, folder_path)
+            
+            else:
+                cover_path = existing_card["cover"] # Если тип не распознан, сохраняем старую обложку
+        
+        # Обновляем поля карточки
+        updated_card = {
+            "name": updated_data.get("name", existing_card["name"]),
+            "author": updated_data.get("author", existing_card["author"]),
+            "genre": updated_data.get("genre", existing_card["genre"]),
+            "year": updated_data.get("year", existing_card["year"]),
+            "type": updated_data.get("type", existing_card["type"]),
+            "link": updated_data.get("link", existing_card["link"]),
+            "description": updated_data.get("description", existing_card["description"]),
+            "star": updated_data.get("star", existing_card["star"]),
+            "cover": cover_path
+        }
+
+        # Выполняем обновление карточки в базе данных
+        cursor.execute("""
+            UPDATE cards
+            SET name = ?, author = ?, genre = ?, year = ?, type = ?,
+                link = ?, description = ?, star = ?, cover = ?
+            WHERE id = ?
+        """, (
+            updated_card["name"],
+            updated_card["author"],
+            updated_card["genre"],
+            updated_card["year"],
+            updated_card["type"],
+            updated_card["link"],
+            updated_card["description"],
+            updated_card["star"],
+            updated_card["cover"],
+            card_id
+        ))  
+
+        conn.commit()
+        log.log("dataManager.py", f"Карточка '{updated_card.get('name')}' успешно отредактирована!") # Логирование
+        return {"status": "success", "message": f"Карточка '{updated_card.get('name')}' успешно отредактирована!"}
+    except Exception as e:
+        log.log("dataManager.py", f"Ошибка редактировании карточки: {str(e)}") # Логирование
+        return {"status": "error", "message": str(e)}
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()
 
 # =================
 # УДАЛЕНИЕ КАРТОЧКИ
 # =================
+@eel.expose
+def delete_card(card_id: str):
+    try:
+        # Подключаемся к базе данных
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Получаем карточку из базы данных
+        cursor.execute("SELECT * FROM cards WHERE id = ?", (card_id,))
+        card = cursor.fetchone()
+
+        # Если карточка не найдена, возвращаем ошибку
+        if not card:
+            return {"status": "error", "message": "Карточка не найдена!"}
+
+        # Удаляем обложку карточки из папки, если она существует
+        if card["cover"] and os.path.exists(card["cover"]):
+            os.remove(card["cover"])
+            log.log("dataManager.py", f"Обложка \"{card['cover']}\" удалена!") # Логирование
+
+        # Удаляем карточку из базы данных
+        cursor.execute("DELETE FROM cards WHERE id = ?", (card_id,))
+        conn.commit()
+        log.log("dataManager.py", f"Карточка \"{card['name']}\" успешно удалена!") # Логирование
+        return {"status": "success", "message": f"Карточка \"{card['name']}\" успешно удалена!"}
+    except Exception as e:
+        log.log("dataManager.py", f"Ошибка при удалении карточки: {str(e)}") # Логирование
+        return {"status": "error", "message": str(e)}
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()
 
 # ========================
 # ПОЛУЧЕНИЕ КАРТОЧКИ ПО ID
@@ -201,9 +331,8 @@ def get_card_by_id(card_id: str):
         # Логирование ошибки и возврат описания ошибки
         log.log("dataManager.py", f"Ошибка при получении карточки по ID: {str(e)}")
         return {"status": "error", "message": str(e)}
-
     finally:
-        # Закрываем соединение с базой данных в любом случае
+        # Закрываем соединение с базой данных
         conn.close()
 
 # =========================================
@@ -245,9 +374,6 @@ def get_cards(limit=50, offset=0, search=None, type_filter=None):
         # Преобразуем результаты в список словарей
         result = [dict(row) for row in cursor.fetchall()]
         
-        # Закрываем соединение
-        conn.close()
-
         # Возвращаем результаты
         return {"status": "success", "data": result}
     except Exception as e:
@@ -255,7 +381,10 @@ def get_cards(limit=50, offset=0, search=None, type_filter=None):
             conn.close()
         log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
-    
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()
+
 # ===============
 # СОЗДАНИЕ ГРУППЫ
 # ===============
@@ -288,8 +417,8 @@ def add_group(group_data: dict):
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
-
     finally:
+        # Закрываем соединение с базой данных
         conn.close()
 
 # ================
@@ -328,8 +457,8 @@ def link_card_to_group(card_id: str, group_id: str):
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
-
     finally:
+        # Закрываем соединение с базой данных
         conn.close()
 
 # ============================
@@ -404,15 +533,29 @@ def saveURLImage(cardID: str, image: dict, save_path: str):
     try:
         # Получаем URL изображения из данных
         url = image.get("data")
-        file_name = f"{cardID}_{random.randint(1, 1000)}{image['name']}" # Имя файла для сохранения
+
+        # Инициализируем переменные для расширения и статуса расширения
+        extension = ".jpg"  # Расширение по умолчанию
+
+        # Проверяем расширение файла
+        filename = image['name'].lower()
+        
+        for ext in (".png", ".jpg", ".jpeg", ".webp", ".gif"):
+            if ext in filename:
+                extension = ext
+                break
+
+        file_name = f"{cardID}_{random.randint(1, 1000)}{extension}" # Имя файла для сохранения
 
         # Формируем полный путь до файла
         cover_path = os.path.join(save_path, file_name)
         
+        # Устанавливаем заголовки для запроса
         headers = {
             "User-Agent": "Mozilla/5.0"
         }
 
+        # Создаем запрос с заголовками
         req = urllib.request.Request(url, headers=headers)
 
         # Скачиваем изображение потоком с таймаутом 10 секунд
