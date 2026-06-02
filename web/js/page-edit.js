@@ -132,7 +132,18 @@ document.getElementById("cover-remove").addEventListener("click", () => {
 // Метод отправки данных в Python для редактирования карточки
 document.getElementById("edit-btn").addEventListener("click", async () => {
     // Переменные
+    const button = document.getElementById("edit-btn"); // Кнопка создания карточки
     const statusField = document.getElementById('status'); // Переменная поля статуса
+
+    // Деактивация кнопки на время обработки данных
+    button.disabled = true;
+    button.style.backgroundColor = '#ccc'; // Изменение цвета кнопки при деактивации
+
+    // Восстанавливаем кнопку через 1,5 секунды, чтобы предотвратить множественные клики
+    setTimeout(() => {
+        button.disabled = false;
+        button.style.backgroundColor = ''; // Восстановление цвета кнопки
+    }, 1500);
 
     // Проверка 
     if(document.getElementById('name').value.trim().length === 0){
@@ -180,6 +191,13 @@ document.getElementById("edit-btn").addEventListener("click", async () => {
                     name: coverURL.split('/').pop(), // Получаем имя файла из URL
                     data: coverURL,
                     type: "URL"
+                };
+            }
+
+            // Если обложка была удалена
+            else if (selectedFormat == "remove") {
+                coverData = {
+                    type: "remove"
                 };
             }
 

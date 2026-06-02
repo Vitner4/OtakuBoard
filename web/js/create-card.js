@@ -38,7 +38,18 @@ document.getElementById("cover-remove").addEventListener("click", () => removeCo
 // Метод отправки данных в Python для создания новой карточки
 document.getElementById("create-btn").addEventListener("click", async () => {
     // Переменные
+    const button = document.getElementById("create-btn"); // Кнопка создания карточки
     const statusField = document.getElementById('status'); // Переменная поля статуса
+
+    // Деактивация кнопки на время обработки данных
+    button.disabled = true;
+    button.style.backgroundColor = '#ccc'; // Изменение цвета кнопки при деактивации
+
+    // Восстанавливаем кнопку через 1,5 секунды, чтобы предотвратить множественные клики
+    setTimeout(() => {
+        button.disabled = false;
+        button.style.backgroundColor = ''; // Восстановление цвета кнопки
+    }, 1500);
 
     // Проверка 
     if(document.getElementById('name').value.trim().length === 0){
@@ -111,7 +122,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
                 // Возвращение цвета полей
                 const name = document.getElementById('name');
                 name.style.borderColor = '#ccc';
-                
+               
                 // Статус загрузки данных
                 if (func['status'] == 'success') {
                     statusField.style.color = 'green';

@@ -225,6 +225,13 @@ def edit_card(card_id: str, updated_data: dict):
                 log.log("dataManager.py", f"Старая обложка \"{existing_card['cover']}\" удалена!") # Логирование
                 cover_path = saveURLImage(card_id, cover, folder_path)
             
+            elif cover.get("type") == "remove":
+                # Удаляем обложку карточки из папки, если она существует
+                if existing_card["cover"] and os.path.exists(existing_card["cover"]):
+                    os.remove(existing_card["cover"])
+                log.log("dataManager.py", f"Обложка \"{existing_card['cover']}\" удалена по запросу!") # Логирование
+                cover_path = None # Устанавливаем значение обложки в None, чтобы удалить её из карточки
+            
             else:
                 cover_path = existing_card["cover"] # Если тип не распознан, сохраняем старую обложку
         
@@ -389,37 +396,37 @@ def get_cards(limit=50, offset=0, search=None, type_filter=None):
 # СОЗДАНИЕ ГРУППЫ
 # ===============
 # ! Не протестировано. Протестировать функцию!
-def add_group(group_data: dict):
-    """
-    group_data должен содержать:
-    id, name, type, cover, timestamp
-    """
+# def add_group(group_data: dict):
+#     """
+#     group_data должен содержать:
+#     id, name, type, cover, timestamp
+#     """
 
-    # Подключаемся к базе данных
-    conn = get_connection()
-    cursor = conn.cursor()
+#     # Подключаемся к базе данных
+#     conn = get_connection()
+#     cursor = conn.cursor()
 
-    try:
-        cursor.execute("""
-            INSERT INTO groups (
-                id, name, type, cover, added_cards, timestamp
-            ) VALUES (?, ?, ?, ?, 0, ?)
-        """, (
-            group_data["id"],
-            group_data["name"],
-            group_data.get("type"),
-            group_data.get("cover"),
-            group_data.get("timestamp")
-        ))
+#     try:
+#         cursor.execute("""
+#             INSERT INTO groups (
+#                 id, name, type, cover, added_cards, timestamp
+#             ) VALUES (?, ?, ?, ?, 0, ?)
+#         """, (
+#             group_data["id"],
+#             group_data["name"],
+#             group_data.get("type"),
+#             group_data.get("cover"),
+#             group_data.get("timestamp")
+#         ))
 
-        conn.commit()
-        return {"status": "success"}
+#         conn.commit()
+#         return {"status": "success"}
 
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
-    finally:
-        # Закрываем соединение с базой данных
-        conn.close()
+#     except Exception as e:
+#         return {"status": "error", "message": str(e)}
+#     finally:
+#         # Закрываем соединение с базой данных
+#         conn.close()
 
 # ================
 # ИЗМЕНЕНИЕ ГРУППЫ
@@ -433,75 +440,75 @@ def add_group(group_data: dict):
 # СВЯЗЫВАНИЕ КАРТОЧКИ С ГРУППОЙ
 # =============================
 # ! Не протестировано. Протестировать функцию!
-def link_card_to_group(card_id: str, group_id: str):
-    # Подключаемся к базе данных
-    conn = get_connection()
-    cursor = conn.cursor()
+# def link_card_to_group(card_id: str, group_id: str):
+#     # Подключаемся к базе данных
+#     conn = get_connection()
+#     cursor = conn.cursor()
 
-    try:
-        # добавляем связь
-        cursor.execute("""
-            INSERT INTO group_cards (group_id, card_id)
-            VALUES (?, ?)
-        """, (group_id, card_id))
+#     try:
+#         # добавляем связь
+#         cursor.execute("""
+#             INSERT INTO group_cards (group_id, card_id)
+#             VALUES (?, ?)
+#         """, (group_id, card_id))
 
-        # обновляем счётчик карточек
-        cursor.execute("""
-            UPDATE groups
-            SET added_cards = added_cards + 1
-            WHERE id = ?
-        """, (group_id,))
+#         # обновляем счётчик карточек
+#         cursor.execute("""
+#             UPDATE groups
+#             SET added_cards = added_cards + 1
+#             WHERE id = ?
+#         """, (group_id,))
 
-        conn.commit()
-        return {"status": "success"}
+#         conn.commit()
+#         return {"status": "success"}
 
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
-    finally:
-        # Закрываем соединение с базой данных
-        conn.close()
+#     except Exception as e:
+#         return {"status": "error", "message": str(e)}
+#     finally:
+#         # Закрываем соединение с базой данных
+#         conn.close()
 
 # ============================
 # ПОЛУЧИТЬ ВСЕ КАРТОЧКИ ГРУППЫ
 # ============================
 # ! Не протестировано. Протестировать функцию!
-def get_cards_by_group(group_id: str):
-    # Подключаемся к базе данных
-    conn = get_connection()
-    cursor = conn.cursor()
+# def get_cards_by_group(group_id: str):
+#     # Подключаемся к базе данных
+#     conn = get_connection()
+#     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT cards.*
-        FROM cards
-        JOIN group_cards ON cards.id = group_cards.card_id
-        WHERE group_cards.group_id = ?
-    """, (group_id,))
+#     cursor.execute("""
+#         SELECT cards.*
+#         FROM cards
+#         JOIN group_cards ON cards.id = group_cards.card_id
+#         WHERE group_cards.group_id = ?
+#     """, (group_id,))
 
-    result = [dict(row) for row in cursor.fetchall()]
-    conn.close()
+#     result = [dict(row) for row in cursor.fetchall()]
+#     conn.close()
 
-    return result
+#     return result
 
 # ================================
 # ПОЛУЧИТЬ ВСЕ ГРУППЫ С КАРТОЧКАМИ
 # ================================
 # ! Не протестировано. Протестировать функцию!
-def get_groups_by_card(card_id: str):
-    # Подключаемся к базе данных
-    conn = get_connection()
-    cursor = conn.cursor()
+# def get_groups_by_card(card_id: str):
+#     # Подключаемся к базе данных
+#     conn = get_connection()
+#     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT groups.*
-        FROM groups
-        JOIN group_cards ON groups.id = group_cards.group_id
-        WHERE group_cards.card_id = ?
-    """, (card_id,))
+#     cursor.execute("""
+#         SELECT groups.*
+#         FROM groups
+#         JOIN group_cards ON groups.id = group_cards.group_id
+#         WHERE group_cards.card_id = ?
+#     """, (card_id,))
 
-    result = [dict(row) for row in cursor.fetchall()]
-    conn.close()
+#     result = [dict(row) for row in cursor.fetchall()]
+#     conn.close()
 
-    return result
+#     return result
 
 # ======================
 # СОХРАНЕНИЕ ИЗОБРАЖЕНИЯ

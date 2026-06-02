@@ -158,5 +158,5 @@ export function removeCover(coverId, previewId, linkId){
     // Восстановление текста-заглушки в контейнере предпросмотра
     if (previewContainer) previewContainer.innerHTML = '<p>Изображение не выбрано</p>';
 
-    selectedFormat = null; // Установка формата изображения
+    selectedFormat = "remove"; // Установка формата изображения
 }
