@@ -31,6 +31,25 @@ def account_data_set(data):
     global account_data
     account_data = data
 
+# Функция для установки данных аккаунта в файл аккаунта
+def account_data_file_set(data: dict):
+    try:
+        # Получаем путь до файла аккаунта 
+        account_file = os.path.join(
+            config.get_value("account", "account_link"),
+            config.get_value("account", "account_id") + acc_type,
+        )
+        if account_file:
+            # Записываем данные аккаунта в файл
+            with open(account_file, 'w', encoding='utf-8') as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+            log.log("accountManager.py", f"Данные аккаунта успешно сохранены в файл: {account_file}")
+        else:
+            log.log("accountManager.py", "Путь до аккаунта не найден!")
+    except Exception as e:
+        log.log("accountManager.py", f"Произошла ошибка при сохранении данных аккаунта в файл! ({e})")
+
+
 # Getter для data_loading_status
 def data_loading_status_get():
     return data_loading_status
@@ -47,16 +66,11 @@ def create_new_account(formData):
         # Добавляем доп. поля в данные аккаунта
         # Модифицируем ID
         formData['id'] = f'{acc_symbol}{formData['id']}'
-        # Добавляем два вида хранения аватарки аккаунта
-        formData['img'] = "none" # Локальное
-        formData['web_img'] = "none" # Web
-        # Кол-во карточек и групп
-        formData['cards'] = 0
-        formData['groups'] = 0
+        # Добавляем аватарки аккаунта
+        formData['avatar'] = None
         # Добавляем время создания, работы и пометку приложения
         formData['timestamp'] = time.strftime('%d.%m.%Y')
         formData['timestamp_extra'] = time.strftime('%H:%M:%S')
-        formData['work_time'] = 0 #! Решить вопрос с учётом времени работы приложения
         formData['for'] = config.get_value("app", "name")
 
         # Определяем имена директорий
@@ -198,7 +212,77 @@ def sending_account_data():
         return {"status": "error", "message": "Произошла ошибка при отправке данных аккаунта. Аккаунт не подключен!"}
 
 # Функция редактирования аккаунта
+@eel.expose
+def account_edit(newData):
+    try:
+        # Получаем путь до папки аватара аккаунта из Config.json
+        avatar_file_path = os.path.join(
+            config.get_value("account", "account_link"),
+            config.get_value("directories", "profile_dir"),
+            config.get_value("directories", "logo_dir")
+        )
 
+        # Проверка на наличие папки
+        if not os.path.exists(avatar_file_path):
+            log.log("accountManager.py", "Папка сохранения обложки не найдена, проверяем структуру...") # Логирование
+            if not folder_structure_check():
+                log.log("accountManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
+                raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
+            else:
+                log.log("accountManager.py", "Структура папок восстановлена, повторите редактирование аккаунта.") # Логирование
+                return {"status": "error", "message": "Структура папок восстановлена, повторите редактирование аккаунта."}
+        
+        # Сохраняем аватар аккаунта
+        avatar = newData.get("avatar") or {}
+        avatar_path = None
+        # Получаем данные аккаунта
+        accDta = account_data_get()
+
+        # Проверка на тип изображения
+        if isinstance(avatar, dict):
+            if avatar.get("type") == "file":
+                # Удаляем аватар аккаунта из папки, если она существует
+                if accDta["avatar"] and os.path.exists(accDta["avatar"]):
+                    os.remove(accDta["avatar"])
+                log.log("accountManager.py", f"Старый аватар \"{accDta['avatar']}\" удалён!") # Логирование
+                avatar_path = dataManager.saveImage("avatar", avatar, avatar_file_path)
+
+            elif avatar.get("type") == "URL":
+                # Удаляем аватар аккаунта из папки, если она существует
+                if accDta["avatar"] and os.path.exists(accDta["avatar"]):
+                    os.remove(accDta["avatar"])
+                log.log("accountManager.py", f"Старый аватар \"{accDta['avatar']}\" удалён!") # Логирование
+                avatar_path = dataManager.saveURLImage("avatar", avatar, avatar_file_path)
+            
+            elif avatar.get("type") == "remove":
+                # Удаляем аватар аккаунта из папки, если она существует
+                if accDta["avatar"] and os.path.exists(accDta["avatar"]):
+                    os.remove(accDta["avatar"])
+                log.log("accountManager.py", f"Аватар \"{accDta['avatar']}\" удален по запросу!") # Логирование
+                avatar_path = None # Устанавливаем значение аватара None, чтобы удалить её из карточки
+            
+            else:
+                avatar_path = accDta["avatar"] # Если тип не распознан, сохраняем старый аватар
+    
+        # Обновляем данные аккаунта на основе полученных данных из формы
+        accDta['name'] = newData['name']
+        accDta['avatar'] = avatar_path
+
+        # Сохраняем обновленные данные аккаунта в файл аккаунта
+        account_data_file_set(accDta)
+
+        # Загружаем обновленные данные аккаунта и устанавливаем статус загрузки
+        account_data_set(accDta) 
+        data_loading_status_set(True)
+
+        # Возвращаем "success" при успешном редактировании аккаунта
+        log.log("accountManager.py", f"Редактирование аккаунта {accDta['id']} успешно выполнено!")
+        return {"status": "success", "message": f"Редактирование аккаунта {accDta['id']} успешно выполнено!"}
+    except Exception as e:
+        # Возвращаем "error" при ошибке редактирования аккаунта
+        log.log("accountManager.py", f"Произошла ошибка при редактировании аккаунта на стороне Python! ({e})")
+        return {"status": "error", "message": f"Произошла ошибка при редактировании аккаунта на стороне Python! ({e})"}
+                                  
 # Функция выхода из аккаунта
 @eel.expose
 def account_logout(value):

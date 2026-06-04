@@ -132,7 +132,7 @@ document.getElementById("cover-remove").addEventListener("click", () => {
 // Метод отправки данных в Python для редактирования карточки
 document.getElementById("edit-btn").addEventListener("click", async () => {
     // Переменные
-    const button = document.getElementById("edit-btn"); // Кнопка создания карточки
+    const button = document.getElementById("edit-btn"); // Кнопка редактирования карточки
     const statusField = document.getElementById('status'); // Переменная поля статуса
 
     // Деактивация кнопки на время обработки данных

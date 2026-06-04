@@ -1,153 +1,182 @@
-//! Заменено на set-image.js
-// Предпросмотр загружаемого локального аватара
-document.addEventListener('DOMContentLoaded', () => {
-    // Получаем ссылки на HTML-элементы
-    const fileInput = document.getElementById('cover');
-    const previewContainer = document.getElementById('cover-preview');
+// Type: вывод данных аккаунта для редактирования на frontend
+// Author: Vitner4
 
-    // Добавляем слушатель события на изменение поля input[type="file"]
-    fileInput.addEventListener('change', function() {
-        // Проверяем, был ли выбран хотя бы один файл
-        const file = this.files[0];
+import { getSelectedFormat } from "./image-uploader.js"; // Импорт функции получения выбранного формата изображения
+import { createImageUploader } from "./image-uploader.js"; // Импорт функции загрузки изображения
+import { fileToBase64 } from "./image-uploader.js"; // Импорт функции преобразования файла в строку base64
+import { URLViewer } from "./image-uploader.js"; // Импорт функции предпросмотра URL обложки
+import { selectionChecker } from "./image-uploader.js"; // Импорт функции взаимного исключения выбора файла и ввода ссылки
+import { removeCover } from "./image-uploader.js"; // Импорт функции удаления изображения
 
-        if (!file) {
-            // Если файл не выбран (например, пользователь отменил выбор),
-            // восстанавливаем текст-заглушку
-            previewContainer.innerHTML = '';
-            return;
+// Загрузки данных аккаунта и вывод при входе на страницу
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const accountData = await eel.sending_account_data()(); // Получаем данные аккаунта
+
+        // Установка имени аккаунта
+        document.getElementById('name').value = accountData['name']; // Установка имени аккаунта
+
+        // Установка аватара аккаунта
+        const avatar = document.getElementById('account-avatar'); // Получаем элемент для аватара
+
+        if (accountData['avatar'] && accountData['avatar'] !== null) {
+            avatar.src = `../${accountData['avatar']}`; // Установка аватара, если он есть
+            document.getElementById('cover-message').style.display = "none"; // Скрываем плейсхолдер, если аватар установлен
+        }else{
+            avatar.style.display = "none"; // Скрываем элемент аватара, если он не установлен
         }
-
-        // Проверка типа файла — только изображения
-        if (!file.type || !file.type.startsWith('image/')) {
-            previewContainer.innerHTML = '<p>Выбранный файл не является изображением</p>';
-            // Можно очистить выбор, если нужно:
-            // this.value = '';
-            return;
-        }
-
-        // Создаем объект FileReader для чтения содержимого файла
-        const reader = new FileReader();
-
-        // Определяем, что произойдет после успешного чтения файла
-        reader.onload = function(e) {
-            // Создаем новый элемент <img>
-            const img = document.createElement('img');
-            img.alt = 'Превью аватара';
-            img.id = 'cover-preview-img';
-            // Устанавливаем его src равным прочитанным данным (Base64-изображение)
-            img.src = e.target.result;
-
-            // Успешная загрузка изображения в элемент <img>
-            img.onload = function() {
-                // Очищаем контейнер предпросмотра от старого текста/изображения
-                previewContainer.innerHTML = '';
-                // Вставляем новое изображение в контейнер
-                previewContainer.appendChild(img);
-                
-                // Вывод код изображения Base64 в консоль
-                // console.log('Base64 аватара:', img.src);
-            };
-
-            // Ошибка при создании/отображении изображения
-            img.onerror = function() {
-                previewContainer.innerHTML = '';
-            };
-        };
-
-        // Обработка ошибок FileReader
-        reader.onerror = function() {
-            previewContainer.innerHTML = '<p>Ошибка при чтении файла</p>';
-        };
-
-        // Запускаем процесс чтения файла как Data URL (Base64)
-        reader.readAsDataURL(file);
-    });
-});
-
-// Предпросмотр аватара по URL ссылке
-document.addEventListener('DOMContentLoaded', () => {
-    // Получаем ссылку на поле ввода ссылки и контейнер предпросмотра
-    const linkInput = document.getElementById('cover-link');
-    const previewContainer = document.getElementById('cover-preview');
-
-    // Вспомогательная функция для показа заглушки
-    function showPlaceholder() {
-    }
-
-    // Обработчик события ввода/вставки ссылки
-    linkInput.addEventListener('input', function () {
-        const url = this.value.trim();
-
-        // Если поле пустое — показываем заглушку
-        if (!url) {
-            showPlaceholder();
-            return;
-        }
-
-        // Создаём изображение и навешиваем обработчики загрузки/ошибки
-        const img = document.createElement('img');
-        img.alt = 'Превью аватара';
-
-        // Успешная загрузка — вставляем изображение в контейнер
-        img.onload = function () {
-            previewContainer.innerHTML = '';
-            previewContainer.appendChild(img);
-        };
-
-        // Ошибка загрузки — показываем сообщение об ошибке
-        img.onerror = function () {
-            previewContainer.innerHTML = '<p>Не удалось загрузить изображение по указанной ссылке</p>';
-        };
-
-        // Присваиваем src после назначения обработчиков, чтобы корректно отработали события
-        img.src = url;
-    });
-
-    // Инициализация: если при загрузке страницы поле пустое, показываем заглушку
-    if (!linkInput.value.trim()) {
-        showPlaceholder();
+    }catch (error) {
+        console.error("Ошибка при загрузке данных аккаунта:", error);
     }
 });
 
-// Взаимное исключение выбора файла и ввода ссылки
-document.addEventListener('DOMContentLoaded', () => {
-    const fileInput = document.getElementById('cover');
-    const linkInput = document.getElementById('cover-link');
+// Переменные 
+const fileCover = createImageUploader("cover", "cover-placeholder"); // Получение аватара из файла
+const avatar = document.getElementById('account-avatar'); // Получаем элемент для аватара
 
-    function handleFileSelection() {
-        const file = fileInput.files[0];
-        // Если выбран файл и это изображение — очищаем ссылку
-        if (file && file.type && file.type.startsWith('image/')) {
-            if (linkInput.value) linkInput.value = '';
-        }
-    }
-
-    function handleLinkInput() {
-        const url = linkInput.value.trim();
-        // Если введена ссылка — очищаем выбранный файл
-        if (url) {
-            if (fileInput.value) fileInput.value = '';
-        }
-    }
-
-    fileInput.addEventListener('change', handleFileSelection);
-    linkInput.addEventListener('input', handleLinkInput);
-
-    // Начальная проверка при загрузке страницы
-    handleFileSelection();
-    handleLinkInput();
-});
-
-// удаление аватара при нажатии кнопки
-function removeCover(){
-    let coverInput = document.getElementById("cover");
-    let coverLinkInput = document.getElementById("cover-link");
-    let previewContainer = document.getElementById("cover-preview");
-
-    // Очистка полей ввода
-    if (coverInput) coverInput.value = "";
-    if (coverLinkInput) coverLinkInput.value = "";
-
-    // Восстановление текста-заглушки в контейнере предпросмотра
-    if (previewContainer) previewContainer.innerHTML = '';
+// Функция проверки на запрещенные символы
+function checkInvalidChars(text) {
+    const forbidden = /[<>:"\/\\|?*]/;
+    return forbidden.test(text);
 }
+
+// Проверка загрузки обложки из файла
+const coverInput = document.getElementById('cover');
+
+coverInput.addEventListener('change', () => {
+        avatar.style.display = "none";
+});
+
+// Проверка загрузки URL обложки
+const coverLinkInput = document.getElementById('cover-link');
+
+coverLinkInput.addEventListener('input', () => {
+    if (coverLinkInput.value !== '') {
+        avatar.style.display = "none";
+    }
+});
+
+// Метод просмотра URL обложки 
+document.addEventListener('DOMContentLoaded', () => {
+    URLViewer("cover-link", "cover-placeholder");
+});
+
+// Метод проверки выбранного формата обложки
+document.addEventListener('DOMContentLoaded', () => {
+    selectionChecker("cover", "cover-link");
+});
+
+// Метод удаления обложки
+document.getElementById("cover-remove").addEventListener("click", () => {
+    avatar.style.display = "none";
+    removeCover("cover", "cover-placeholder", "cover-link");
+});
+
+// Метод сборки и отправки данных в Python для редактирования аккаунта
+document.getElementById("account-edit").addEventListener("click", async () => {
+    // Переменные
+    const button = document.getElementById("account-edit"); // Кнопка создания карточки
+    const statusField = document.getElementById('status'); // Переменная поля статуса
+
+    // Деактивация кнопки на время обработки данных
+    button.disabled = true;
+    button.style.backgroundColor = '#c1dab3'; // Изменение цвета кнопки при деактивации
+
+    // Восстанавливаем кнопку через 1,5 секунды, чтобы предотвратить множественные клики
+    setTimeout(() => {
+        button.disabled = false;
+        button.style.backgroundColor = ''; // Восстановление цвета кнопки
+    }, 1500);
+
+    // Проверка 
+    if(document.getElementById('name').value.trim().length === 0){
+        // Получение поля имени и установка красного цвета при ошибке
+        const name = document.getElementById('name');
+        name.style.borderColor = 'red';
+        // Получение статуса и установка цвета при ошибке
+        statusField.style.color = 'red';
+        statusField.textContent = "Укажите ваше имя!";
+    }else{
+        if(checkInvalidChars(document.getElementById('name').value) == true){
+            // Получение поля имени и установка красного цвета при ошибке
+            const name = document.getElementById('name');
+            name.style.borderColor = 'red';
+            // Получение статуса и установка цвета при ошибке
+            statusField.style.color = 'red';
+            statusField.textContent = "В имени указаны запрещённые символы!";      
+        }else{  
+            const selectedFormat = getSelectedFormat(); // Получение формата изображения
+            let coverData = null; // Данные аватара для отправки в Python
+       
+            // Если выбран файл изображения
+            if (selectedFormat == "file") {
+                const file = fileCover.getFile(); // Получаем файл обложки
+
+                // Преобразуем файл в строку base64
+                const base64 = await fileToBase64(file, 'status');
+
+                // Формируем объект с именем файла и его base64-данными
+                coverData = {
+                    name: file.name,
+                    data: base64,
+                    type: "file"
+                };
+            }
+
+            // Если введён URL изображения
+            else if (selectedFormat == "URL") {
+                const coverURL = document.getElementById("cover-link").value; // Получение URL обложки
+                statusField.style.color = 'blue';
+                statusField.textContent = 'Загрузка URL изображения...';
+
+                // Формируем объект
+                coverData = {
+                    name: coverURL.split('/').pop(), // Получаем имя файла из URL
+                    data: coverURL,
+                    type: "URL"
+                };
+            }
+
+            // Если обложка была удалена
+            else if (selectedFormat == "remove") {
+                coverData = {
+                    type: "remove"
+                };
+            }
+
+            //Если обложка не изменена
+            else {
+                coverData = {
+                    type: null
+                };
+            }
+
+            // Собираем данные формы для редактирования карточки
+            const formData = {
+            name: document.getElementById('name').value,
+            avatar: coverData
+            };
+
+            // Отправляем данные в Python для редактирования аккаунта
+            try {
+                let func = await eel.account_edit(formData)();
+                // Возвращение цвета полей
+                const name = document.getElementById('name');
+                name.style.borderColor = '#ccc';
+
+                // Статус загрузки данных
+                if (func['status'] == 'success') {
+                    statusField.style.color = 'green';
+                    statusField.textContent = func['message'];
+                }
+                if (func['status'] == 'error') {
+                    statusField.style.color = 'red';
+                    statusField.textContent = 'Произошла ошибка при редактировании аккаунта на стороне Python! '+"("+ func['message'] +")";
+                }
+            } catch (error) { 
+                statusField.style.color = 'red';
+                statusField.textContent = 'Произошла ошибка при редактировании аккаунта на стороне JS! '+"("+ error +")";
+            }           
+        }  
+    }              
+});

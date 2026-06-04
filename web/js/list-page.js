@@ -22,13 +22,17 @@ async function loadCards(limit, offset) {
         if (cards && cards.length > 0) {
             // Проходим по каждой карточке и создаём HTML элементы для отображения
             cards.forEach(card => {
+                // Проверка обложки карточки
+                const coverSrc = card.cover ? `../${card.cover}` : `css/src/img/default/default-card.png`;
+
+                // Добавляем HTML код для каждой карточки
                 tileList.insertAdjacentHTML('beforeend', 
                     `
                     <div id="${card.id}" class="card-container" title="${card.name}">
                         <div class="tilt-target">
                             <div class="glare"></div>
                             <div class="card_star">${card.star}</div>     
-                            <img id="${card.id}_img" class="card-img" src="../${card.cover}" onerror="this.onerror=null; this.src='css/src/img/default/default-card.png';" >
+                            <img id="${card.id}_img" class="card-img" src="${coverSrc}">
                         </div>
                     </div>
                     `

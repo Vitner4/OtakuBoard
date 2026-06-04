@@ -37,21 +37,25 @@
     <!-- Блок аккаунта пользователя -->
     <div class="account-form">
         <div id="account-btn-container">
-            <a href="account.html"><button id="account-edit" title="Сохранить изменения">Сохранить</button></a>
+            <p id="status"></p>
+            <button id="account-edit" title="Сохранить изменения">Сохранить</button>
             <a href="account.html"><button id="account-edit-cancel" title="Отменить изменения">Отменить</button></a>
         </div>
         <div class="account-data">
             <div id="cover-preview">
-                <img src="https://lifehacker.ru/wp-content/uploads/2024/12/Podborka_romanticheskix_anime_1733906532.jpg" alt="" id="account-avatar">
+                <div id="cover-placeholder">
+                    <p id="cover-message">Предпросмотр аватара появится здесь</p>
+                </div>
+                <img src="" alt="" id="account-avatar">
             </div>
             <label>Имя:</label>
-            <input type="text" id="name" name="name" placeholder="Укажите имя аккаунта" value="Name">
+            <input type="text" id="name" name="name" placeholder="Укажите имя аккаунта" value="">
 
             <label>Аватар аккаунта:</label>
             <input type="file" id="cover" name="cover" accept="image/*" style="cursor: pointer;">
             <input type="text" id="cover-link" name="cover-link" placeholder="Или укажите URL-ссылку на аватар">
             
-            <button type="button" class="btn" id="cover-remove" onclick="removeCover()">Убрать аватар</button>
+            <button type="button" class="btn" id="cover-remove">Убрать аватар</button>
         </div>
     </div>
 
@@ -75,6 +79,6 @@
     <!-- JS импорт -->
     <script src="/eel.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/account-edit.js"></script>
+    <script type="module" src="js/account-edit.js"></script>
 </body>
 </html>

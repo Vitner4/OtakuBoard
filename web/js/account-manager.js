@@ -185,20 +185,26 @@ async function accountLogin(){
 async function getData(){
     // Процесс получения данных аккаунта
     func = await eel.sending_account_data()();
-    
+
+    // Получение количества карточек
+    countCards = await eel.get_cards_count()();
+
     // Установка данных аккаунта
     document.getElementById('account-name').textContent = func['name']; 
     document.getElementById('account-id').textContent = func['id'];
     document.getElementById('account-reg-data').textContent = "Аккаунт создан: " + func['timestamp'];
-    document.getElementById('account_work_time').textContent = "Время работы: " + func['work_time'] + "д"; //! Решить вопрос с счётом времени работы программы
-    document.getElementById('account-all-cards').textContent = "Всего карточек: " + func['cards'];
-    document.getElementById('account-all-groups').textContent = "Всего групп: " + func['groups'];  
+    document.getElementById('account-all-cards').textContent = "Всего карточек: " + countCards['count'];
+    // document.getElementById('account-all-groups').textContent = "Всего групп: " + func['groups'];  
 
-    //! Установить img, web_img после создания нового скрипта для установки изображения
+    // Установка аватара
+    const avatar = document.getElementById('account-avatar');
+    if (func['avatar'] && func['avatar'] !== null) {
+        avatar.src = `../${func['avatar']}`; // Установка аватара, если он есть
+    }else{
+        avatar.src = "css/src/img/default/default-avatar.jpg"; // Скрываем элемент аватара, если он не установлен
+    }
 }
-
-// Функция редактирования аккаунта  
-
+ 
 // Функция выхода из аккаунта
 logoutBtn = document.getElementById('account-logout');
 

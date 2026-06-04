@@ -202,8 +202,8 @@ def edit_card(card_id: str, updated_data: dict):
                 log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
                 raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
             else:
-                log.log("dataManager.py", "Структура папок восстановлена, повторите создание карточки.") # Логирование
-                return {"status": "error", "message": "Структура папок восстановлена, повторите создание карточки."}
+                log.log("dataManager.py", "Структура папок восстановлена, повторите редактирование карточки.") # Логирование
+                return {"status": "error", "message": "Структура папок восстановлена, повторите редактирование карточки."}
 
         # Сохраняем обложку
         cover = updated_data.get("cover") or {}
@@ -230,7 +230,7 @@ def edit_card(card_id: str, updated_data: dict):
                 if existing_card["cover"] and os.path.exists(existing_card["cover"]):
                     os.remove(existing_card["cover"])
                 log.log("dataManager.py", f"Обложка \"{existing_card['cover']}\" удалена по запросу!") # Логирование
-                cover_path = None # Устанавливаем значение обложки в None, чтобы удалить её из карточки
+                cover_path = None # Устанавливаем значение обложки None, чтобы удалить её из карточки
             
             else:
                 cover_path = existing_card["cover"] # Если тип не распознан, сохраняем старую обложку
@@ -387,6 +387,30 @@ def get_cards(limit=50, offset=0, search=None, type_filter=None):
         if conn is not None:
             conn.close()
         log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}") # Логирование
+        return {"status": "error", "message": str(e)}
+    finally:
+        # Закрываем соединение с базой данных
+        conn.close()
+
+# ===========================================
+# ПОЛУЧЕНИЕ КОЛИЧЕСТВА КАРТОЧЕК В БАЗЕ ДАННЫХ
+# ===========================================
+@eel.expose
+def get_cards_count():
+    try:
+        # Подключаемся к базе данных
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        # Выполняем запрос к базе данных для получения количества карточек
+        cursor.execute("SELECT COUNT(*) AS count FROM cards")
+        row = cursor.fetchone()
+
+        # Возвращаем количество карточек
+        return {"status": "success", "count": row["count"]}
+
+    except Exception as e:
+        log.log("dataManager.py", f"Ошибка при получении количества карточек: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
     finally:
         # Закрываем соединение с базой данных
