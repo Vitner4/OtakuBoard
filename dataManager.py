@@ -357,21 +357,15 @@ def get_cards(limit=50, offset=0, search=None, type_filter=None):
         query = "SELECT * FROM cards ORDER BY id DESC LIMIT ? OFFSET ?"
         params = []
 
-        # TODO: Добавить возможность поиска и фильтрации карточек по различным полям (название, автор, жанр, год, тип и т.д.)
-
         # Добавляем условие поиска по названию если параметр передан
-        # if search:
-        #     query += " AND name LIKE ?"
-        #     params.append(f"%{search}%")
+        if search:
+            query = "SELECT * FROM cards WHERE name LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?"
+            params.append(f"%{search}%")
 
-        # Добавляем фильтр по типу если параметр передан
-        # if type_filter:
-        #     query += " AND type = ?"
-        #     params.append(type_filter)
-
-        # Добавляем сортировку, лимит и смещение для пагинации
-        # query += " ORDER BY id DESC LIMIT ? OFFSET ?"
-
+        # TODO: Добавить возможность фильтрации карточек по различным полям (название, автор, жанр, год, тип и т.д.)
+        # TODO: Фильтр располагается здесь!
+        # TODO: ..
+        
         # Добавляем параметры для пагинации
         params.extend([limit, offset])
 

@@ -446,7 +446,21 @@ section {
 #create_card_button:hover{
     color: #ffffff;
     background-color: #000000;
-    transform: scale(1.05);
-    
+    transform: scale(1.05);   
+}
+
+/* Сообщение: карточки не найдены */
+#not-found{
+    width: 45%;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Расположение блока по центру */
+    margin: 0 auto;
+    margin-top: 20%;
+    justify-content: center;
+    /* Оформление текста */
+    font-size: 1.4rem;
+    color: #727272;
 }
     

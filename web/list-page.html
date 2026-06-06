@@ -41,7 +41,7 @@
             <div class="base-win">
                 <!-- Карточки -->
                 <div class="mine-selector">
-                    <h1 class="text-preview">Все карточки</h1>
+                    <h1 id="text-preview" class="text-preview">Все карточки</h1>
                     <p id="easter-egg" hidden>Hello, from Vitner4!</p>
                     <form id="no_card_form">
                         <div id="no_card_block">
@@ -49,6 +49,7 @@
                             <a href="create-card.html"><button type="button" id="create_card_button">Создать карточку</button></a>
                         </div>
                     </form>    
+                    <p id="not-found">По вашему запросу ничего не найдено.</p>
                     <div class="tile-list">
                         <!-- Расположение карточек находится здесь -->
 
@@ -61,8 +62,8 @@
                     <div class="search-filter-container">
                         <h3 class="widget-title">Поиск</h3>
                         <div class="search-box">
-                        <input type="text" id="site-search" placeholder="Что будем искать?" class="search-input">
-                        <button class="search-button">
+                        <input type="text" id="search-input" placeholder="Что будем искать?" class="search-input">
+                        <button id="search-button" class="search-button">
                             <a class="fas fa-search">Найти</a>
                         </button>
                         </div>

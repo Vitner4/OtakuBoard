@@ -1,4 +1,4 @@
-// Type: вывод данных аккаунта для редактирования на frontend
+// Type: редактирование аккаунта приложения на frontend
 // Author: Vitner4
 
 import { getSelectedFormat } from "./image-uploader.js"; // Импорт функции получения выбранного формата изображения

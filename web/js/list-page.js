@@ -1,116 +1,238 @@
 // Type: обработка страницы list-page.html
 // Author: Vitner4
 
-import { cardStyling } from "./card.js"; // Импорт функции стилизации карточек
+import { cardStyling } from "./card.js";
 
-let CardLoading = true; // Флаг для отслеживания, загружаются ли карточки в данный момент
+// Объект для хранения состояния страницы
+const state = {
+    limit: 50,
+    offset: 0,
+    loading: true,
+    search: null,
+    fetching: false
+};
 
-// Функция получения и отображения карточек на странице
-async function loadCards(limit, offset) {
-    try {
-        // Находим элемент, в который будем добавлять карточки
-        const tileList = document.querySelector(".tile-list");
+// DOM элементы
+const tileList = document.querySelector(".tile-list"); // Контейнер для карточек
+const searchInput = document.getElementById("search-input"); // Поле ввода для поиска
+const searchButton = document.getElementById("search-button"); // Кнопка для запуска поиска
+const noCardForm = document.getElementById("no_card_form"); // Форма для отображения сообщения "нет карточек"
+const textPreview = document.getElementById("text-preview"); // Элемент для отображения текста из карточки
+const noCardMessage = document.getElementById("not-found"); // Элемент сообщения о отсутствии карточек
 
-        let response = await eel.get_cards(limit, offset)(); // Получаем карточки из Python backend
+// =======================
+// Вспомогательные функции
+// =======================
 
-        // Проверяем статус ответа и выбрасываем ошибку, если статус не "success"
-        if (response.status !== "success") {
-            throw new Error(response.message || "Неизвестная ошибка при загрузке карточек на стороне python."); // Выбрасываем ошибку с сообщением из ответа или с общим сообщением
-        }
-
-        const cards = response.data; // Получаем массив карточек из ответа
-        if (cards && cards.length > 0) {
-            // Проходим по каждой карточке и создаём HTML элементы для отображения
-            cards.forEach(card => {
-                // Проверка обложки карточки
-                const coverSrc = card.cover ? `../${card.cover}` : `css/src/img/default/default-card.png`;
-
-                // Добавляем HTML код для каждой карточки
-                tileList.insertAdjacentHTML('beforeend', 
-                    `
-                    <div id="${card.id}" class="card-container" title="${card.name}">
-                        <div class="tilt-target">
-                            <div class="glare"></div>
-                            <div class="card_star">${card.star}</div>     
-                            <img id="${card.id}_img" class="card-img" src="${coverSrc}">
-                        </div>
-                    </div>
-                    `
-                );
-            });
-  
-            cardStyling(); // Применяем стилизацию карточек после их загрузки
-            
-            return true; // Возвращаем true, если карточки успешно получены
-        } else {
-            CardLoading = false; // Устанавливаем флаг, что все карточки были загружены
-            return false; // Возвращаем false, если нет карточек для загрузки
-        }     
-    }catch (error) {
-        console.error("Ошибка при загрузке карточек на стороне python: ", error);
-        return false;
-    }    
+// Сброс списка карточек
+function resetCards() {
+    tileList.innerHTML = "";
+    state.offset = 0;
+    state.loading = true;
 }
 
-// Начальный offset и limit для пагинации
-let limit = 50;
-let offset = 0;
+// Отображение карточек
+function renderCards(cards) {
+    cards.forEach(card => {
+        // Если у карточки нет обложки, используем дефолтную
+        const coverSrc = card.cover ? `../${card.cover}` : "css/src/img/default/default-card.png";
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // Получаем и выводим все карточки на странице
+        tileList.insertAdjacentHTML(
+            "beforeend",
+            `
+            <div id="${card.id}" class="card-container" title="${card.name}">
+                <div class="tilt-target">
+                    <div class="glare"></div>
+                    <div class="card_star">${card.star}</div>
+                    <img
+                        id="${card.id}_img"
+                        class="card-img"
+                        src="${coverSrc}"
+                    >
+                </div>
+            </div>
+            `
+        );
+    });
+
+    // Применяем стилизацию карточек
+    cardStyling();
+}
+
+// Обновление состояния формы "нет карточек"
+function updateNoCardsMessage() {
+    const hasCards =
+        document.querySelectorAll(".card-container").length > 0;
+    
+    // Скрываем всё по умолчанию
+    noCardForm.hidden = true;
+    noCardMessage.hidden = true;
+
+    // Если карточки есть — ничего не показываем
+    if (hasCards) {
+        return;
+    }
+
+    // Если есть поисковый запрос
+    if (state.search) {
+        noCardMessage.hidden = false;
+    }
+    // Если карточек вообще нет
+    else {
+        noCardForm.hidden = false;
+    }
+}
+
+// =================
+// Загрузка карточек
+// =================
+async function loadCards() {
+
+    // Если уже выполняется запрос на загрузку, не запускаем новый
+    if (state.fetching) {
+        return false;
+    }
+
+    state.fetching = true;
+
     try {
-        if (await loadCards(limit, offset)) {
-            if (CardLoading) { // Проверяем, можно ли продолжать загрузку карточек
-                offset += limit; // Увеличиваем offset для следующей загрузки
-            }
+        const response = await eel.get_cards(
+            state.limit,
+            state.offset,
+            state.search
+        )();
+
+        if (response.status !== "success") {
+            throw new Error(
+                response.message ||
+                "Ошибка при загрузке карточек."
+            );
         }
 
-        // Проверка на загрузку карточек и создание запроса на загрузку новых карточек при достижении конца страницы (инфинити скролл)
-        const trigger = document.querySelector("#scroll-trigger"); // Элемент, который будет служить триггером для загрузки новых карточек при достижении его видимости
+        const cards = response.data;
 
-        // Создаём IntersectionObserver для отслеживания видимости триггера
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                // Загружаем следующую порцию карточек при достижении конца страницы
-                if (loadCards(limit, offset)){
-                    if (CardLoading) { // Проверяем, можно ли продолжать загрузку карточек
-                        offset += limit; // Увеличиваем offset для следующей загрузки
-                    }
-                } 
-            }
-        });
+        if (!cards.length) {
+            state.loading = false;
+            updateNoCardsMessage();
 
-        observer.observe(trigger); // Начинаем наблюдение за триггером
-    }catch (error) {
-        console.error("Ошибка при загрузке карточек:", error);
+            return false;
+        }
+
+        renderCards(cards);
+
+        state.offset += state.limit;
+
+        updateNoCardsMessage();
+
+        return true;
+
+    } catch (error) {
+        console.error("Ошибка загрузки карточек:", error);
+        return false;
+    } finally {
+        state.fetching = false;
+    }
+}
+
+// ===============
+// Infinite Scroll
+// ===============
+
+const observer = new IntersectionObserver(async entries => {
+
+    if (!entries[0].isIntersecting) {
+        return;
     }
 
-    // Проверка на наличие карточек и отображение сообщения, если их нет
-    const cardsCount = document.querySelectorAll('.card-container').length; // Ищем все карточки и определяем длину
-    const noCardForm = document.getElementById('no_card_form'); // Ищем форму отсутствия карточек по ID
-
-    // Если карточек больше 0 — скрываем форму, если 0 — показываем
-    if (noCardForm) {
-        noCardForm.hidden = cardsCount > 0;
+    if (!state.loading) {
+        return;
     }
+
+    await loadCards();
 });
 
-// Обработчик кликов на карточки для открытия страницы с подробной информацией о карточке
-document.addEventListener('click', (event) => {
-    const cardContainer = event.target.closest('.card-container'); // Ищем ближайший элемент с классом 'card-container' от места клика
+// ======================
+// Инициализация страницы
+// ======================
 
-    if (cardContainer) { // Если такой элемент найден
-        const cardId = cardContainer.id; // Получаем ID карточки из атрибута id элемента
-        window.location.href = `page.html?card_id=${cardId}`; // Перенаправляем на страницу с подробной информацией о карточке, передавая ID в URL
+document.addEventListener("DOMContentLoaded", async () => {
+
+    try {
+
+        // Первая загрузка
+        await loadCards();
+
+        // Infinite scroll
+        const trigger = document.getElementById("scroll-trigger");
+
+        if (trigger) {
+            observer.observe(trigger);
+        }
+
+        // Поиск
+        searchButton.addEventListener("click", async () => {
+
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                return;
+            }
+
+            resetCards();
+
+            state.search = query || null;
+
+            textPreview.textContent = `Поиск: ${query}`;
+
+            await loadCards();
+        });
+
+        // Очистка поиска
+        searchInput.addEventListener("input", async () => {
+
+            if (searchInput.value.trim()) {
+                return;
+            }
+
+            resetCards();
+
+            state.search = null;
+
+            textPreview.textContent = "Все карточки"; 
+
+            await loadCards();
+        });
+
+        // Переход на страницу карточки
+        document.addEventListener("click", event => {
+
+            const cardContainer =
+                event.target.closest(".card-container");
+
+            if (!cardContainer) {
+                return;
+            }
+
+            const cardId = cardContainer.id;
+
+            window.location.href =
+                `page.html?card_id=${cardId}`;
+        });
+
+    } catch (error) {
+        console.error(
+            "Ошибка инициализации страницы:",
+            error
+        );
     }
 });
 
 // Пасхалка №1: Привет от автора
-    const easterEgg = document.getElementById('easter-egg');
-    let eeNum = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+const easterEgg = document.getElementById('easter-egg');
+const eeNum = Math.floor(Math.random() * (50 - 1 + 1)) + 1;
 
-    if(eeNum == 50) {
-        console.log("Congratulations! Easter egg №1 found!");
-        easterEgg.removeAttribute('hidden');
-        console.log("Easter egg: Hello from Vitner4!");
-    }
+if(eeNum == 50) {
+    console.log("Congratulations! Easter egg №1 found!");
+    easterEgg.removeAttribute('hidden');
+    console.log("Easter egg: Hello from Vitner4!");
+}
