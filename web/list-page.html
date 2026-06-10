@@ -75,55 +75,54 @@
 
                         <div class="filter-section">
                             <h4 class="filter-title">Отображение</h4>
-                            <select class="filter-select" style="margin-bottom: 10px;">
-                                <option value="newСards">Сначала новые карточки</option>
-                                <option value="oldСards">Сначала старые карточки</option>
+                            <select id="filter-display" class="filter-select" style="margin-bottom: 10px;">
+                                <option value="newCards">Сначала новые карточки</option>
+                                <option value="oldCards">Сначала старые карточки</option>
                                 <option value="bigStar">От большей звезды до меньшей</option>
                                 <option value="smallStar">От меньшей звезды до большей</option>
                             </select>
                             
-                            <h4 class="filter-title">Тип контента</h4>
+                            <!-- <h4 class="filter-title">Тип контента</h4>
                             <ul class="filter-list">
-                                <!--!! Пример !!-->
                                 <li><label><input type="checkbox" name="category" value="anime"> Аниме</label></li>
                                 <li><label><input type="checkbox" name="category" value="films"> Фильмы</label></li>
                                 <li><label><input type="checkbox" name="category" value="series"> Сериалы</label></li>
                                 <li><label><input type="checkbox" name="category" value="games"> Игры</label></li>
-                            </ul>
+                            </ul> -->
                         </div>
                             
                         <div>
                             <div class="star-rating"> 
                                 <h4 class="filter-title">Звёздный рейтинг</h4>
                                 <div class="stars-container">
-                                    <input type="radio" id="star10" name="rating" value="10" onclick="getSelectedStar('star10')">
+                                    <input type="radio" id="star10" name="rating" value="10">
                                     <label for="star10" title="10"></label>
                                     
-                                    <input type="radio" id="star9" name="rating" value="9" onclick="getSelectedStar('star9')">
+                                    <input type="radio" id="star9" name="rating" value="9">
                                     <label for="star9" title="9"></label>
                                     
-                                    <input type="radio" id="star8" name="rating" value="8" onclick="getSelectedStar('star8')">
+                                    <input type="radio" id="star8" name="rating" value="8">
                                     <label for="star8" title="8"></label>
                                     
-                                    <input type="radio" id="star7" name="rating" value="7" onclick="getSelectedStar('star7')">
+                                    <input type="radio" id="star7" name="rating" value="7">
                                     <label for="star7" title="7"></label>
                                     
-                                    <input type="radio" id="star6" name="rating" value="6" onclick="getSelectedStar('star6')">
+                                    <input type="radio" id="star6" name="rating" value="6">
                                     <label for="star6" title="6"></label>
                                     
-                                    <input type="radio" id="star5" name="rating" value="5" onclick="getSelectedStar('star5')">
+                                    <input type="radio" id="star5" name="rating" value="5">
                                     <label for="star5" title="5"></label>
                                     
-                                    <input type="radio" id="star4" name="rating" value="4" onclick="getSelectedStar('star4')">
+                                    <input type="radio" id="star4" name="rating" value="4">
                                     <label for="star4" title="4"></label>
                                     
-                                    <input type="radio" id="star3" name="rating" value="3" onclick="getSelectedStar('star3')">
+                                    <input type="radio" id="star3" name="rating" value="3">
                                     <label for="star3" title="3"></label>
                                     
-                                    <input type="radio" id="star2" name="rating" value="2" onclick="getSelectedStar('star2')">
+                                    <input type="radio" id="star2" name="rating" value="2">
                                     <label for="star2" title="2"></label>
                                     
-                                    <input type="radio" id="star1" name="rating" value="1" onclick="getSelectedStar('star1')">
+                                    <input type="radio" id="star1" name="rating" value="1">
                                     <label for="star1" title="1"></label>
                                 </div>
                             </div>
@@ -134,18 +133,10 @@
                             </div>
                         </div>
                         
-                        <div class="filter-section-data">
-                            <h4 class="filter-title">Дата</h4>
-                            <select class="filter-select">
-                                <option value="all">За все время</option>
-                                <option value="week">За неделю</option>
-                                <option value="month">За месяц</option>
-                                <option value="year">За год</option>
-                            </select>
-                        </div>
+                        <div class="filter-section-data"></div>
                         
-                        <button id="apply-filters" class="filter-button">Применить</button>
-                        <button id="reset-filters" class="filter-button secondary">Сбросить</button>
+                        <button type="button" id="apply-filters" class="filter-button">Применить</button>
+                        <button type="button" id="reset-filters" class="filter-button secondary">Сбросить</button>
                     </div>
                 </div>
             </div>   
@@ -174,6 +165,5 @@
     <script src="/eel.js"></script>
     <script src="js/script.js"></script>
     <script type="module" src="js/list-page.js"></script>
-    <script src="js/list-page-filter.js"></script>
 </body>
 </html>

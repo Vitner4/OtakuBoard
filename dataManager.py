@@ -165,6 +165,7 @@ def add_card(card_data: dict):
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при добавлении карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -273,6 +274,7 @@ def edit_card(card_id: str, updated_data: dict):
     except Exception as e:
         log.log("dataManager.py", f"Ошибка редактировании карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -338,6 +340,7 @@ def get_card_by_id(card_id: str):
         # Логирование ошибки и возврат описания ошибки
         log.log("dataManager.py", f"Ошибка при получении карточки по ID: {str(e)}")
         return {"status": "error", "message": str(e)}
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -346,42 +349,93 @@ def get_card_by_id(card_id: str):
 # ПОЛУЧЕНИЕ ВСЕХ КАРТОЧЕК + ПОИСК + ФИЛЬТРЫ
 # =========================================
 @eel.expose
-def get_cards(limit=50, offset=0, search=None, type_filter=None):
-    # Функция возвращает список карточек с пагинацией и возможностью фильтрации
+def get_cards(limit=50, offset=0, search=None, filter=None):
     try:
         # Подключаемся к базе данных
         conn = get_connection()
         cursor = conn.cursor()
 
-        # Формируем базовый SQL запрос
-        query = "SELECT * FROM cards ORDER BY id DESC LIMIT ? OFFSET ?"
-        params = []
+        # Базовые переменные
+        params = []          # параметры для SQL запроса
+        conditions = []      # условия WHERE
+        order_by = "id DESC" # сортировка по умолчанию
 
-        # Добавляем условие поиска по названию если параметр передан
+        # Разбор фильтров
+        display = None       # тип сортировки
+        star = None          # значение звезды
+        star_param = None    # режим фильтра звезды
+
+        if filter:
+            # Безопасное получение значений из dict (filter) 
+            display = filter.get("display")
+            star = filter.get("star")
+            star_param = filter.get("starParam")
+
+        # Сортировка (ORDER BY)
+        if display == "newCards":
+            order_by = "id DESC"   # новые сначала
+
+        elif display == "oldCards":
+            order_by = "id ASC"    # старые сначала
+
+        elif display == "bigStar":
+            order_by = "star DESC" # от большей звезды
+
+        elif display == "smallStar":
+            order_by = "star ASC"  # от меньшей звезды
+       
+        # Поиск по значению
         if search:
-            query = "SELECT * FROM cards WHERE name LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?"
+            conditions.append("name LIKE ?")
             params.append(f"%{search}%")
 
-        # TODO: Добавить возможность фильтрации карточек по различным полям (название, автор, жанр, год, тип и т.д.)
-        # TODO: Фильтр располагается здесь!
-        # TODO: ..
-        
-        # Добавляем параметры для пагинации
+        # Фильтр по звёздам
+        if star is not None:
+
+            # искать только точное значение звезды
+            if star_param == "searchOnlyThis":
+                conditions.append("star = ?")
+                params.append(star)
+
+            # искать звезду и выше
+            elif star_param == "searchThisAndMore":
+                conditions.append("star >= ?")
+                params.append(star)
+
+        # Сборка SQL запроса
+        query = "SELECT * FROM cards"
+
+        # если есть условия — добавляем WHERE
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+
+        # добавляем сортировку
+        query += f" ORDER BY {order_by}"
+
+        # добавляем пагинацию
+        query += " LIMIT ? OFFSET ?"
         params.extend([limit, offset])
 
-        # Выполняем запрос к базе данных
+        # Выполнение запроса
         cursor.execute(query, params)
 
-        # Преобразуем результаты в список словарей
+        # преобразуем результат в список словарей
         result = [dict(row) for row in cursor.fetchall()]
-        
-        # Возвращаем результаты
-        return {"status": "success", "data": result}
+
+        # возвращаем данные на frontend
+        return {
+            "status": "success",
+            "data": result
+        }
+
     except Exception as e:
-        if conn is not None:
-            conn.close()
         log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}") # Логирование
-        return {"status": "error", "message": str(e)}
+
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -406,6 +460,7 @@ def get_cards_count():
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при получении количества карточек: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()

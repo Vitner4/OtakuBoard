@@ -9,6 +9,7 @@ const state = {
     offset: 0,
     loading: true,
     search: null,
+    filter: null,
     fetching: false
 };
 
@@ -19,6 +20,13 @@ const searchButton = document.getElementById("search-button"); // Кнопка �
 const noCardForm = document.getElementById("no_card_form"); // Форма для отображения сообщения "нет карточек"
 const textPreview = document.getElementById("text-preview"); // Элемент для отображения текста из карточки
 const noCardMessage = document.getElementById("not-found"); // Элемент сообщения о отсутствии карточек
+const filterDisplay = document.getElementById("filter-display") // Элемент фильтра отображения
+const filterStars = document.querySelectorAll('input[name="rating"]'); // Звёзды рейтинга фильтра
+const applyFilters = document.getElementById("apply-filters") // Кнопка активации фильтра
+const resetFilters = document.getElementById("reset-filters") // Кнопка сброса фильтра
+
+// Переменные
+let selectedStar = 0; // Выбранная звезда рейтинга фильтра
 
 // =======================
 // Вспомогательные функции
@@ -99,7 +107,8 @@ async function loadCards() {
         const response = await eel.get_cards(
             state.limit,
             state.offset,
-            state.search
+            state.search,
+            state.filter
         )();
 
         if (response.status !== "success") {
@@ -201,6 +210,62 @@ document.addEventListener("DOMContentLoaded", async () => {
             textPreview.textContent = "Все карточки"; 
 
             await loadCards();
+        });
+
+        // Фильтр
+        applyFilters.addEventListener("click", async () => {
+            
+            const filterDisplayValue = filterDisplay.value;
+            const selectedStarOption = document.querySelector('input[name="optionGroup"]:checked');
+  
+            const starOptionParam = selectedStarOption ? selectedStarOption.value : null;
+
+            const filterValues = {
+                display: filterDisplayValue,
+                star: selectedStar,
+                starParam: starOptionParam
+            }
+
+            state.filter = filterValues;
+            
+            resetCards();
+
+            textPreview.textContent = "Поиск с фильтрами";
+
+            await loadCards();
+        });
+
+        // Сброс фильтра и поиска
+        resetFilters.addEventListener("click", async () => {
+
+            filterDisplay.selectedIndex = 0;
+
+            filterStars.forEach(star => {
+                star.checked = false;
+            });
+
+            document.querySelectorAll('input[name="optionGroup"]').forEach(radio => {
+                radio.checked = false;
+            });
+
+            state.filter = null;
+
+            state.search = null;
+
+            searchInput.value = "";
+
+            resetCards();
+
+            textPreview.textContent = "Все карточки"; 
+
+            await loadCards();
+        });
+
+        // Обработчик события для каждой звезды рейтинга
+        filterStars.forEach(star => {
+            star.addEventListener("change", () => {
+                selectedStar = star.value;
+            });
         });
 
         // Переход на страницу карточки

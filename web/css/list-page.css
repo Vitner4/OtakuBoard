@@ -276,7 +276,7 @@ section {
 /* Данные в секции фильтров */
 .filter-section-data{
     margin-top: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-top: 8px;
     border-top: 1px solid #eee;
 }
