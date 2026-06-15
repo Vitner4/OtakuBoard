@@ -134,4 +134,3 @@ def config_value_get():
 @eel.expose
 def config_value_set(section, key, new_value):
     set_value(section, key, new_value)
-    return {"status": "success"}
