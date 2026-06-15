@@ -18,8 +18,10 @@ from pathlib import Path
 def get_connection():
     DB_PATH = f"{config.get_value('account', 'account_link')}/{config.get_value('directories', 'data_dir')}/{config.get_value('files', 'db_file')}"
     conn = sqlite3.connect(DB_PATH)
+
     conn.row_factory = sqlite3.Row  # возвращает строки как dict
     conn.execute("PRAGMA foreign_keys = ON;")
+    
     return conn
 
 # =============================
@@ -345,20 +347,25 @@ def get_card_by_id(card_id: str):
         # Закрываем соединение с базой данных
         conn.close()
 
-# =========================================
-# ПОЛУЧЕНИЕ ВСЕХ КАРТОЧЕК + ПОИСК + ФИЛЬТРЫ
-# =========================================
+# ====================================
+# ПОЛУЧЕНИЕ КАРТОЧЕК + ПОИСК + ФИЛЬТРЫ
+# ====================================
 @eel.expose
-def get_cards(limit=50, offset=0, search=None, filter=None):
+def get_cards(limit=50, offset=0, search=None, filter=None, numberCardsStatus=None):
     try:
         # Подключаемся к базе данных
         conn = get_connection()
+
+        # Регистрируем python-функцию lower для переопределения в SQL
+        conn.create_function("LOWER", 1, sqlite_lower)
+
         cursor = conn.cursor()
 
         # Базовые переменные
         params = []          # параметры для SQL запроса
         conditions = []      # условия WHERE
         order_by = "id DESC" # сортировка по умолчанию
+        total_count = 0      # количество найденных карточек
 
         # Разбор фильтров
         display = None       # тип сортировки
@@ -366,76 +373,156 @@ def get_cards(limit=50, offset=0, search=None, filter=None):
         star_param = None    # режим фильтра звезды
 
         if filter:
-            # Безопасное получение значений из dict (filter) 
+            # Безопасное получение значений из dict (filter)
             display = filter.get("display")
             star = filter.get("star")
             star_param = filter.get("starParam")
 
         # Сортировка (ORDER BY)
         if display == "newCards":
-            order_by = "id DESC"   # новые сначала
+            order_by = "id DESC"   # сначала новые карточки 
 
         elif display == "oldCards":
-            order_by = "id ASC"    # старые сначала
+            order_by = "id ASC"    # сначала старые карточки 
 
         elif display == "bigStar":
             order_by = "star DESC" # от большей звезды
 
         elif display == "smallStar":
             order_by = "star ASC"  # от меньшей звезды
-       
-        # Поиск по значению
+
+        # Поиск
         if search:
-            conditions.append("name LIKE ?")
-            params.append(f"%{search}%")
+
+            search = search.strip()  # убираем пробелы
+
+            # Разрешённые теги поиска
+            search_tags = {
+                "/id": "id",
+
+                "/name": "name",
+                "/n": "name",
+
+                "/author": "author",
+                "/a": "author",
+
+                "/genre": "genre",
+                "/g": "genre",
+
+                "/year": "year",
+                "/y": "year",
+
+                "/type": "type",
+                "/t": "type",
+
+                "/link": "link",
+                "/l": "link",
+
+                "/description": "description",
+                "/d": "description",
+
+                "/star": "star",
+                "/s": "star",
+
+                "/cover": "cover",
+                "/c": "cover"
+            }
+
+            found_tag = False
+
+            # Проверяем наличие тега в начале строки
+            for tag, column in search_tags.items():
+
+                if search.lower().startswith(tag.lower()):
+
+                    # Удаляем тег из строки поиска
+                    search = search[len(tag):].strip()
+
+                    found_tag = True
+
+                    # Если после тега ничего нет — возвращаем 0 результатов
+                    if not search:
+                        conditions.append("1=0")  # всегда false
+                        break
+                    
+                    # Поиск по выбранному столбцу
+                    conditions.append(f"LOWER({column}) LIKE ?")
+                    params.append(f"%{search.lower()}%")
+
+                    break
+
+            # Если тег не найден — ищем по имени
+            if not found_tag:
+
+                conditions.append("LOWER(name) LIKE ?")
+                params.append(f"%{search.lower()}%")
 
         # Фильтр по звёздам
         if star is not None:
 
-            # искать только точное значение звезды
+            # Искать только выбранную звезду
             if star_param == "searchOnlyThis":
                 conditions.append("star = ?")
                 params.append(star)
 
-            # искать звезду и выше
+            # Искать от выбранной звезды и выше
             elif star_param == "searchThisAndMore":
                 conditions.append("star >= ?")
                 params.append(star)
 
-        # Сборка SQL запроса
+        # Подсчёт количества карточек
+        if numberCardsStatus:
+
+            count_query = "SELECT COUNT(*) FROM cards"
+
+            # если есть условия — добавляем WHERE
+            if conditions:
+                count_query += " WHERE " + " AND ".join(conditions)
+
+            cursor.execute(count_query, params)
+            row = cursor.fetchone()
+
+            total_count = row[0] if row else 0
+
+        # Получение карточек
         query = "SELECT * FROM cards"
 
-        # если есть условия — добавляем WHERE
+        # Если есть условия — добавляем WHERE
         if conditions:
             query += " WHERE " + " AND ".join(conditions)
 
-        # добавляем сортировку
+        # Добавляем сортировку
         query += f" ORDER BY {order_by}"
 
-        # добавляем пагинацию
+        # Добавляем пагинацию
         query += " LIMIT ? OFFSET ?"
-        params.extend([limit, offset])
+
+        # Копируем параметры чтобы не ломать COUNT-запрос
+        query_params = params.copy()
+        query_params.extend([limit, offset])
 
         # Выполнение запроса
-        cursor.execute(query, params)
+        cursor.execute(query, query_params)
 
-        # преобразуем результат в список словарей
+        # Преобразуем результат в список словарей
         result = [dict(row) for row in cursor.fetchall()]
 
-        # возвращаем данные на frontend
+        # Возвращаем данные на frontend
         return {
             "status": "success",
-            "data": result
+            "data": result,
+            "total": total_count
         }
 
     except Exception as e:
-        log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}") # Логирование
+        # Логирование ошибки
+        log.log("dataManager.py", f"Ошибка при получении карточек: {str(e)}")
 
         return {
             "status": "error",
             "message": str(e)
         }
-    
+
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -652,3 +739,16 @@ def saveURLImage(cardID: str, image: dict, save_path: str):
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}") # Логирование
         return None
+
+# ===========================
+# ПЕРЕОПРЕДЕЛЁННЫЕ ФУНКЦИИ БД
+# ===========================
+
+def sqlite_lower(value):
+    if value is None:
+        return ""
+
+    if isinstance(value, str):
+        return value.lower()
+    
+    return value

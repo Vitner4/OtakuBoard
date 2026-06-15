@@ -461,6 +461,15 @@ section {
     justify-content: center;
     /* Оформление текста */
     font-size: 1.4rem;
-    color: #727272;
+    color: #767676;
 }
-    
+
+/* Текст количества карточек */
+#total-cards{
+    color: #6f6f6f;
+}
+  
+/* Сообщение пасхалки №1 */
+#easter-egg{
+    color:rgb(137, 86, 240);
+}
