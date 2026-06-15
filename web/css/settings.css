@@ -44,11 +44,11 @@
   color: #1d1d1d;
 }
 
-/* Стиль для select выбора языка */
-#language-select {
+/* Стиль для select выбора режима интерфейса */
+#open-mode {
   -webkit-appearance: none;
   appearance: none;
-  width: 220px;
+  width: 250px;
   max-width: 80%;
   height: 44px;
   padding: 8px 40px 8px 14px;
@@ -69,27 +69,27 @@
   box-sizing: border-box;
 }
 /* Фокус и hover */
-#language-select:hover {
+#open-mode:hover {
   box-shadow: 0 4px 10px rgba(1,34,61,0.08);
 }
-#language-select:focus {
+#open-mode:focus {
   outline: none;
   border-color: #01223d;
   box-shadow: 0 8px 24px rgba(1,34,61,0.12);
   transform: translateY(-1px);
 }
 /* Подавление стандартной стрелки в IE/Edge */
-#language-select::-ms-expand {
+#open-mode::-ms-expand {
   display: none;
 }
 
 /* Опции (для согласованности внешнего вида в поддерживаемых браузерах) */
-#language-select option {
+#open-mode option {
     color: #01223d;
     background: #ffffff;
 }
 /* Состояние отключённого селекта */
-#language-select:disabled {
+#open-mode:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -152,4 +152,6 @@ input:checked + .slider:before {
 #app-version {
   font-size: 1rem;
   color: #7a7a7a;
+  margin-top: 90px;
 }
+

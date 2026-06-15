@@ -2,6 +2,7 @@
 # Author: Vitner4
 
 import os
+import eel
 import sys
 import log
 import json
@@ -123,3 +124,14 @@ def set_value(section, key, new_value):
 # Getter для стандартных значений конфигурации
 def get_default_config_value(section, key):
     return default_config_data[section][key]
+
+# Функция получений значений настроек файла конфигурации на стороне frontend
+@eel.expose
+def config_value_get():
+    return config_data["settings"]
+
+# Функция изменения значений файла конфигурации на стороне frontend
+@eel.expose
+def config_value_set(section, key, new_value):
+    set_value(section, key, new_value)
+    return {"status": "success"}
