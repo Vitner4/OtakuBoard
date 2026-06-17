@@ -265,7 +265,7 @@ section {
 }
 /* Ховер кнопки поиска */
 .search-button:hover {
-    background:  #3f3f3f;
+    background:  #1f1f1f;
 }
 
 /* Секция фильтров */
@@ -337,7 +337,7 @@ section {
 }
 /* Ховер кнопки фильтра */
 .filter-button:hover {
-    background: #3f3f3f;
+    background: #1f1f1f;
 }
 
 /* Второстепенная кнопка фильтра */
@@ -346,7 +346,7 @@ section {
 }
 /* Ховер второстепенной кнопки */
 .filter-button.secondary:hover {
-    background: #7f8080;
+    background: #6a6a6a;
 }
 
 /* Звёздный рейтинг */

@@ -26,14 +26,14 @@ body{height: auto;}
     height: 40px;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50;
+    background-color: #272727;
     color: #ffffff;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 #account-edit:hover {
-    background-color: #45a049;
+    background-color: #1f1f1f;
 }
 
 /* Кнопка отмены редактирования аккаунта */
@@ -42,14 +42,14 @@ body{height: auto;}
     height: 40px;
     border: none;
     border-radius: 5px;
-    background-color: #ff4d4d;
-    color: #ffffff;
+    background-color: #757575;
+    color: #e3e3e3;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 #account-edit-cancel:hover {
-    background-color: #fd2f2f;
+    background-color: #666666;
 }
 
 /* Блок данных аккаунта */

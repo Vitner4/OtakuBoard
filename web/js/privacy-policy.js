@@ -3,22 +3,29 @@ const translations = {
     ru: {
         policy_title: "Политика конфиденциальности",
         last_updated: "Обновлено: 2025",
+
         data_collection: "Сбор данных",
-        data_collection_text: "Приложение OtakuBoard не собирает и не передаёт никаких личных данных кроме введённого имени пользователя и ID. Вся информация и/или личная информация записывается в файлы и хранится лично на вашем устройстве под вашей ответственностью.",
+        data_collection_text: "Приложение OtakuBoard не собирает, не передаёт и не хранит ваши данные на сторонних серверах. Единственными данными, которые могут быть сохранены, являются указанные вами имя пользователя, идентификатор (ID), а также информация, создаваемая в процессе использования приложения.",
+
         data_storage: "Хранение данных",
-        data_storage_text: "Все данные сохраняются исключительно на вашем устройстве. Мы не имеем доступа к вашей информации и не передаем её третьим лицам.",
+        data_storage_text: "Все данные приложения, включая настройки, информацию аккаунта и пользовательский контент, сохраняются исключительно на вашем устройстве в локальных файлах. Разработчик не имеет доступа к этим данным и не передаёт их третьим лицам.",
+
         your_responsibility: "Ваша ответственность",
-        your_responsibility_text: "Вы несете ответственность за сохранность вашего устройства и данных, хранящихся на нем.",
+        your_responsibility_text: "Вы самостоятельно несёте ответственность за сохранность, резервное копирование и защиту данных, хранящихся на вашем устройстве. Рекомендуется регулярно создавать резервные копии важных данных."
     },
+
     en: {
         policy_title: "Privacy Policy",
         last_updated: "Last updated: 2025",
+
         data_collection: "Data Collection",
-        data_collection_text: "The OtakuBoard application does not collect or transmit any personal data except for the entered username and ID. All information and/or personal information is written to files and stored personally on your device under your responsibility.",
+        data_collection_text: "OtakuBoard does not collect, transmit, or store your data on external servers. The only data that may be stored includes the username, ID, and information created while using the application.",
+
         data_storage: "Data Storage",
-        data_storage_text: "All data is stored exclusively on your device. We do not have access to your information and do not share it with third parties.",
+        data_storage_text: "All application data, including settings, account information, and user content, is stored exclusively on your device in local files. The developer does not have access to this data and does not share it with third parties.",
+
         your_responsibility: "Your Responsibility",
-        your_responsibility_text: "You are responsible for the security of your device and the data stored on it.",
+        your_responsibility_text: "You are solely responsible for the security, backup, and protection of the data stored on your device. Regular backups of important data are recommended."
     }
 };
 
