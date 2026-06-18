@@ -312,3 +312,123 @@ body::before {
     margin: 10px;
     font-weight: bold;
 }
+
+/* Сообщение для корректного входа в аккаунт */
+#login-message{
+    color: #ddd;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+/* Сообщение об отсутствии аккаунтов */
+#no-account-message{
+    color: #a3a3a3;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Блок списка аккаунтов */
+#account-list{
+    width: auto;
+    height: auto;
+    max-height: 400px;      /* ограничиваем высоту */
+    overflow-y: auto;       /* включаем вертикальный скролл */   
+}
+
+/* Scrollbar стиль для Chrome / Edge / Chromium */
+@supports selector(::-webkit-scrollbar) {
+    #account-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #account-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #account-list::-webkit-scrollbar-thumb {
+        background: rgba(160, 90, 255, 0.5);
+        border-radius: 10px;
+    }
+
+    #account-list::-webkit-scrollbar-thumb:hover {
+        background: rgba(180, 120, 255, 0.8);
+    }
+}
+
+/* Тайтл списка аккаунтов */
+#account-list-title{
+    color: #fcfcfc;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.486); 
+}
+
+/* Банер аккаунта */
+.account {
+    display: flex;
+    align-items: center;
+
+    padding: 12px 16px;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* Аватар аккаунта */
+.account-avatar {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Блок с информацией аккаунта */
+.account-info {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 12px;
+}
+
+/* Имя аккаунта */
+.account-name {
+    margin: 0;
+
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ID аккаунта */
+.account-id {
+    margin: 2px 0 0 0;
+
+    color: rgba(255,255,255,.7);
+    font-size: 13px;
+}
+
+/* Кнопка для входа в аккаунт */
+.account button {
+    margin-left: auto; /* прижимает кнопку вправо */
+
+    padding: 8px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.15);
+
+    color: white;
+
+    transition: background-color 0.3s ease
+}
+.account button:hover{
+     background: rgba(255, 255, 255, 0.204);
+}

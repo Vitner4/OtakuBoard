@@ -1,4 +1,4 @@
-// Type: создание или вход в аккаунт приложения на frontend
+// Type: обработчик frontend. Функции создания или входа в аккаунт приложения на странице index.html
 // Author: Vitner4
 
 // Структура директорий и файлов
@@ -121,57 +121,29 @@ async function createNewAccount(){
 }
 
 // Функция входа в аккаунт
-async function accountLogin(){
-    // Проверка данных
-    if (checkData(document.getElementById('link-field').value) === 0){
-        // Установка цвета обводки поля
-        let input = document.getElementById('link-field');
-        input.style.borderColor = 'red';
+async function accountLogin(acc_path){
+
+    // Собираем данные
+    const formData = {
+            link: acc_path,
+            write_data_to_config: "true"
+    };
+
+    // Отправляем данные
+    func = await eel.account_login(formData)();
+
+    if(func['status'] == 'success'){
         // Установка статуса
         const statusField = document.getElementById('login-status');
-        statusField.style.color = 'red';
-        statusField.textContent = "Введите ссылку, чтобы войти в аккаунт!";
-    }else if(checkData(document.getElementById('link-field').value) == acc_suffix && checkData(document.getElementById('link-field').value) == acc_symbol){
-        // Установка цвета обводки поля
-        let input = document.getElementById('link-field');
-        input.style.borderColor = 'red';
-        // Установка статуса
-        const statusField = document.getElementById('login-status');
-        statusField.style.color = 'red';
-        statusField.textContent = "Неверная ссылка!";
+        statusField.style.color = 'green';
+        statusField.textContent = "Аккаунт найден!";
+
+        // Переход на страницу list-page.html после успешного входа в аккаунт
+        window.location.href = "list-page.html";
     }else{
-        // Собираем данные
-        const formData = {
-                link: document.getElementById('link-field').value,
-                write_data_to_config: "true"
-        };
-
-        // Отправляем данные
-        func = await eel.account_login(formData)();
-
-        if(func['status'] == 'success'){
-            // Установка цвета обводки поля
-            let border = document.getElementById('link-field');
-            border.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-            // Применяем стили (аналог :focus)
-            let borderFocus = document.getElementById('link-field');
-            borderFocus.style.outline = 'none';
-            borderFocus.style.borderColor = '#a66eff';
-            // Установка статуса
-            const statusField = document.getElementById('login-status');
-            statusField.style.color = 'green';
-            statusField.textContent = "Аккаунт найден!";
-
-            // Переход на страницу list-page.html после успешного входа в аккаунт
-            window.location.href = "list-page.html";
-        }else{
-             // Установка цвета обводки поля
-            let input = document.getElementById('link-field');
-            input.style.borderColor = 'red';
-            // Установка статуса
-            const statusField = document.getElementById('login-status');
-            statusField.style.color = 'red';
-            statusField.textContent = func['message'];
-        }
-    }  
-}
+        // Установка статуса
+        const statusField = document.getElementById('login-status');
+        statusField.style.color = 'red';
+        statusField.textContent = func['message'];
+    }
+}  

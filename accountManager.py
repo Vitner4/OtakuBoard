@@ -12,6 +12,7 @@ from pathlib import Path
 
 account_data = None # Данные аккаунта, полученные из файла
 data_loading_status = False # Статус загрузки данных аккаунта
+required_keys = ["name", "id", "avatar", "timestamp", "timestamp_extra", "for"] # Ключи файла аккаунта
 
 # Структура директорий и файлов
 acc_symbol  = '@' # Символ аккаунта 
@@ -31,6 +32,15 @@ def account_data_set(data):
     global account_data
     account_data = data
 
+# Getter для data_loading_status
+def data_loading_status_get():
+    return data_loading_status
+
+# Setter данных для data_loading_status
+def data_loading_status_set(data):
+    global data_loading_status
+    data_loading_status = data
+
 # Функция для установки данных аккаунта в файл аккаунта
 def account_data_file_set(data: dict):
     try:
@@ -48,16 +58,6 @@ def account_data_file_set(data: dict):
             log.log("accountManager.py", "Путь до аккаунта не найден!")
     except Exception as e:
         log.log("accountManager.py", f"Произошла ошибка при сохранении данных аккаунта в файл! ({e})")
-
-
-# Getter для data_loading_status
-def data_loading_status_get():
-    return data_loading_status
-
-# Setter данных для data_loading_status
-def data_loading_status_set(data):
-    global data_loading_status
-    data_loading_status = data
 
 # Функция создания нового аккаунта
 @eel.expose
@@ -123,7 +123,51 @@ def create_new_account(formData):
     except Exception as e:      
         log.log("accountManager.py", f"Произошла ошибка при создании аккаунта на стороне Python! ({e})")
         return {"status": "error", "message": f"Произошла ошибка при создании аккаунта на стороне Python! ({str(e)})"}
-    
+
+# Функция поиска аккаунтов для входа
+@eel.expose
+def find_accounts():
+    try:
+        account_path = Path(config.get_value("directories", "account_dir"))
+
+        result = []
+
+        # перебор папок аккаунтов
+        for item in account_path.iterdir():
+
+            # Ищем папку аккаунта
+            if item.is_dir() and item.name.endswith(acc_suffix):
+
+                # рекурсивный обход JSON файлов внутри папки аккаунта
+                for file in item.rglob("*.json"):
+                    
+                    # Проверка на тип файла
+                    if file.name.endswith(acc_type):
+                        try:
+                            data = json.loads(file.read_text(encoding="utf-8"))
+
+                            # Проверка на наличие ключей
+                            if all(key in data for key in required_keys):
+   
+                                data["file_path"] = str(item)
+
+                                result.append(data)
+
+                            else:
+                                continue
+
+                        except (json.JSONDecodeError, UnicodeDecodeError):
+                            continue  # пропускаем битые файлы    
+                    else:
+                        continue
+           
+        # возвращаем список аккаунтов (JSON-совместимый)
+        return result
+   
+    except Exception as e:
+        log.log("accountManager.py", f"Произошла ошибка при поиске аккаунтов на стороне Python! ({e})")
+        return
+
 # Функция входа в аккаунт
 @eel.expose
 def account_login(link):

@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
      
 
-    // Элементы
+    // DOM Элементы
 
 
     // начальная форма
@@ -13,20 +13,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // Форма входа в аккаунт
     const loginForm = document.getElementById('login-form'); // форма входа в аккаунт
     const loginBtn = document.getElementById('login-btn'); // кнопка "Открыть форму входа в аккаунт"
-     const submitLoginBtn = document.getElementById('submit-login-btn'); // кнопка "Войти" в форме входа в аккаунт
+    const submitLoginBtn = document.getElementById('submit-login-btn'); // кнопка "Войти" в форме входа в аккаунт
     const loginCloseBtn = document.getElementById('close-login-btn'); // кнопка "Закрыть форму входа в аккаунт"
+    let noAccountMessage = document.getElementById('no-account-message'); // Сообщение об отсутствии аккаунтов для входа
+    let accountListForm = document.getElementById('account-list'); // Блок списка аккаунтов
     // Форма создания нового аккаунта
     const registerForm = document.getElementById('register-form'); // форма создания нового аккаунта
     const registerBtn = document.getElementById('register-btn'); // кнопка "Открыть форму создания нового аккаунта"
     const submitRegBtn = document.getElementById('submit-reg-btn'); // кнопка "Создать" в форме создания нового аккаунта
     const registerCloseBtn = document.getElementById('close-reg-btn'); // кнопка "Закрыть форму создания нового аккаунта"
-    
+ 
+
+    // Функция отображения аккаунтов
+    function renderAccounts(accData) {
+
+        accData.forEach(account => {
+            // Если у карточки нет обложки, используем дефолтную
+            const avatarSrc = account.avatar ? `../${account.avatar}` : "css/src/img/default/default-card.png";
+
+            accountListForm.insertAdjacentHTML(
+                "beforeend",
+                `
+                <div class="account">
+                    <img src="${avatarSrc}" class="account-avatar">
+
+                    <div class="account-info">
+                        <p class="account-name">${account.name}</p>
+                        <p class="account-id">${account.id}</p>
+                    </div>
+
+                    <button type="button" onclick="accountLogin('${account.file_path}')">
+                        Войти в аккаунт
+                    </button>
+                </div>
+                `
+            );
+        });
+}
+
 
     // Логика для формы входа в аккаунт
 
 
     // Обработчик нажатия кнопки "Открыть форму входа в аккаунт"
-    loginBtn.addEventListener('click', () => {
+    loginBtn.addEventListener('click', async () => {
+        noAccountMessage.hidden = true; // Скрываем сообщение об отсутствии аккаунтов
+        accountListForm.hidden = true; // Скрываем список аккаунтов
+
         welcomeForm.classList.add('hidden'); // скрываем начальную форму
         loginForm.classList.remove('hidden'); // Открываем форму входа в аккаунт
 
@@ -39,16 +72,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Настройка свойств фона
         element.style.backgroundSize = 'cover';
         element.style.backgroundRepeat = 'no-repeat';
-    });
 
-    // Обработчик нажатия кнопки "Войти" в форме входа в аккаунт
-    // submitLoginBtn.addEventListener('click', () => {
-    //     // Подтверждение Лицензионного соглашения и Политики конфиденциальности
-    //     confirm("Нажимая кнопку, вы соглашаетесь с Лицензионным соглашением и Политикой конфиденциальности приложения OtakuBoard.");
-    // });
+        // Запрос на получение всех имеющихся аккаунтов для входа
+        response = await eel.find_accounts()();
+        
+        if(response && response.length !== 0){
+            accountListForm.hidden = false;
+            
+            renderAccounts(response);
+
+        }else{
+            noAccountMessage.hidden = false;
+        }
+    });
 
     // Обработчик нажатия кнопки "Закрыть форму входа в аккаунт"
     loginCloseBtn.addEventListener('click', () => {
+        document.querySelectorAll(".account").forEach(el => el.remove());
+
         welcomeForm.classList.remove('hidden'); // Показываем начальную форму
         loginForm.classList.add('hidden'); // Закрываем форму входа в аккаунт
 
@@ -82,15 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.backgroundSize = 'cover';
         element.style.backgroundRepeat = 'no-repeat';
     });
-
-    // Обработчик нажатия кнопки "Создать" в форме создания нового аккаунта
-    // submitRegBtn.addEventListener('click', () => {
-    //     // Подтверждение Лицензионного соглашения и Политики конфиденциальности
-    //     let result = confirm("Нажимая кнопку, вы соглашаетесь с Лицензионным соглашением и Политикой конфиденциальности приложения OtakuBoard.");
-    //     if(result == true){
-    //         createNewAccount()
-    //     }
-    // });
 
     // Обработчик нажатия кнопки "Закрыть форму создания нового аккаунта"
     registerCloseBtn.addEventListener('click', () => {
