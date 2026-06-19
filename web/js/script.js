@@ -1,7 +1,13 @@
+// Type: main script
+// Author: Vitner4
+
+// ================
+// Методы программы
+// ================
+
 // Отображение года создания приложения в подвале сайта
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-year').textContent = 2025;
-    // document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 
 // Ссылка на GitHub OtakuBoard

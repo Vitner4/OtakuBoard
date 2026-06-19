@@ -1,4 +1,4 @@
-// Type: обработка страницы settings.html, редактирование файла конфигурации
+// Type: обработка страницы settings.html, работа с файлом конфигурации через UI
 // Author: Vitner4
 
 // DOM элементы
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Вывод данных
     if(response.logging == "true"){
         loggingToggle.checked = true;
+
     }else{
         loggingToggle.checked = false;
     }
@@ -28,15 +29,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Запросы на изменение файла конфигурации при действии
 // ====================================================
 
+// Логирование 
 loggingToggle.addEventListener("click", async () => {
+
     if(loggingToggle.checked == true){
         const response = await eel.config_value_set("settings", "logging", "true")();
+
     }else{
         const response = await eel.config_value_set("settings", "logging", "false")();
     }
 });
 
+// Режим UI
 openMode.addEventListener("change", async () => {
+    
     if(openMode.value == "chrome"){
         const response = await eel.config_value_set("settings", "open_mode", openMode.value)();
     }

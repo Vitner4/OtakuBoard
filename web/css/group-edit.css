@@ -82,7 +82,6 @@ form textarea {
     font-weight: 600;
     transition: background .12s, border-color .12s;
 }
-
 #cover-remove:hover { background: #f8fafc; }
 
 /* Стили обложки */

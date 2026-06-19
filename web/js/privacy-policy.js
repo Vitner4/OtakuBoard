@@ -1,3 +1,6 @@
+// Type: обработка страницы privacy-policy.html
+// Author: Vitner4
+
 // Языки для перевода
 const translations = {
     ru: {
@@ -29,18 +32,23 @@ const translations = {
     }
 };
 
-// Класс для управления политикой конфиденциальности
+// =============================================
+// Класс управления политикой конфиденциальности
+// =============================================
+
 class PrivacyPolicy {
+
     constructor() {
+        
         // Текущий выбранный язык
         this.currentLang = 'ru';
         this.init();
+        
     }
 
     // Инициализация основных функций
     init() {
         this.setupLanguageSwitcher(); // Настройка переключателя языков
-        this.setupAcceptCheckbox();   // Настройка чекбокса принятия политики
         this.loadLanguage(this.currentLang); // Загрузка выбранного языка
     }
 
@@ -53,24 +61,6 @@ class PrivacyPolicy {
         ruBtn.addEventListener('click', () => this.switchLanguage('ru'));
         // Обработчик нажатия на кнопку английского языка
         enBtn.addEventListener('click', () => this.switchLanguage('en'));
-    }
-
-    // Настройка чекбокса принятия политики и кнопки подтверждения
-    setupAcceptCheckbox() {
-        const checkbox = document.getElementById('accept-checkbox'); // Чекбокс принятия
-        const acceptBtn = document.getElementById('accept-btn');     // Кнопка подтверждения
-
-        // Обработчик изменения состояния чекбокса
-        checkbox.addEventListener('change', () => {
-            acceptBtn.disabled = !checkbox.checked; // Включение/отключение кнопки
-        });
-
-        // Обработчик нажатия на кнопку подтверждения
-        acceptBtn.addEventListener('click', () => {
-            if (checkbox.checked) {
-                this.showSuccessMessage(); // Показ сообщения об успешном принятии
-            }
-        });
     }
 
     // Переключение языка интерфейса
@@ -95,6 +85,7 @@ class PrivacyPolicy {
         
         elements.forEach(element => {
             const key = element.getAttribute('data-translate'); // Ключ перевода
+            
             if (translations[lang] && translations[lang][key]) {
                 element.textContent = translations[lang][key]; // Установка текста перевода
             }
@@ -105,7 +96,10 @@ class PrivacyPolicy {
     }
 }
 
+// ===========================================
 // Инициализация приложения после загрузки DOM
+// ===========================================
+
 document.addEventListener('DOMContentLoaded', () => {
     new PrivacyPolicy();
 });

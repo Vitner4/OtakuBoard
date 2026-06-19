@@ -45,6 +45,7 @@ function resetCards() {
 
 // Отображение карточек
 function renderCards(cards) {
+
     cards.forEach(card => {
         // Если у карточки нет обложки, используем дефолтную
         const coverSrc = card.cover ? `../${card.cover}` : "css/src/img/default/default-card.png";
@@ -73,6 +74,7 @@ function renderCards(cards) {
 
 // Обновление состояния формы "нет карточек"
 function updateNoCardsMessage() {
+
     const hasCards =
         document.querySelectorAll(".card-container").length > 0;
     
@@ -149,6 +151,7 @@ async function loadCards() {
     } catch (error) {
         console.error("Ошибка загрузки карточек:", error);
         return false;
+        
     } finally {
         state.fetching = false;
     }

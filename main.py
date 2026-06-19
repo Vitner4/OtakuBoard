@@ -20,12 +20,16 @@ try:
 
    # Проверка наличия аккаунта
    if config.get_value("account", "connection") == "true":
+
       # Автоматический вход в аккаунт
       login = accountManager.account_login({"link": config.get_value("account", "account_link"), "write_data_to_config": "false"})
+
       if login['status'] == "success":
          open_page = f"{config.get_value("directories", "web_dir")}/{config.get_value("settings", "main_page")}" # Установка главной страницы приложения
+
       else:
          log.log("main.py", "Автоматический вход в аккаунт не выполнен!") # Логирование
+
          # Очистка пути до аккаунта в Config.json
          config.set_value("account", "account_link", config.get_default_config_value("account", "account_link"))
          config.set_value("account", "account_id", config.get_default_config_value("account", "account_id"))
@@ -35,6 +39,7 @@ try:
    if __name__ == "__main__":
       log.log("main.py", "Запуск приложения!") # Логирование 
       eel.start(open_page, mode=open_mode, port=port_value, block=True, cmdline_args=['--start-maximized']) # Открытие приложения с указанными параметрами
+      
 except Exception as e:
    # Ошибка запуска приложения
    log.log("main.py", f"Произошла ошибка при открытии приложения: {str(e)}") # Логирование

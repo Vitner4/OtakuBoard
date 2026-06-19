@@ -1,15 +1,19 @@
-// Type: скрипт начальной страницы приложения
+// Type: обработчик страницы index.html
 // Author: Vitner4
 
-// Ждём, пока загрузится весь HTML
+// ======================
+// Инициализация страницы
+// ======================
+
 document.addEventListener('DOMContentLoaded', () => {
      
-
+    // ============
     // DOM Элементы
-
+    // ============
 
     // начальная форма
     const welcomeForm = document.getElementById('welcome-form'); // начальная форма
+
     // Форма входа в аккаунт
     const loginForm = document.getElementById('login-form'); // форма входа в аккаунт
     const loginBtn = document.getElementById('login-btn'); // кнопка "Открыть форму входа в аккаунт"
@@ -17,14 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginCloseBtn = document.getElementById('close-login-btn'); // кнопка "Закрыть форму входа в аккаунт"
     let noAccountMessage = document.getElementById('no-account-message'); // Сообщение об отсутствии аккаунтов для входа
     let accountListForm = document.getElementById('account-list'); // Блок списка аккаунтов
+
     // Форма создания нового аккаунта
     const registerForm = document.getElementById('register-form'); // форма создания нового аккаунта
     const registerBtn = document.getElementById('register-btn'); // кнопка "Открыть форму создания нового аккаунта"
     const submitRegBtn = document.getElementById('submit-reg-btn'); // кнопка "Создать" в форме создания нового аккаунта
     const registerCloseBtn = document.getElementById('close-reg-btn'); // кнопка "Закрыть форму создания нового аккаунта"
  
+    // ============================
+    // Функции отображения аккаунта
+    // ============================
 
-    // Функция отображения аккаунтов
     function renderAccounts(accData) {
 
         accData.forEach(account => {
@@ -49,14 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 `
             );
         });
-}
+    }
 
-
-    // Логика для формы входа в аккаунт
-
+    // ============================
+    // Логика формы входа в аккаунт
+    // ============================
 
     // Обработчик нажатия кнопки "Открыть форму входа в аккаунт"
     loginBtn.addEventListener('click', async () => {
+
         noAccountMessage.hidden = true; // Скрываем сообщение об отсутствии аккаунтов
         accountListForm.hidden = true; // Скрываем список аккаунтов
 
@@ -77,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         response = await eel.find_accounts()();
         
         if(response && response.length !== 0){
+
             accountListForm.hidden = false;
             
             renderAccounts(response);
@@ -88,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчик нажатия кнопки "Закрыть форму входа в аккаунт"
     loginCloseBtn.addEventListener('click', () => {
+
         document.querySelectorAll(".account").forEach(el => el.remove());
 
         welcomeForm.classList.remove('hidden'); // Показываем начальную форму
@@ -104,12 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.backgroundRepeat = 'no-repeat';
     });
 
-
-    // Логика для формы создания нового аккаунта
-
+    // =====================================
+    // Логика формы создания нового аккаунта
+    // =====================================
 
     // Обработчик нажатия кнопки "Открыть форму создания нового аккаунта"
     registerBtn.addEventListener('click', () => {
+
         welcomeForm.classList.add('hidden'); // скрываем начальную форму
         registerForm.classList.remove('hidden'); // Открываем форму создания нового аккаунта
         
@@ -126,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчик нажатия кнопки "Закрыть форму создания нового аккаунта"
     registerCloseBtn.addEventListener('click', () => {
+        
         welcomeForm.classList.remove('hidden'); // Показываем начальную форму
         registerForm.classList.add('hidden'); // Закрываем форму создания нового аккаунта
 

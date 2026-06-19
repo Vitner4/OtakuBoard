@@ -1,10 +1,14 @@
-// Type: обработчик frontend. Функции создания или входа в аккаунт приложения на странице index.html
+// Type: обработчик frontend. Функции создания аккаунта и входа в аккаунт приложения на странице index.html
 // Author: Vitner4
 
 // Структура директорий и файлов
-acc_symbol  = '@' // Символ аккаунта 
-acc_suffix = ".ob" // Суффикс директории аккаунта
-acc_type = "-ob.json" // Файл аккаунта
+acc_symbol  = '@'; // Символ аккаунта 
+acc_suffix = ".ob"; // Суффикс директории аккаунта
+acc_type = "-ob.json"; // Файл аккаунта
+
+// =======================
+// Вспомогательные функции
+// =======================
 
 // Функция проверки данных на отсутствие символов
 function checkData(text){
@@ -17,30 +21,42 @@ function checkInvalidChars(text) {
     return forbidden.test(text);
 }
 
+// ======================
+// Функции учетной записи
+// ======================
+
 // Функция создания нового аккаунта
 async function createNewAccount(){
+
     // Статус проверка
-    let nameStatus = false
-    let idStatus = false
+    let nameStatus = false;
+    let idStatus = false;
 
     // Проверка
     if(checkData(document.getElementById('regID').value) === 0){
+
         // Установка цвета обводки поля
         let id = document.getElementById('regID');
         id.style.borderColor = 'red';
+
         // Установка статуса
         const statusField = document.getElementById('status');
         statusField.style.color = 'red';
-        statusField.textContent = "Заполните поле ID аккаунта!";      
+        statusField.textContent = "Заполните поле ID аккаунта!";  
+           
     }else if (checkInvalidChars(document.getElementById('regID').value) == true){
+
         // Установка цвета обводки поля
         let id = document.getElementById('regID');
         id.style.borderColor = 'red';
+
         // Установка статуса
         const statusField = document.getElementById('status');
         statusField.style.color = 'red';
         statusField.textContent = "Найдены недопустимые символы в поле ID аккаунта!"; 
+
     }else{
+
         // Установка цвета обводки поля
         let id = document.getElementById('regID');
         id.style.borderColor = 'rgba(255, 255, 255, 0.2)';
@@ -59,22 +75,29 @@ async function createNewAccount(){
     }
 
     if(checkData(document.getElementById('regName').value) === 0){
+
         // Установка цвета обводки поля
         let name = document.getElementById('regName');
         name.style.borderColor = 'red';
+
         // Установка статуса
         const statusField = document.getElementById('status');
         statusField.style.color = 'red';
         statusField.textContent = "Заполните поле имени аккаунта!";      
+
     }else if (checkInvalidChars(document.getElementById('regName').value) == true){
+
         // Установка цвета обводки поля
         let name = document.getElementById('regName');
         name.style.borderColor = 'red';
+
         // Установка статуса
         const statusField = document.getElementById('status');
         statusField.style.color = 'red';
         statusField.textContent = "Найдены недопустимые символы в поле имени аккаунта!";  
+
     }else{
+
         // Установка цвета обводки поля
         let name = document.getElementById('regName');
         name.style.borderColor = 'rgba(255, 255, 255, 0.2)';
@@ -94,6 +117,7 @@ async function createNewAccount(){
 
     // Создание нового аккаунта
     if(nameStatus == true && idStatus == true){
+
         // Собираем данные
         const formData = {
             name: document.getElementById('regName').value,
@@ -104,6 +128,7 @@ async function createNewAccount(){
         func = await eel.create_new_account(formData)();
 
         if(func['status'] == 'success'){
+
             // Установка статуса
             const statusField = document.getElementById('status');
             statusField.style.color = 'green';
@@ -111,7 +136,9 @@ async function createNewAccount(){
 
             // Переход на страницу list-page.html после успешного создания аккаунта
             window.location.href = "list-page.html";
+
         }else{
+
             // Установка статуса
             const statusField = document.getElementById('status');
             statusField.style.color = 'red';
@@ -133,6 +160,7 @@ async function accountLogin(acc_path){
     func = await eel.account_login(formData)();
 
     if(func['status'] == 'success'){
+
         // Установка статуса
         const statusField = document.getElementById('login-status');
         statusField.style.color = 'green';
@@ -140,6 +168,7 @@ async function accountLogin(acc_path){
 
         // Переход на страницу list-page.html после успешного входа в аккаунт
         window.location.href = "list-page.html";
+        
     }else{
         // Установка статуса
         const statusField = document.getElementById('login-status');

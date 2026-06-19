@@ -8,9 +8,22 @@ import { URLViewer } from "./image-uploader.js"; // Импорт функции 
 import { selectionChecker } from "./image-uploader.js"; // Импорт функции взаимного исключения выбора файла и ввода ссылки
 import { removeCover } from "./image-uploader.js"; // Импорт функции удаления изображения
 
-// Загрузки данных аккаунта и вывод при входе на страницу
+// DOM элементы
+const avatar = document.getElementById('account-avatar'); // Получаем элемент для аватара
+const coverInput = document.getElementById('cover'); // Обложка из проводника
+const coverLinkInput = document.getElementById('cover-link'); // Обложка из ссылки
+
+// Переменные 
+const fileCover = createImageUploader("cover", "cover-placeholder"); // Получение аватара из файла
+
+// ======================
+// Инициализация страницы
+// ======================
+
 document.addEventListener('DOMContentLoaded', async () => {
+
     try {
+
         const accountData = await eel.sending_account_data()(); // Получаем данные аккаунта
 
         // Установка имени аккаунта
@@ -20,19 +33,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         const avatar = document.getElementById('account-avatar'); // Получаем элемент для аватара
 
         if (accountData['avatar'] && accountData['avatar'] !== null) {
+
             avatar.src = `../${accountData['avatar']}`; // Установка аватара, если он есть
             document.getElementById('cover-message').style.display = "none"; // Скрываем плейсхолдер, если аватар установлен
+
         }else{
             avatar.style.display = "none"; // Скрываем элемент аватара, если он не установлен
         }
+        
     }catch (error) {
         console.error("Ошибка при загрузке данных аккаунта:", error);
     }
 });
 
-// Переменные 
-const fileCover = createImageUploader("cover", "cover-placeholder"); // Получение аватара из файла
-const avatar = document.getElementById('account-avatar'); // Получаем элемент для аватара
+// =======================
+// Вспомогательные функции
+// =======================
 
 // Функция проверки на запрещенные символы
 function checkInvalidChars(text) {
@@ -40,16 +56,16 @@ function checkInvalidChars(text) {
     return forbidden.test(text);
 }
 
-// Проверка загрузки обложки из файла
-const coverInput = document.getElementById('cover');
+// ============================================
+// Методы проверки и отправки данных на backend
+// ============================================
 
+// Проверка загрузки обложки из файла
 coverInput.addEventListener('change', () => {
         avatar.style.display = "none";
 });
 
 // Проверка загрузки URL обложки
-const coverLinkInput = document.getElementById('cover-link');
-
 coverLinkInput.addEventListener('input', () => {
     if (coverLinkInput.value !== '') {
         avatar.style.display = "none";
@@ -74,6 +90,7 @@ document.getElementById("cover-remove").addEventListener("click", () => {
 
 // Метод сборки и отправки данных в Python для редактирования аккаунта
 document.getElementById("account-edit").addEventListener("click", async () => {
+
     // Переменные
     const button = document.getElementById("account-edit"); // Кнопка создания карточки
     const statusField = document.getElementById('status'); // Переменная поля статуса
@@ -90,26 +107,34 @@ document.getElementById("account-edit").addEventListener("click", async () => {
 
     // Проверка 
     if(document.getElementById('name').value.trim().length === 0){
+
         // Получение поля имени и установка красного цвета при ошибке
         const name = document.getElementById('name');
         name.style.borderColor = 'red';
+
         // Получение статуса и установка цвета при ошибке
         statusField.style.color = 'red';
         statusField.textContent = "Укажите ваше имя!";
+
     }else{
+
         if(checkInvalidChars(document.getElementById('name').value) == true){
+
             // Получение поля имени и установка красного цвета при ошибке
             const name = document.getElementById('name');
             name.style.borderColor = 'red';
+
             // Получение статуса и установка цвета при ошибке
             statusField.style.color = 'red';
-            statusField.textContent = "В имени указаны запрещённые символы!";      
+            statusField.textContent = "В имени указаны запрещённые символы!";  
+                
         }else{  
             const selectedFormat = getSelectedFormat(); // Получение формата изображения
             let coverData = null; // Данные аватара для отправки в Python
        
             // Если выбран файл изображения
             if (selectedFormat == "file") {
+
                 const file = fileCover.getFile(); // Получаем файл обложки
 
                 // Преобразуем файл в строку base64
@@ -125,6 +150,8 @@ document.getElementById("account-edit").addEventListener("click", async () => {
 
             // Если введён URL изображения
             else if (selectedFormat == "URL") {
+
+                // Получение поля имени и установка синего цвета при загрузке изображения
                 const coverURL = document.getElementById("cover-link").value; // Получение URL обложки
                 statusField.style.color = 'blue';
                 statusField.textContent = 'Загрузка URL изображения...';
@@ -135,20 +162,25 @@ document.getElementById("account-edit").addEventListener("click", async () => {
                     data: coverURL,
                     type: "URL"
                 };
+
             }
 
             // Если обложка была удалена
             else if (selectedFormat == "remove") {
+
                 coverData = {
                     type: "remove"
                 };
+
             }
 
             //Если обложка не изменена
             else {
+
                 coverData = {
                     type: null
                 };
+
             }
 
             // Собираем данные формы для редактирования карточки
@@ -160,6 +192,7 @@ document.getElementById("account-edit").addEventListener("click", async () => {
             // Отправляем данные в Python для редактирования аккаунта
             try {
                 let func = await eel.account_edit(formData)();
+
                 // Возвращение цвета полей
                 const name = document.getElementById('name');
                 name.style.borderColor = '#ccc';
@@ -169,10 +202,12 @@ document.getElementById("account-edit").addEventListener("click", async () => {
                     statusField.style.color = 'green';
                     statusField.textContent = func['message'];
                 }
+
                 if (func['status'] == 'error') {
                     statusField.style.color = 'red';
                     statusField.textContent = 'Произошла ошибка при редактировании аккаунта на стороне Python! '+"("+ func['message'] +")";
                 }
+                
             } catch (error) { 
                 statusField.style.color = 'red';
                 statusField.textContent = 'Произошла ошибка при редактировании аккаунта на стороне JS! '+"("+ error +")";

@@ -114,7 +114,7 @@
     justify-content: flex-end;
 }
 
-/* Скрываем реальные input радиокнопок (используются метки) */
+/* Скрываем реальные input радио-кнопок (используются метки) */
 .stars-container input {
     display: none;
 }

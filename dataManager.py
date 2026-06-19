@@ -89,8 +89,10 @@ def create_database():
         conn.commit()
 
         log.log("dataManager.py", f"Новая база данных аккаунта {config.get_value("account","account_id")} создана!") # Логирование
+
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при создании базы данных: {str(e)}") # Логирование
+
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -122,9 +124,11 @@ def add_card(card_data: dict):
         # Проверка на наличие папки
         if not os.path.exists(folder_path):
             log.log("dataManager.py", "Папка сохранения обложки не найдена, проверяем структуру...") # Логирование
+
             if not accountManager.folder_structure_check():
                 log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
                 raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
+            
             else:
                 log.log("dataManager.py", "Структура папок восстановлена, повторите создание карточки.") # Логирование
                 return {"status": "error", "message": "Структура папок восстановлена, повторите создание карточки."}
@@ -135,6 +139,7 @@ def add_card(card_data: dict):
 
         # Проверка на тип изображения
         if isinstance(cover, dict):
+
             if cover.get("type") == "file":
                 cover_path = saveImage(card_data.get("id"), cover, folder_path)
 
@@ -162,8 +167,10 @@ def add_card(card_data: dict):
         ))
 
         conn.commit()
-        log.log("dataManager.py", f"Новая карточка '{card_data.get('name', '')}' добавлена!") # Логирование
+
+        log.log("dataManager.py", f"Новая карточка '{card_data.get('name', '')}' добавлена!") # Логирование  
         return {"status": "success", "message": f"Карточка '{card_data.get('name', '')}' успешно создана!"}
+    
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при добавлении карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
@@ -200,10 +207,13 @@ def edit_card(card_id: str, updated_data: dict):
 
         # Проверка на наличие папки
         if not os.path.exists(folder_path):
+
             log.log("dataManager.py", "Папка сохранения обложки не найдена, проверяем структуру...") # Логирование
+
             if not accountManager.folder_structure_check():
                 log.log("dataManager.py", "Структура папок аккаунта нарушена и не восстановлена!") # Логирование
                 raise OSError("Структура папок аккаунта нарушена и не восстановлена!")
+            
             else:
                 log.log("dataManager.py", "Структура папок восстановлена, повторите редактирование карточки.") # Логирование
                 return {"status": "error", "message": "Структура папок восстановлена, повторите редактирование карточки."}
@@ -214,25 +224,35 @@ def edit_card(card_id: str, updated_data: dict):
 
         # Проверка на тип изображения
         if isinstance(cover, dict):
+
             if cover.get("type") == "file":
+
                 # Удаляем обложку карточки из папки, если она существует
                 if existing_card["cover"] and os.path.exists(existing_card["cover"]):
                     os.remove(existing_card["cover"])
+
                 log.log("dataManager.py", f"Старая обложка \"{existing_card['cover']}\" удалена!") # Логирование
+
                 cover_path = saveImage(card_id, cover, folder_path)
 
             elif cover.get("type") == "URL":
+
                 # Удаляем обложку карточки из папки, если она существует
                 if existing_card["cover"] and os.path.exists(existing_card["cover"]):
                     os.remove(existing_card["cover"])
+
                 log.log("dataManager.py", f"Старая обложка \"{existing_card['cover']}\" удалена!") # Логирование
+
                 cover_path = saveURLImage(card_id, cover, folder_path)
             
             elif cover.get("type") == "remove":
+
                 # Удаляем обложку карточки из папки, если она существует
                 if existing_card["cover"] and os.path.exists(existing_card["cover"]):
                     os.remove(existing_card["cover"])
+
                 log.log("dataManager.py", f"Обложка \"{existing_card['cover']}\" удалена по запросу!") # Логирование
+
                 cover_path = None # Устанавливаем значение обложки None, чтобы удалить её из карточки
             
             else:
@@ -271,8 +291,10 @@ def edit_card(card_id: str, updated_data: dict):
         ))  
 
         conn.commit()
+
         log.log("dataManager.py", f"Карточка '{updated_card.get('name')}' успешно отредактирована!") # Логирование
         return {"status": "success", "message": f"Карточка '{updated_card.get('name')}' успешно отредактирована!"}
+    
     except Exception as e:
         log.log("dataManager.py", f"Ошибка редактировании карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
@@ -306,12 +328,16 @@ def delete_card(card_id: str):
 
         # Удаляем карточку из базы данных
         cursor.execute("DELETE FROM cards WHERE id = ?", (card_id,))
+
         conn.commit()
+
         log.log("dataManager.py", f"Карточка \"{card['name']}\" успешно удалена!") # Логирование
         return {"status": "success", "message": f"Карточка \"{card['name']}\" успешно удалена!"}
+    
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при удалении карточки: {str(e)}") # Логирование
         return {"status": "error", "message": str(e)}
+    
     finally:
         # Закрываем соединение с базой данных
         conn.close()
@@ -334,6 +360,7 @@ def get_card_by_id(card_id: str):
         if row:
             result = dict(row)
             return {"status": "success", "data": result}
+        
         else:
             # Если карточка не найдена, возвращаем ошибку
             return {"status": "error", "message": "Карточка не найдена"}
@@ -681,14 +708,19 @@ def saveImage(cardID: str, image: dict, save_path: str):
 
                 # Сохраняем файл в папку
                 cover_path = os.path.join(save_path, safe_name)
+
                 # Переводим файл из Base64 в бинарные данные
                 cover_data = base64.b64decode(image["data"].split(",")[1])
+
                 with open(cover_path, "wb") as f:
                     f.write(cover_data)
+
                 log.log("dataManager.py", f"Новое изображение \"{safe_name}\" сохранено в \"{save_path}\"") # Логирование
                 return cover_path
+            
             else:
                 return None
+            
         except Exception as e:
             log.log("dataManager.py", f"Произошла ошибка при сохранении изображения \"{safe_name}\": {e}") # Логирование
             return None
@@ -708,6 +740,7 @@ def saveURLImage(cardID: str, image: dict, save_path: str):
         filename = image['name'].lower()
         
         for ext in (".png", ".jpg", ".jpeg", ".webp", ".gif"):
+
             if ext in filename:
                 extension = ext
                 break
@@ -727,15 +760,20 @@ def saveURLImage(cardID: str, image: dict, save_path: str):
 
         # Скачиваем изображение потоком с таймаутом 10 секунд
         with urllib.request.urlopen(req, timeout=5) as response, open(cover_path, "wb") as f:
+
             while True:
+
                 # Читаем по 256KB блокам
                 chunk = response.read(262144)
+
                 if not chunk:
                     break
+
                 f.write(chunk)
 
         log.log("dataManager.py", f"Новое изображение \"{file_name}\" сохранено в \"{cover_path}\"") # Логирование
         return cover_path
+    
     except Exception as e:
         log.log("dataManager.py", f"Ошибка при сохранении URL изображения: {e}") # Логирование
         return None

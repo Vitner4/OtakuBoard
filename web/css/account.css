@@ -52,7 +52,7 @@ body{height: auto;}
     background-color: #1f1f1f;
 }
 
-/* Блок данных акаунта */
+/* Блок данных аккаунта */
 .account-data {
     height: 60%;
     justify-content: center;
@@ -61,7 +61,7 @@ body{height: auto;}
     flex-direction: column;
 }
 
-/* Контейнер аватара акканута */
+/* Контейнер аватара аккаунта */
 #account-avatar-container{
     width: 300px;
     height: 300px;
@@ -98,7 +98,7 @@ body{height: auto;}
     margin: 10px 0; 
 }
 
-/* Блок статистики акаунта */
+/* Блок статистики аккаунта */
 .account-statistics{
     height: 32%;
     justify-content: flex-start;
@@ -113,7 +113,7 @@ body{height: auto;}
     color: #585858;
 }
 
-/* Заголовок статистики акаунта */
+/* Заголовок статистики аккаунта */
 #account-statistic-title {
     font-size: 2rem;
     font-weight: bold;

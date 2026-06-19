@@ -1,18 +1,29 @@
 // Type: загрузка изображения на frontend
 // Author: Vitner4
 
+// Переменные
 let selectedFormat = null; // Выбранный формат изображения
+
+// =======================
+// Вспомогательные функции
+// =======================
 
 // Функция получения выбранного формата изображения 
 export function getSelectedFormat(){
     return selectedFormat;
 }
 
+// ==============================
+// Функции работы с изображениями
+// ==============================
+
 // Функция загрузки изображения из проводника
 export function createImageUploader(inputId, previewId) {
+
     // Получаем элементы input и preview
     const input = document.getElementById(inputId); // Загруженное изображения
     const preview = document.getElementById(previewId); // Превью изображения 
+
     // Переменная для файла изображения 
     let file = null;
 
@@ -23,16 +34,20 @@ export function createImageUploader(inputId, previewId) {
         const selected = input.files[0];
 
         // Проверяем, выбран ли файл
-        if (!selected) {
+        if (!selected) {   
+
             preview.innerHTML = "<p>Изображение не выбрано</p>";
             file = null;
+
             return;
         }
 
         // Проверяем, является ли файл изображением
         if (!selected.type.startsWith("image/")) {
+
             preview.innerHTML = "<p>Файл не является изображением!</p>";
             file = null;
+            
             return;
         }
 
@@ -56,18 +71,22 @@ export function createImageUploader(inputId, previewId) {
 
 // Функция преобразования файла в строку base64
 export function fileToBase64(file, statusFieldId) {
+
     // Переменные
     const statusField = document.getElementById(statusFieldId); // Переменная поля статуса
 
     try {
+
         return new Promise((resolve, reject) => {
-        const reader = new FileReader(); // Создаём FileReader для чтения файла
 
-        reader.readAsDataURL(file); // Читаем файл как DataURL (base64)
+            const reader = new FileReader(); // Создаём FileReader для чтения файла
 
-        reader.onload = () => resolve(reader.result); // При успешном чтении возвращаем результат
-        reader.onerror = error => reject(error); // При ошибке возвращаем ошибку
-    });
+            reader.readAsDataURL(file); // Читаем файл как DataURL (base64)
+
+            reader.onload = () => resolve(reader.result); // При успешном чтении возвращаем результат
+            reader.onerror = error => reject(error); // При ошибке возвращаем ошибку
+        });
+
     }catch (error){
         statusField.style.color = 'red';
         statusField.textContent = 'Произошла ошибка при загрузке изображения! '+ error;
@@ -76,6 +95,7 @@ export function fileToBase64(file, statusFieldId) {
 
 // Функция предпросмотра URL обложки
 export function URLViewer(coverURLId, previewId) {
+
     // Получаем ссылку на поле ввода ссылки и контейнер предпросмотра
     const linkInput = document.getElementById(coverURLId);
     const previewContainer = document.getElementById(previewId);
@@ -87,6 +107,7 @@ export function URLViewer(coverURLId, previewId) {
 
     // Обработчик события ввода/вставки ссылки
     linkInput.addEventListener('input', function () {
+
         const url = this.value.trim();
 
         // Если поле пустое — показываем заглушку
@@ -101,8 +122,11 @@ export function URLViewer(coverURLId, previewId) {
 
         // Успешная загрузка — вставляем изображение в контейнер
         img.onload = function () {
+
             previewContainer.innerHTML = '';
+
             previewContainer.appendChild(img);
+
             selectedFormat = "URL"; // Установка формата изображения
         };
 
@@ -118,19 +142,25 @@ export function URLViewer(coverURLId, previewId) {
 
 // Функция взаимного исключения выбора файла и ввода ссылки
 export function selectionChecker(CoverId, CoverLinkId){
+
     const fileInput = document.getElementById(CoverId);
     const linkInput = document.getElementById(CoverLinkId);
 
     function handleFileSelection() {
+
         const file = fileInput.files[0];
+
         // Если выбран файл и это изображение — очищаем ссылку
         if (file && file.type && file.type.startsWith('image/')) {
+
             if (linkInput.value) linkInput.value = '';
         }
     }
 
     function handleLinkInput() {
+
         const url = linkInput.value.trim();
+        
         // Если введена ссылка — очищаем выбранный файл
         if (url) {
             if (fileInput.value) fileInput.value = '';
@@ -147,6 +177,8 @@ export function selectionChecker(CoverId, CoverLinkId){
 
 // Функция отчистки изображения
 export function removeCover(coverId, previewId, linkId){
+    
+    // Переменные
     let coverInput = document.getElementById(coverId);
     let previewContainer = document.getElementById(previewId);
     let coverLinkInput = document.getElementById(linkId);

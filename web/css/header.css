@@ -33,7 +33,6 @@
     margin-bottom: 13px;
     transition: transform 0.3s ease;
 }
-
 .logo-img:hover {
     transform: scale(1.05);
 }
@@ -61,7 +60,6 @@
     border-radius: 4px;
     transition: all 0.3s ease;
 }
-
 .site-nav a:hover {
     background-color: #ffffff;
     color: #1d1b1b;

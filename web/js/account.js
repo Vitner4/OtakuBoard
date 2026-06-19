@@ -1,16 +1,25 @@
-// Type: вывод данных или выход из аккаунта приложения на frontend
+// Type: вывод данных, переход к редактированию или выходу из аккаунта приложения на frontend
 // Author: Vitner4
 
-// Dom элементы
+// DOM элементы
 logoutBtn = document.getElementById('account-logout');
+
+// ======================
+// Инициализация страницы
+// ======================
 
 // Получение данных аккаунта при загрузке страницы
 window.onload = function() {
     getData();
 };
 
+// ================
+// Функции аккаунта
+// ================
+
 // Функция получения данных аккаунта
 async function getData(){
+
     // Процесс получения данных аккаунта
     func = await eel.sending_account_data()();
 
@@ -26,8 +35,10 @@ async function getData(){
 
     // Установка аватара
     const avatar = document.getElementById('account-avatar');
+
     if (func['avatar'] && func['avatar'] !== null) {
         avatar.src = `../${func['avatar']}`; // Установка аватара, если он есть
+
     }else{
         avatar.src = "css/src/img/default/default-avatar.jpg"; // Скрываем элемент аватара, если он не установлен
     }
@@ -35,6 +46,7 @@ async function getData(){
  
 // Функция выхода из аккаунта
 async function accountLogout(){
+
     // Процесс выхода из аккаунта
     func = await eel.account_logout("true")();
     
@@ -42,11 +54,16 @@ async function accountLogout(){
         // Переход на начальную страницу после успешного выхода из аккаунта
         window.location.href = "index.html";
     }
+    
     else{
         // Вывод ошибки при неудачном выходе из аккаунта
         alert("Ошибка при выходе из аккаунта: " + func['message']);
     }
 }
+
+// =================
+// Событийные методы
+// =================
 
 // Отслеживание действия выхода из аккаунта по нажатию кнопки
 logoutBtn.addEventListener('click', () => {

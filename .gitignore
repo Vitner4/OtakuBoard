@@ -1,8 +1,8 @@
-/windowTest.py
+# Папки
 /__pycache__
 /.vscode
 /.venv
-# -- Временное решение --
+/account
+# Файлы
 config.json 
 logs.txt
-/account
