@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="account-id">${account.id}</p>
                     </div>
 
-                    <button type="button" onclick="accountLogin('${account.file_path}')">
+                    <button type="button" data-acc="${account.file_path}" onclick="accountLogin(this.dataset.acc)">
                         Войти в аккаунт
                     </button>
                 </div>

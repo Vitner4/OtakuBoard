@@ -37,9 +37,26 @@ try:
 
    # Запуск приложения
    if __name__ == "__main__":
-      log.log("main.py", "Запуск приложения!") # Логирование 
-      eel.start(open_page, mode=open_mode, port=port_value, block=True, cmdline_args=['--start-maximized']) # Открытие приложения с указанными параметрами
-      
+      log.log("main.py", "Запуск приложения!") # Логирование
+
+      try:
+        # Запуск в стандартном режиме
+        eel.start(open_page, mode=open_mode, port=port_value, block=True, cmdline_args=['--start-maximized'])
+        
+      except (EnvironmentError, OSError) as e:
+         # Eel выбросит эту ошибку, если не найдет исполняемый файл Chrome/Chromium
+         log.log("main.py", f"Режим '{open_mode}' недоступен (браузер не найден). Запуск в браузере по умолчанию. ({e})")
+         
+         try:
+               # Устанавливаем default значение в режиме открытия страницы
+               open_mode = config.set_value("settings", "open_mode", "default") # Режим открытия страницы
+
+               # Запускаем fallback-вариант. 
+               eel.start(open_page, mode='default', port=port_value, block=True)
+         except Exception as fallback_error:
+               # Если даже дефолтный браузер не открылся (что бывает крайне редко)
+               log.log("main.py", f"Критическая ошибка: не удалось запустить даже дефолтный браузер. ({fallback_error})")
+
 except Exception as e:
    # Ошибка запуска приложения
    log.log("main.py", f"Произошла ошибка при открытии приложения: {str(e)}") # Логирование

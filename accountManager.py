@@ -393,6 +393,8 @@ def account_edit(newData):
 @eel.expose
 def account_logout(value):
     try:
+        acc_id = None # id аккаунта
+
         if value == "true":
             # Запись id аккаунта для log
             acc_id = account_data_get_value('id')

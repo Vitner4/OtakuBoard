@@ -97,7 +97,7 @@ document.getElementById("account-edit").addEventListener("click", async () => {
 
     // Деактивация кнопки на время обработки данных
     button.disabled = true;
-    button.style.backgroundColor = '#c1dab3'; // Изменение цвета кнопки при деактивации
+    button.style.backgroundColor = '#7e7e7e'; // Изменение цвета кнопки при деактивации
 
     // Восстанавливаем кнопку через 1,5 секунды, чтобы предотвратить множественные клики
     setTimeout(() => {
