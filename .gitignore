@@ -1,9 +1,6 @@
-# Папки
 /__pycache__
 /.vscode
 /.venv
-/account
 /.idea
-# Файлы
-config.json 
-logs.txt
+
+
