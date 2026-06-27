@@ -1,0 +1,33 @@
+{
+    "app": {
+        "name": "OtakuBoard"
+    },
+    "account": {
+        "connection": "false",
+        "account_id": "none",
+        "account_link": "none"
+    },
+    "settings": {
+        "start_page": "index.html",
+        "main_page": "list-page.html",
+        "open_mode": "default",
+        "port_value": 0,
+        "theme": "light",
+        "card_gradient": "true",
+        "language": "ru",
+        "logging": "true"
+    },
+    "directories": {
+        "web_dir": "web",
+        "account_dir": "account",
+        "data_dir": "data",
+        "cover_dir": "cover",
+        "card_cvr_dir": "card",
+        "group_cvr_dir": "group",
+        "profile_dir": "profile",
+        "logo_dir": "logo"
+    },
+    "files": {
+        "db_file": "cardholder.db"
+    }
+}
