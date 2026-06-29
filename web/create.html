@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/create.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group" target="_blank" rel="noopener noreferrer">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Главная</a></li>
+                    <!-- <li><a href="group.html">Группы</a></li> -->
+                    <li><a id="selected-page" href="create-card.html">Создать</a></li>
+                    <li><a href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Выбор создания -->
+    <div class="creation-choice-form">
+        <h2>Что бы вы хотели создать?</h2>
+        <div class="button-group">
+            <a href="create-group.html"><button id="create-group-button" class="creation-button">Создать группу</button></a>
+            <a href="create-card.html"><button id="create-card-button" class="creation-button">Создать карточку</button></a>
+        </div>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="/eel.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/create.js"></script>
+</body>
+</html>

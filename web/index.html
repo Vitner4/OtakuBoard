@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body id="body">
+    <!-- Блок взаимодействия -->
+    <div class="main-container">
+        <!-- Начальная форма -->
+        <form onsubmit="event.preventDefault()" id="welcome-form">
+            <h1 class="welcome-title">Добро пожаловать в OtakuBoard!</h1>
+            <p class="welcome-text">Создайте свою уникальную коллекцию цифрового контента с OtakuBoard</p>
+            <!-- <p class="welcome-text">Удобные карточки, веб-доступ и полный контроль над данными на вашем устройстве.</p> -->
+            
+            <div class="auth-buttons">
+                <button class="auth-btn" id="login-btn">
+                    Войти
+                </button>
+
+                <button class="auth-btn secondary" id="register-btn">
+                    Создать аккаунт
+                </button>
+            </div>
+        </form>
+        
+        <!-- Группа форм -->
+        <div class="forms-container">
+             <!-- Форма входа в аккаунт -->
+            <form id="login-form" class="hidden">
+                <h2 class="form-title">Вход в аккаунт</h2>
+                <p id="login-message">Для входа в аккаунт, поместите папку аккаунта в папку <strong>account</strong> внутри приложения.</p>
+
+                <p id="no-account-message">Аккаунт не найден</p>
+                <p id="login-status" class="status"></p>
+
+                <div id="account-list">
+                    <p id="account-list-title">Аккаунты</p>
+                    <!-- Здесь располагаются доступные аккаунты для входа -->
+                </div>
+                               
+                <button type="button" class="close-form" id="close-login-btn">×</button>
+            </form>
+            
+             <!-- Форма регистрации нового аккаунта -->
+            <form id="register-form" class="hidden">
+                <h2 class="form-title">Создание аккаунта</h2>
+                <div class="form-register-group">
+                    <p>Имя</p>
+                    <input type="text" id="regName" placeholder="Введите имя" title="Введите ваше имя. Его можно изменить в дальнейшем" maxlength="25">
+                </div>
+
+                <div class="form-register-group">
+                    <p style="margin-left: 16px ;"> ID</p>
+                    <input type="text" id="regID" placeholder="Введите ID. Его нельзя будет изменить!" title="Это уникальное имя аккаунта. Его нельзя будет изменить!" maxlength="25">
+                </div>
+
+                <p id="status" class="status"></p>
+                <button type="button" class="submit-btn" id="submit-reg-btn" onclick="createNewAccount()">Создать</button>
+                <button type="button" class="close-form" id="close-reg-btn">×</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Нажимая кнопку, вы соглашаетесь с <a href="pre-license.html">лицензионным соглашением</a> и <a href="privacy-policy.html">политикой конфиденциальности</a></p>
+        </div>     
+    </div>
+
+    <!-- JS импорт -->
+    <script src="/eel.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/account-manager.js"></script>
+</body>
+</html>

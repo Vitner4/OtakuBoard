@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/list-page.css">
+    <link rel="stylesheet" href="css/card.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group" target="_blank" rel="noopener noreferrer">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a id="selected-page" href="list-page.html">Главная</a></li>
+                    <!-- <li><a href="group.html">Группы</a></li> -->
+                    <li><a href="create-card.html">Создать</a></li>
+                    <li><a href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Сетка с контентом -->
+    <main>
+        <section>
+            <div class="base-win">
+                <!-- Карточки -->
+                <div class="mine-selector">
+                    <h1 id="text-preview" class="text-preview">Все карточки</h1>
+                    <p id="total-cards"></p>
+                    <p id="easter-egg" hidden>Hello, from Vitner4!</p>
+                    <form id="no_card_form">
+                        <div id="no_card_block">
+                            <p id="no_card_message">Ваша коллекция пуста. Начните её создание прямо сейчас!</p>
+                            <a href="create-card.html"><button type="button" id="create_card_button">Создать карточку</button></a>
+                        </div>
+                    </form>    
+                    <p id="not-found">По вашему запросу ничего не найдено.</p>
+                    <div class="tile-list">
+                        <!-- Расположение карточек находится здесь -->
+
+                    </div>
+                </div>
+
+                <!-- Поиск и фильтр -->
+                <div class="right-sidebar-widget">
+                    <!-- Поиск -->
+                    <div class="search-filter-container">
+                        <h3 class="widget-title">Поиск</h3>
+                        <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Что будем искать?" class="search-input">
+                        <button id="search-button" class="search-button">
+                            <a class="fas fa-search">Найти</a>
+                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Фильтр -->
+                    <div class="search-filter-container">
+                        <h3 class="widget-title">Фильтр</h3>
+
+                        <div class="filter-section">
+                            <h4 class="filter-title">Отображение</h4>
+                            <select id="filter-display" class="filter-select" style="margin-bottom: 10px;">
+                                <option value="newCards">Сначала новые карточки</option>
+                                <option value="oldCards">Сначала старые карточки</option>
+                                <option value="bigStar">От большей звезды до меньшей</option>
+                                <option value="smallStar">От меньшей звезды до большей</option>
+                            </select>
+                        </div>
+                            
+                        <div>
+                            <div class="star-rating"> 
+                                <h4 class="filter-title">Звёздный рейтинг</h4>
+                                <div class="stars-container">
+                                    <input type="radio" id="star10" name="rating" value="10">
+                                    <label for="star10" title="10"></label>
+                                    
+                                    <input type="radio" id="star9" name="rating" value="9">
+                                    <label for="star9" title="9"></label>
+                                    
+                                    <input type="radio" id="star8" name="rating" value="8">
+                                    <label for="star8" title="8"></label>
+                                    
+                                    <input type="radio" id="star7" name="rating" value="7">
+                                    <label for="star7" title="7"></label>
+                                    
+                                    <input type="radio" id="star6" name="rating" value="6">
+                                    <label for="star6" title="6"></label>
+                                    
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5" title="5"></label>
+                                    
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4" title="4"></label>
+                                    
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3" title="3"></label>
+                                    
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2" title="2"></label>
+                                    
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1" title="1"></label>
+                                </div>
+                            </div>
+
+                            <div class="filter-list">
+                                <label><input id="searchOnlyThis" class="radio-group" type="radio" name="optionGroup" value="searchOnlyThis"> Искать только выбранную звезду</label>
+                                <label><input id="searchThisAndMore" class="radio-group" type="radio" name="optionGroup" value="searchThisAndMore"> Искать от выбранной звезды и выше</label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-section-data"></div>
+                        
+                        <button type="button" id="apply-filters" class="filter-button">Применить</button>
+                        <button type="button" id="reset-filters" class="filter-button secondary">Сбросить</button>
+                    </div>
+                </div>
+            </div>   
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <div id="scroll-trigger"></div>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="/eel.js"></script>
+    <script src="js/script.js"></script>
+    <script type="module" src="js/list-page.js"></script>
+</body>
+</html>

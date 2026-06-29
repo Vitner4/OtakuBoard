@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="OtakuBoard">
+    <title>OtakuBoard</title>
+    <link rel="icon" href="css/src/ico/OtakuBoard-ico.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/license.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+
+<body>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="branding">
+                <a id="github-link" href="#" class="logo-title-group" target="_blank" rel="noopener noreferrer">
+                    <img src="css/src/ico/OtakuBoard-ico.png" alt="Логотип" class="logo-img">
+                    <h1 class="page-title">OtakuBoard</h1>
+                </a>
+            </div>   
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="list-page.html">Главная</a></li>
+                    <!-- <li><a href="group.html">Группы</a></li> -->
+                    <li><a href="create-card.html">Создать</a></li>
+                    <li><a href="account.html">Аккаунт</a></li>
+                    <li><a href="settings.html">Настройки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Лицензия ПО -->
+    <div>
+        <div class="cc-license">
+            <div class="cc-header">
+                <div class="cc-lang-switcher">
+                    <button class="cc-lang-btn active" data-lang="en">EN</button>
+                    <button class="cc-lang-btn" data-lang="ru">RU</button>
+                </div>
+
+                <div class="cc-badge">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+
+                <h1 class="cc-title" data-en="PolyForm Noncommercial License 1.0.0" data-ru="Лицензия PolyForm Noncommercial 1.0.0">
+                    PolyForm Noncommercial License 1.0.0
+                </h1>
+                <p class="cc-subtitle" data-en="PolyForm Noncommercial" data-ru="PolyForm Некоммерческая">PolyForm Noncommercial</p>
+            </div>
+
+            <div class="cc-content">
+                <div class="cc-section">
+                    <h3 class="cc-section-title">
+                        <i class="fas fa-check-circle cc-icon-free"></i>
+                        <span data-en="Permitted (noncommercial use):" data-ru="Разрешено (некоммерческое использование):">Permitted (noncommercial use):</span>
+                    </h3>
+                    <ul class="cc-list">
+                        <li data-en="Use, copy, modify and distribute the software for noncommercial purposes."
+                            data-ru="Использовать, копировать, модифицировать и распространять ПО в некоммерческих целях.">
+                            Use, copy, modify and distribute the software for noncommercial purposes.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="cc-section">
+                    <h3 class="cc-section-title">
+                        <i class="fas fa-exclamation-circle cc-icon-terms"></i>
+                        <span data-en="Restrictions:" data-ru="Ограничения:">Restrictions:</span>
+                    </h3>
+                    <ul class="cc-list">
+                        <li data-en="No commercial use — you may not use the software for commercial purposes."
+                            data-ru="Нельзя использовать в коммерческих целях — использование в коммерческих целях запрещено.">
+                            No commercial use — you may not use the software for commercial purposes.
+                        </li>
+                        <li data-en="No granting of a commercial license or sublicensing without separate agreement."
+                            data-ru="Нельзя предоставлять коммерческие лицензии или сублицензии без отдельного соглашения.">
+                            No granting of a commercial license or sublicensing without separate agreement.
+                        </li>
+                        <li data-en="Other restrictions stated in the full license text apply."
+                            data-ru="Применяются другие ограничения, указанные в полном тексте лицензии.">
+                            Other restrictions stated in the full license text apply.
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="cc-section-title">
+                        <i class="fas fa-info-circle cc-icon-info"></i>
+                        <span data-en="Disclaimer:" data-ru="Отказ от ответственности:">Disclaimer:</span>
+                    </h3>
+                    <ul class="cc-list">
+                        <li data-en="Provided as is without warranty. See full license for liability and warranty disclaimers."
+                            data-ru="Предоставляется как есть без гарантий. Смотрите полный текст лицензии для условий ответственности и гарантий.">
+                            Provided "as is" without warranty. See full license for liability and warranty disclaimers.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cc-footer">
+                <p data-en="This software is licensed under" data-ru="Это программное обеспечение лицензировано в соответствии с">This software is licensed under</p>
+                <a href="https://github.com/Vitner4/OtakuBoard?tab=License-1-ov-file#" class="cc-link" target="_blank">PolyForm Noncommercial License 1.0.0</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <p class="copyright">&copy; <span id="current-year"></span> OtakuBoard</p>
+            </div>
+
+            <div class="footer-section">
+                <a href="license.html" class="footer-link">Лицензионное соглашение</a>
+            </div>
+
+            <div class="footer-section">
+                <a href="about-us.html" class="footer-link">О нас</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS импорт -->
+    <script src="/eel.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/license.js"></script>
+</body>
+</html>

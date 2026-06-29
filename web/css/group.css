@@ -1,0 +1,101 @@
+/* Главная форма */
+.group-form{
+    max-width: 1260px;
+    max-height: auto;
+    margin: 40px auto; 
+    /* display: flex; */
+    flex-wrap: wrap;
+    /* gap: 10px; */
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.group-form h1{
+    margin-bottom: 15px;
+}
+
+/* Заголовок */
+.group-title{
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+/* Контейнер с блоками */
+.groups-block-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Блок */
+.group-block{
+    width: 300px;
+    height: 300px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.group-block:hover{
+    transform: scale(1.05);
+}
+
+/* Затемнение поверх блока*/
+/* .group-block::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.877);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.group-block:hover::after{
+    opacity: 1;
+} */
+
+.group-block img{
+    display: block;
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0; 
+}
+
+/* Заголовка блока */
+.title-block{
+    width: 100%;
+    height: 70px;
+    border-radius:0 0 10px 10px ;
+    background-color: rgb(24, 24, 24);
+    color: aliceblue;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px; 
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.group-block{
+    position: relative;
+    overflow: hidden;
+}
+
+.title-block h2{
+    font-size: 1.6rem;
+    margin-bottom: 1px;
+}
+
+.title-block p{
+    font-size: 0.9rem;
+    margin-top: 0;
+}

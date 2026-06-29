@@ -1,0 +1,133 @@
+/* Настройка страницы */
+body{height: auto;}
+
+/* Форма аккаунта */
+.account-form {
+    width: 900px;
+    height: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Контейнер кнопки выхода из аккаунта */
+#account-btn-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Кнопка выхода из аккаунта */
+#account-logout {
+    width: 60px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #757575;
+    color: #e3e3e3;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#account-logout:hover {
+    background-color: #666666;
+}
+
+/* Кнопка редактирования аккаунта */
+#account-edit {
+    padding: 0 15px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #272727;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#account-edit:hover {
+    background-color: #1f1f1f;
+}
+
+/* Блок данных аккаунта */
+.account-data {
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Контейнер аватара аккаунта */
+#account-avatar-container{
+    width: 300px;
+    height: 300px;
+    border: 3px solid #e4e4e4;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+/* Аватар аккаунта */
+#account-avatar-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Имя аккаунта */
+#account-name{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+/* ID аккаунта */
+#account-id{
+    font-size: 1.2rem;
+    color: #888888;
+}
+
+/* Раздел блоков */
+#account-Partition{
+    width: 100%;
+    height: 2px;
+    background-color: #ececec;
+    margin: 10px 0; 
+}
+
+/* Блок статистики аккаунта */
+.account-statistics{
+    height: 32%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: block;
+    flex-direction: column;
+    padding-left: 10px; 
+}
+.account-statistics li {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #585858;
+}
+
+/* Заголовок статистики аккаунта */
+#account-statistic-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Блок группы столбцов */
+.account-nav-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+
+
