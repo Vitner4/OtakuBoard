@@ -1,0 +1,19 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OtakuBoard
+Comment= Personal media tracker
+
+# ! ЗАМЕНИТЕ ПУТЬ НА ВАШ В Exec, Path И Icon !
+Exec="../Ваш/полный/путь/к/папке../OtakuBoard/OtakuBoard"
+Path=../Ваш/полный/путь/к/папке../OtakuBoard
+Icon=../Ваш/полный/путь/к/папке../OtakuBoard/assets/logo.png
+# ! УДАЛИТЕ ЭТИ КОММЕНТАРИИ И ВЕРНИТЕ СТРОКИ В ОБЩИЙ СТОЛБЕЦ ПОСЛЕ ИЗМЕНЕНИЯ !
+
+Terminal=false
+Categories=Utility
+StartupNotify=true
+StartupWMClass=chrome-localhost__web_index.html-Default
+NoDisplay=true
+
+# Файл поместить в "~/.local/share/applications/"
