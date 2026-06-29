@@ -4,9 +4,4 @@
 /.idea
 dist/
 build/
-*.spec
-# Рабочие элементы
-/account
-logs.txt
-config.json
 
